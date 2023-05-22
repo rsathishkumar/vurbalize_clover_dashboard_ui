@@ -21,46 +21,46 @@ import {
 
 const routes = [
   {
-    name: "Main Dashboard",
+    name: "Conversation Viewer",
     layout: "/admin",
     path: "default",
-    icon: <MdHome className="h-6 w-6" />,
     component: <MainDashboard />,
   },
   {
-    name: "NFT Marketplace",
+    name: "Chat Engagement",
     layout: "/admin",
     path: "nft-marketplace",
-    icon: <MdOutlineShoppingCart className="h-6 w-6" />,
     component: <NFTMarketplace />,
     secondary: true,
   },
   {
-    name: "Data Tables",
+    name: "Chat Conversation",
     layout: "/admin",
-    icon: <MdBarChart className="h-6 w-6" />,
     path: "data-tables",
     component: <DataTables />,
   },
   {
-    name: "Profile",
+    name: "Chat Rating",
     layout: "/admin",
     path: "profile",
-    icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
   },
   {
-    name: "Sign In",
+    name: "Leads/1000 Visitors",
     layout: "/auth",
     path: "sign-in",
-    icon: <MdLock className="h-6 w-6" />,
     component: <SignIn />,
   },
   {
-    name: "RTL Admin",
+    name: "Time to Answer",
     layout: "/rtl",
     path: "rtl",
-    icon: <MdHome className="h-6 w-6" />,
+    component: <RTLDefault />,
+  },
+  {
+    name: "Turns/Chat",
+    layout: "/rtl",
+    path: "rtl",
     component: <RTLDefault />,
   },
 ];

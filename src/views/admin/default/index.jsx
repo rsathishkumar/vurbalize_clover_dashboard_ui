@@ -2,9 +2,8 @@ import MiniCalendar from "components/calendar/MiniCalendar";
 import WeeklyRevenue from "views/admin/default/components/WeeklyRevenue";
 import TotalSpent from "views/admin/default/components/TotalSpent";
 import PieChartCard from "views/admin/default/components/PieChartCard";
-import { IoMdHome } from "react-icons/io";
-import { IoDocuments } from "react-icons/io5";
-import { MdBarChart, MdDashboard } from "react-icons/md";
+import MarketIcon from "components/icons/MarketIcon";
+import ChatIcon from "components/icons/ChatIcon";
 
 import { columnsDataCheck, columnsDataComplex } from "./variables/columnsData";
 
@@ -21,50 +20,40 @@ const Dashboard = () => {
     <div>
       {/* Card widget */}
 
-      <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
+      <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-3">
         <Widget
-          icon={<MdBarChart className="h-7 w-7" />}
-          title={"Earnings"}
-          subtitle={"$340.5"}
+          icon={<ChatIcon className="h-7 w-7 text-white" />}
+          title={"Chat Engagement"}
+          subtitle={"656"}
         />
         <Widget
-          icon={<IoDocuments className="h-6 w-6" />}
-          title={"Spend this month"}
-          subtitle={"$642.39"}
+          icon={<MarketIcon className="h-6 w-6 text-white" />}
+          title={"Chat Conversion"}
+          subtitle={"247"}
         />
         <Widget
-          icon={<MdBarChart className="h-7 w-7" />}
-          title={"Sales"}
-          subtitle={"$574.34"}
+          icon={<MarketIcon className="h-7 w-7 text-white" />}
+          title={"Chat Ratings"}
+          subtitle={"10%"}
         />
         <Widget
-          icon={<MdDashboard className="h-6 w-6" />}
-          title={"Your Balance"}
-          subtitle={"$1,000"}
+          icon={<MarketIcon className="h-6 w-6" />}
+          title={"Leads per 1000 visitors"}
+          subtitle={"656"}
         />
         <Widget
-          icon={<MdBarChart className="h-7 w-7" />}
-          title={"New Tasks"}
+          icon={<MarketIcon className="h-7 w-7" />}
+          title={"Avg # of turns/chats"}
           subtitle={"145"}
         />
         <Widget
-          icon={<IoMdHome className="h-6 w-6" />}
-          title={"Total Projects"}
-          subtitle={"$2433"}
+          icon={<MarketIcon className="h-6 w-6" />}
+          title={"Avg time to answer"}
+          subtitle={"10s"}
         />
       </div>
 
-      {/* Charts */}
-
-      <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-        <TotalSpent />
-        <WeeklyRevenue />
-      </div>
-
-      {/* Tables & Charts */}
-
-      <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
-        {/* Check Table */}
+      <div className="mt-5 grid grid-cols-1 gap-1">
         <div>
           <CheckTable
             columnsData={columnsDataCheck}
@@ -72,28 +61,6 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* Traffic chart & Pie Chart */}
-
-        <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
-          <DailyTraffic />
-          <PieChartCard />
-        </div>
-
-        {/* Complex Table , Task & Calendar */}
-
-        <ComplexTable
-          columnsData={columnsDataComplex}
-          tableData={tableDataComplex}
-        />
-
-        {/* Task chart & Calendar */}
-
-        <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
-          <TaskCard />
-          <div className="grid grid-cols-1 rounded-[20px]">
-            <MiniCalendar />
-          </div>
-        </div>
       </div>
     </div>
   );
