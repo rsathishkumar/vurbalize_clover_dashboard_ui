@@ -92,19 +92,20 @@ const Filters = (props) => {
             </div>
             <h4 className="font-poppins font-medium text-sm text-green-900 mb-6">Showing results for XX conversations</h4>
             <h4 className="font-poppins font-medium text-sm text-secondaryColor mb-6">Advanced filters</h4>
-            <div className="flex justify-center max-w-6xl gap-x-16 gap-y-4 mb-6 flex-wrap advance_filter">
+            <div className="flex justify-center items-start gap-x-16 mb-6 max-w-6xl advance_filter">
                 <div className="border border-gray-200 rounded bg-white p-1.5 flex items-center">
                     <p className="font-poppins font-normal text-sm text-secondaryColor">Conversation_ID</p>
                 </div>
+                <div className="flex justify-start max-w-6xl gap-x-16 gap-y-4 mb-6 flex-wrap advance_filter">
                 <div className="border border-gray-200 rounded bg-white p-1.5 flex items-center">
                     <p className="font-poppins font-normal text-sm text-secondaryColor">ap0023564gh87kllhkagjlakjl445</p>
                 </div>
-                <div className="border border-gray-200 rounded bg-white p-1.5 flex gap-1 items-center">
+                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
                     <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">Between</p>
-                    <input className="border border-gray-200 rounded bg-white w-16 p-1" type="number" step="1" min="1" />
-                    <input className="border border-gray-200 rounded bg-white w-16 p-1" type="number" step="1" min="1" />
+                    <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
+                    <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
                 </div>
-                <div className="border border-gray-200 rounded bg-white p-1.5 flex gap-1 items-center">
+                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
                     <DatePicker
                         showIcon
                         selected={startDate}
@@ -119,7 +120,7 @@ const Filters = (props) => {
                         customInput={<CustomInput />}
                     />
                 </div>
-                <div className="border border-gray-200 rounded bg-white p-1.5 flex gap-1 items-center">
+                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
                     <TimePicker clearIcon="" onChange={onChange} value={value}
                         className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                     />
@@ -128,10 +129,11 @@ const Filters = (props) => {
                         className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                     />
                 </div>
-                <div className="border border-gray-200 rounded bg-white p-1.5 flex gap-1 items-center">
+                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
                     <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">More than</p>
-                    <input className="border border-gray-200 rounded bg-white w-16 p-1" type="number" step="1" min="1" />
+                    <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
                 </div>
+            </div>
             </div>
             <div className="relative">
                 <button onClick={() => setFilterOptionsShow(!filterOptionsShow)} className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-36 h-10">
