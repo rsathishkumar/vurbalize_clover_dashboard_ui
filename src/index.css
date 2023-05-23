@@ -14,17 +14,17 @@
 }
 
 input.defaultCheckbox::before {
-	content: url(../src/assets/svg/checked.svg); 
+	content: url(../src/assets/svg/checked.svg);
 	color: white;
-	opacity: 0; 
-	height: 16px; 
+	opacity: 0;
+	height: 16px;
 	width: 16px;
-	position: absolute; 
+	position: absolute;
 	left: 50%;
 	transform: translate(-50%, 0px);
-} 
+}
 
-input:checked.defaultCheckbox::before { 
+input:checked.defaultCheckbox::before {
 	opacity: 1;
 }
 
@@ -35,49 +35,86 @@ input:checked.defaultCheckbox::before {
 	width: 32px;
 	height: 30px;
 	top: 50%;
-    transform: translateY(-50%);
+	transform: translateY(-50%);
 	right: 0px;
 }
+
 .react-datepicker__view-calendar-icon input {
-    padding: 5px 32px 5px 7px !important;
+	padding: 5px 32px 5px 7px !important;
 }
+
 .filters .react-datepicker-wrapper {
 	width: 9.5rem;
 }
+
 .filters .react-time-picker__inputGroup {
 	min-width: unset;
 }
+
 /* ---------time picker------- */
 
 .react-time-picker__wrapper {
 	border: unset !important;
 }
+
 .react-time-picker__clear-button {
 	display: none;
 }
+
 .advance_filter .react-datepicker-wrapper {
 	width: 8rem;
 }
-/* ----------dropdown------ */ 
+
+/* ----------dropdown------ */
 .filters .Dropdown-placeholder.is-selected {
 	width: 56px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
 .filters .Dropdown-control {
 	font-weight: 400;
-    line-height: 30px;
-    color: #3B3B3B;
-    padding: 5px 41px 5px 7px;
-    border: 1px solid rgba(59, 59, 59, 0.1);
-    border-radius: 4px;
+	line-height: 30px;
+	color: #3B3B3B;
+	padding: 5px 41px 5px 7px;
+	border: 1px solid rgba(59, 59, 59, 0.1);
+	border-radius: 4px;
 }
-input[type=number]::-webkit-inner-spin-button, 
+
+input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button *, 
-input[type=number]::-webkit-outer-spin-button * 
-{  
-   opacity: 1 !important;
+input[type=number]::-webkit-inner-spin-button *,
+input[type=number]::-webkit-outer-spin-button * {
+	opacity: 1 !important;
 	background-color: transparent;
+}
+
+.filters input[type=checkbox] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.checkboxFilterOption::before {
+	content: '';
+	width: 14px;
+	height: 14px;
+	border-radius: 4px;
+	border: 2px solid #fff;
+	position: absolute;
+	right: 9px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.checkboxFilter::after {
+	content: '';
+    width: 4px;
+    height: 8px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
 }

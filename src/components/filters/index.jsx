@@ -6,14 +6,15 @@ import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import {AiOutlinePlus} from "react-icons/ai"
+import { AiOutlinePlus } from "react-icons/ai"
 
 
 const Filters = (props) => {
+    // ------------for date time and dropdown start ----------
     const [startDate, setStartDate] = useState(new Date());
     const [value, onChange] = useState('10:00');
     const options = [
-        'HomePage' , 'Landing page 1', 'Landing page 2', 'Landing page 3'
+        'HomePage', 'Landing page 1', 'Landing page 2', 'Landing page 3'
     ];
     const defaultOption = options[1];
     const CustomInput = forwardRef(({ value, onClick, onChange }, ref) => (
@@ -26,6 +27,24 @@ const Filters = (props) => {
             ref={ref}
         ></input>
     ));
+    // ------------for date time and dropdown end ----------
+    const checkboxFilterOptions = [
+        { id: 1, name: "Conversation_id" },
+        { id: 2, name: "su_id" },
+        { id: 3, name: "turn_count" }
+    ];
+    const [checkedList, setCheckedList] = useState(checkboxFilterOptions);
+    const checkboxClicked = (id, checked) => {
+
+        const newCheckedList = checkboxFilterOptions.map((checkboxFilterOption) =>
+            checkboxFilterOption.id === id ? { ...checkboxFilterOption, checked } : checkboxFilterOption
+        );
+        setCheckedList(newCheckedList);
+    };
+    // ---------add filter button toogle start----------
+    const [filterOptionsShow, setFilterOptionsShow] = useState(true)
+    // ---------add filter button toogle end----------
+
     return (
         <div className="filters">
             <div className="flex gap-8 mb-10">
@@ -41,7 +60,7 @@ const Filters = (props) => {
                             customInput={<CustomInput />}
                         />
 
-                        <TimePicker amPmAriaLabel clearIcon="" onChange={onChange} value={value}
+                        <TimePicker clearIcon="" onChange={onChange} value={value}
                             className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                         />
                     </div>
@@ -59,7 +78,7 @@ const Filters = (props) => {
                             customInput={<CustomInput />}
                         />
 
-                        <TimePicker amPmAriaLabel clearIcon="" onChange={onChange} value={value}
+                        <TimePicker clearIcon="" onChange={onChange} value={value}
                             className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                         />
                     </div>
@@ -101,23 +120,45 @@ const Filters = (props) => {
                     />
                 </div>
                 <div className="border border-gray-200 rounded bg-white p-1.5 flex gap-1 items-center">
-                    <TimePicker amPmAriaLabel clearIcon="" onChange={onChange} value={value}
-                            className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
-                        />
+                    <TimePicker clearIcon="" onChange={onChange} value={value}
+                        className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
+                    />
                     <p>-</p>
-                    <TimePicker amPmAriaLabel clearIcon="" onChange={onChange} value={value}
-                            className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
-                        />
+                    <TimePicker clearIcon="" onChange={onChange} value={value}
+                        className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
+                    />
                 </div>
                 <div className="border border-gray-200 rounded bg-white p-1.5 flex gap-1 items-center">
                     <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">More than</p>
                     <input className="border border-gray-200 rounded bg-white w-16 p-1" type="number" step="1" min="1" />
                 </div>
             </div>
-            <button className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-36 h-10">
-                <AiOutlinePlus />
-            Add Filters
-            </button>
+            <div className="relative">
+                <button onClick={() => setFilterOptionsShow(!filterOptionsShow)} className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-36 h-10">
+                    <AiOutlinePlus />
+                    Add Filters
+                </button>
+
+                {filterOptionsShow &&
+                    <div className="absolute bg-green-900 rounded font-poppins font-normal text-base text-white flex flex-col gap-y-2 top-12 w-52 h-96 z-10 py-1.5 px-1.5">
+                        {checkedList.map(({ id, name, checked }) => (
+
+                            <label key={id} className={`checkboxFilterOption relative cursor-pointer ${checked ? "checkboxFilter" : ""}`}>
+                                <input
+                                    type="checkbox"
+                                    name="checkboxFilterOptions"
+                                    value={id}
+                                    checked={checked}
+                                    onChange={(e) => checkboxClicked(id, e.target.checked)}
+
+                                />
+                                {name}
+                            </label>
+
+                        ))}
+                    </div>
+                }
+            </div>
         </div>
     );
 }
