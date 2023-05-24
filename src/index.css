@@ -42,13 +42,15 @@ input:checked.defaultCheckbox::before {
 .react-datepicker__view-calendar-icon input {
 	padding: 5px 32px 5px 7px !important;
 }
-
+.double_time_picker .react-datepicker__view-calendar-icon input {
+	padding: 0px !important;
+}
 .filters .react-datepicker-wrapper {
 	width: 9.5rem;
 }
 
 .filters .react-time-picker__inputGroup {
-	min-width: unset;
+	min-width: 45px;
 }
 
 /* ---------time picker------- */

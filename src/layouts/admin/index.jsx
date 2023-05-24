@@ -64,20 +64,13 @@ export default function Admin(props) {
       <Header />
       <Sidebar open={open} onClose={() => setOpen(false)} />
       {/* Navbar & Main Content */}
-      <div className="h-full w-full bg-lightPrimary dark:!bg-navy-900">
+      <div className="h-full w-full bg-white dark:!bg-navy-900">
         {/* Main Content */}
         <main
-          className={`mx-[12px] mt-[94px] flex-none transition-all md:pr-2 xl:ml-[313px]`}
+          className={`mx-[12px] mt-[94px] flex-none transition-all md:pr-2 xl:ml-[288px]`}
         >
           {/* Routes */}
           <div className="h-full">
-            <Navbar
-              onOpenSidenav={() => setOpen(true)}
-              logoText={"Clover"}
-              brandText={currentRoute}
-              secondary={getActiveNavbar(routes)}
-              {...rest}
-            />
             <div className="abc py-5 mx-auto p-2">
                 <Filters>
                 </Filters>

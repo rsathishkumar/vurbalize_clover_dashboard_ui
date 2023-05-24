@@ -114,6 +114,7 @@ module.exports = {
         inset: "inset 0px 18px 22px",
         darkinset: "0px 4px 4px inset",
         "4xl": "0px 1px 4px rgba(0, 0, 0, 0.25)",
+        "5xl": "0px 0px 3px rgba(0, 0, 0, 0.25)"
 
       },
       borderRadius: {

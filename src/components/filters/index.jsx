@@ -42,7 +42,7 @@ const Filters = (props) => {
         setCheckedList(newCheckedList);
     };
     // ---------add filter button toogle start----------
-    const [filterOptionsShow, setFilterOptionsShow] = useState(true)
+    const [filterOptionsShow, setFilterOptionsShow] = useState(false)
     // ---------add filter button toogle end----------
 
     return (
@@ -91,12 +91,12 @@ const Filters = (props) => {
                 </div>
             </div>
             <h4 className="font-poppins font-medium text-sm text-green-900 mb-6">Showing results for XX conversations</h4>
-            <h4 className="font-poppins font-medium text-sm text-secondaryColor mb-6">Advanced filters</h4>
+            <h4 className="font-poppins font-medium text-sm text-secondaryColor mb-4">Advanced filters</h4>
             <div className="flex justify-center items-start gap-x-16 mb-6 max-w-6xl advance_filter">
                 <div className="border border-gray-200 rounded bg-white p-1.5 flex items-center">
-                    <p className="font-poppins font-normal text-sm text-secondaryColor">Conversation_ID</p>
+                    <p className="font-poppins font-normal text-sm text-secondaryColor leading-7">Conversation_ID</p>
                 </div>
-                <div className="flex justify-start max-w-6xl gap-x-16 gap-y-4 mb-6 flex-wrap advance_filter">
+                <div className="flex justify-start max-w-6xl gap-x-16 gap-y-4 flex-wrap advance_filter">
                 <div className="border border-gray-200 rounded bg-white p-1.5 flex items-center">
                     <p className="font-poppins font-normal text-sm text-secondaryColor">ap0023564gh87kllhkagjlakjl445</p>
                 </div>
@@ -105,7 +105,7 @@ const Filters = (props) => {
                     <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
                     <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
                 </div>
-                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
+                <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center double_time_picker">
                     <DatePicker
                         showIcon
                         selected={startDate}
@@ -120,7 +120,7 @@ const Filters = (props) => {
                         customInput={<CustomInput />}
                     />
                 </div>
-                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
+                <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center">
                     <TimePicker clearIcon="" onChange={onChange} value={value}
                         className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                     />
@@ -129,7 +129,7 @@ const Filters = (props) => {
                         className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                     />
                 </div>
-                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
+                <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center">
                     <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">More than</p>
                     <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
                 </div>

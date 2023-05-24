@@ -35,9 +35,9 @@ const CheckTable = (props) => {
   initialState.pageSize = 11;
 
   return (
-    <Card extra={"w-full h-full sm:overflow-auto px-6"}>
+    <Card extra={"w-full h-full sm:overflow-auto shadow-none rounded-none mt-1"}>
 
-      <div className="mt-8 overflow-x-scroll">
+      <div className="pt-4 overflow-x-scroll">
         <table
           {...getTableProps()}
           className="w-full"
@@ -50,98 +50,98 @@ const CheckTable = (props) => {
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     No.
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     Conversation_ID
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     su_ID
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     convDate_created
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     convTime_created
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     LandingPage
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     TurnCount
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     ConvT2A
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     ConvOutcome
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     AppDate
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     AppTime
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     MarketoLeadID
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     ConvRating
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
                     ConvFeedback
                   </div>
                 </th>
