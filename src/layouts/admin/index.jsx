@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "components/navbar";
-import Filters from "components/filters";
 import Sidebar from "components/sidebar";
 import Header from "components/header";
 import Footer from "components/footer/Footer";
@@ -78,10 +77,6 @@ export default function Admin(props) {
               secondary={getActiveNavbar(routes)}
               {...rest}
             />
-            <div className="abc py-5 mx-auto p-2">
-                <Filters>
-                </Filters>
-              </div>
             <div className="pt-5s mx-auto mb-auto h-full min-h-[84vh] p-2 md:pr-2">
               <Routes>
                 {getRoutes(routes)}

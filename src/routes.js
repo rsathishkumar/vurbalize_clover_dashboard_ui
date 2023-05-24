@@ -2,10 +2,16 @@ import React from "react";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
-import NFTMarketplace from "views/admin/marketplace";
-import Profile from "views/admin/profile";
-import DataTables from "views/admin/tables";
-import RTLDefault from "views/rtl/default";
+import ChatEngagement from "views/admin/chatengagement";
+import ChatConversation from "views/admin/chatconversation";
+import ChatRating from "views/admin/chatrating";
+import TimetoAnswer from "views/admin/timetoanswer";
+import TurnChat from "views/admin/turnchat";
+
+
+//import Profile from "views/admin/profile";
+//import DataTables from "views/admin/tables";
+//import RTLDefault from "views/rtl/default";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -29,39 +35,39 @@ const routes = [
   {
     name: "Chat Engagement",
     layout: "/admin",
-    path: "nft-marketplace",
-    component: <NFTMarketplace />,
+    path: "chat_engagement",
+    component: <ChatEngagement />,
     secondary: true,
   },
   {
     name: "Chat Conversation",
     layout: "/admin",
-    path: "data-tables",
-    component: <DataTables />,
+    path: "chat_conversation",
+    component: <ChatConversation />,
   },
   {
     name: "Chat Rating",
     layout: "/admin",
-    path: "profile",
-    component: <Profile />,
-  },
-  {
-    name: "Leads/1000 Visitors",
-    layout: "/auth",
-    path: "sign-in",
-    component: <SignIn />,
+    path: "chat_rating",
+    component: <ChatRating />,
   },
   {
     name: "Time to Answer",
-    layout: "/rtl",
-    path: "rtl",
-    component: <RTLDefault />,
+    layout: "/admin",
+    path: "time_to_answer",
+    component: <TimetoAnswer />,
   },
   {
     name: "Turns/Chat",
-    layout: "/rtl",
-    path: "rtl",
-    component: <RTLDefault />,
+    layout: "/admin",
+    path: "turn_chat",
+    component: <TurnChat />,
+  },
+  {
+    name: "Login",
+    layout: "/auth",
+    path: "sign-in",
+    component: <SignIn />,
   },
 ];
 export default routes;

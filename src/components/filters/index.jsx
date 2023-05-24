@@ -11,19 +11,15 @@ import { AiOutlinePlus } from "react-icons/ai"
 
 const Filters = (props) => {
     // ------------for date time and dropdown start ----------
-    const [startDate, setStartDate] = useState(new Date());
-    const [value, onChange] = useState('10:00');
-    const options = [
-        'HomePage', 'Landing page 1', 'Landing page 2', 'Landing page 3'
-    ];
-    const defaultOption = options[1];
+    const [value, setValue] = useState('10:00');
+    const {startDate, endDate, startTime, endTime} = props.filters;
+
     const CustomInput = forwardRef(({ value, onClick, onChange }, ref) => (
         <input
             value={value}
             className="custom-input border border-gray-200 rounded py-2 font-poppins text-secondaryColor leading-7 text-sm font-normal w-full"
             style={{ backgroundImage: `url({../../../assets/svg/calendar.svg})` }}
             onClick={onClick}
-            onChange={onChange}
             ref={ref}
         ></input>
     ));
@@ -56,11 +52,11 @@ const Filters = (props) => {
                         <DatePicker
                             showIcon
                             selected={startDate}
-                            onChange={(date) => setStartDate(date)}
+                            onChange={(date) => props.setFilters({startDate: date})}
                             customInput={<CustomInput />}
                         />
 
-                        <TimePicker clearIcon="" onChange={onChange} value={value}
+                        <TimePicker clearIcon="" onChange={(time) => props.setFilters({startTime: time})} value={startTime}
                             className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                         />
                     </div>
@@ -73,12 +69,12 @@ const Filters = (props) => {
                     <div className="flex gap-2">
                         <DatePicker
                             showIcon
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
+                            selected={endDate}
+                            onChange={(date) => props.setFilters({endDate: date})}
                             customInput={<CustomInput />}
                         />
 
-                        <TimePicker clearIcon="" onChange={onChange} value={value}
+                        <TimePicker clearIcon="" onChange={(time) => props.setFilters({endTime: time})} value={endTime}
                             className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                         />
                     </div>
@@ -87,10 +83,10 @@ const Filters = (props) => {
                 <div>
                     <p className="font-poppins font-medium text-sm text-secondaryColor pb-1">Pages
                     </p>
-                    <Dropdown options={options} value={defaultOption} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
+                    <Dropdown options={props.landingPage} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
                 </div>
             </div>
-            <h4 className="font-poppins font-medium text-sm text-green-900 mb-6">Showing results for XX conversations</h4>
+            <h4 className="font-poppins font-medium text-sm text-green-900 mb-6">Showing results for {props.total} conversations</h4>
             <h4 className="font-poppins font-medium text-sm text-secondaryColor mb-6">Advanced filters</h4>
             <div className="flex justify-center items-start gap-x-16 mb-6 max-w-6xl advance_filter">
                 <div className="border border-gray-200 rounded bg-white p-1.5 flex items-center">
@@ -105,30 +101,8 @@ const Filters = (props) => {
                     <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
                     <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
                 </div>
-                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
-                    <DatePicker
-                        showIcon
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        customInput={<CustomInput />}
-                    />
-                    <p>-</p>
-                    <DatePicker
-                        showIcon
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        customInput={<CustomInput />}
-                    />
-                </div>
-                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
-                    <TimePicker clearIcon="" onChange={onChange} value={value}
-                        className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
-                    />
-                    <p>-</p>
-                    <TimePicker clearIcon="" onChange={onChange} value={value}
-                        className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
-                    />
-                </div>
+            
+                
                 <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
                     <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">More than</p>
                     <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />

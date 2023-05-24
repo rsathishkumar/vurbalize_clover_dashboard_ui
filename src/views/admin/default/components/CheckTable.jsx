@@ -79,13 +79,6 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                   <div className="text-s px-[5px] text-white bg-green-900 rounded">
-                    convTime_created
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
                     LandingPage
                   </div>
                 </th>
@@ -96,60 +89,20 @@ const CheckTable = (props) => {
                     TurnCount
                   </div>
                 </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
-                    ConvT2A
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
-                    ConvOutcome
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
-                    AppDate
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
-                    AppTime
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
-                    MarketoLeadID
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
-                    ConvRating
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                  <div className="text-s px-[5px] text-white bg-green-900 rounded">
-                    ConvFeedback
-                  </div>
-                </th>
 
               </tr>
           </thead>
           <tbody>
-            
+            {tableData.map((row, index) => (  
+              <tr data-index={index}>  
+              <td className="pl-2">{index}</td>  
+              <td className="pl-2">{row.conversation_id}</td>  
+              <td className="pl-2">{row.su_id}</td>  
+              <td className="pl-2">{row.logtime}</td>  
+              <td className="pl-2">{row.landing_page}</td>  
+              <td className="pl-2">{row.turn_user}</td>  
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
