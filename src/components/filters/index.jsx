@@ -34,15 +34,19 @@ const Filters = (props) => {
         { id: 3, name: "turn_count" }
     ];
     const [checkedList, setCheckedList] = useState(checkboxFilterOptions);
-    const checkboxClicked = (id, checked) => {
 
-        const newCheckedList = checkboxFilterOptions.map((checkboxFilterOption) =>
-            checkboxFilterOption.id === id ? { ...checkboxFilterOption, checked } : checkboxFilterOption
+    const checkboxClicked = (id) => {
+        setCheckedList((prevCheckedList) =>
+            prevCheckedList.map((checkedItem) => {
+                if (checkedItem.id === id) {
+                    return { ...checkedItem, checked: !checkedItem.checked };
+                }
+                return checkedItem;
+            })
         );
-        setCheckedList(newCheckedList);
-    };
+    }
     // ---------add filter button toogle start----------
-    const [filterOptionsShow, setFilterOptionsShow] = useState(false)
+    const [filterOptionsShow, setFilterOptionsShow] = useState(true)
     // ---------add filter button toogle end----------
 
     return (
@@ -97,43 +101,43 @@ const Filters = (props) => {
                     <p className="font-poppins font-normal text-sm text-secondaryColor leading-7">Conversation_ID</p>
                 </div>
                 <div className="flex justify-start max-w-6xl gap-x-16 gap-y-4 flex-wrap advance_filter">
-                <div className="border border-gray-200 rounded bg-white p-1.5 flex items-center">
-                    <p className="font-poppins font-normal text-sm text-secondaryColor">ap0023564gh87kllhkagjlakjl445</p>
+                    <div className="border border-gray-200 rounded bg-white p-1.5 flex items-center">
+                        <p className="font-poppins font-normal text-sm text-secondaryColor">ap0023564gh87kllhkagjlakjl445</p>
+                    </div>
+                    <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
+                        <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">Between</p>
+                        <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
+                        <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
+                    </div>
+                    <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center double_time_picker">
+                        <DatePicker
+                            showIcon
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            customInput={<CustomInput />}
+                        />
+                        <p>-</p>
+                        <DatePicker
+                            showIcon
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            customInput={<CustomInput />}
+                        />
+                    </div>
+                    <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center">
+                        <TimePicker clearIcon="" onChange={onChange} value={value}
+                            className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
+                        />
+                        <p>-</p>
+                        <TimePicker clearIcon="" onChange={onChange} value={value}
+                            className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
+                        />
+                    </div>
+                    <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center">
+                        <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">More than</p>
+                        <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
+                    </div>
                 </div>
-                <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
-                    <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">Between</p>
-                    <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
-                    <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
-                </div>
-                <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center double_time_picker">
-                    <DatePicker
-                        showIcon
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        customInput={<CustomInput />}
-                    />
-                    <p>-</p>
-                    <DatePicker
-                        showIcon
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        customInput={<CustomInput />}
-                    />
-                </div>
-                <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center">
-                    <TimePicker clearIcon="" onChange={onChange} value={value}
-                        className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
-                    />
-                    <p>-</p>
-                    <TimePicker clearIcon="" onChange={onChange} value={value}
-                        className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
-                    />
-                </div>
-                <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center">
-                    <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">More than</p>
-                    <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
-                </div>
-            </div>
             </div>
             <div className="relative">
                 <button onClick={() => setFilterOptionsShow(!filterOptionsShow)} className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-36 h-10">
@@ -144,15 +148,20 @@ const Filters = (props) => {
                 {filterOptionsShow &&
                     <div className="absolute bg-green-900 rounded font-poppins font-normal text-base text-white flex flex-col gap-y-2 top-12 w-52 h-96 z-10 py-1.5 px-1.5">
                         {checkedList.map(({ id, name, checked }) => (
-
-                            <label key={id} className={`checkboxFilterOption relative cursor-pointer ${checked ? "checkboxFilter" : ""}`}>
+                            <label
+                                htmlFor={id}
+                                className={`checkboxFilterOption relative cursor-pointer ${checked ? "checkboxFilter" : ""
+                                    }`}
+                                key={id}
+                            >
                                 <input
                                     type="checkbox"
-                                    name="checkboxFilterOptions"
+                                    name={id}
+                                    id={id}
                                     value={id}
                                     checked={checked}
-                                    onChange={(e) => checkboxClicked(id, e.target.checked)}
-
+                                    onChange={() => checkboxClicked(id)}
+                                    checked={checked}
                                 />
                                 {name}
                             </label>
