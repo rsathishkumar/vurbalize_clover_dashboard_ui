@@ -108,6 +108,8 @@ module.exports = {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
         dm: ["DM Sans", "sans-serif"],
+        TimesNewRoman: ['Times New Roman', "sans-serif"],
+        Inter: ['Inter', "sans-serif"]
       },
       boxShadow: {
         "3xl": "14px 17px 40px 4px",
@@ -115,8 +117,8 @@ module.exports = {
         darkinset: "0px 4px 4px inset",
         "4xl": "0px 1px 4px rgba(0, 0, 0, 0.25)",
         "5xl": "0px 0px 3px rgba(0, 0, 0, 0.25)",
-        "6xl": "0px 4px 4px rgba(0, 0, 0, 0.25)"
-
+        "6xl": "0px 4px 4px rgba(0, 0, 0, 0.25)",
+        "7xl": "0px 3px 8px rgba(0, 0, 0, 0.25)"
 
       },
       borderRadius: {
@@ -141,6 +143,7 @@ module.exports = {
     },
     colors: () => ({
       white: "#ffffff",
+      black: "#000000",
       lightPrimary: "#F4F7FE",
       blueSecondary: "#4318FF",
       brandLinear: "#868CFF",
