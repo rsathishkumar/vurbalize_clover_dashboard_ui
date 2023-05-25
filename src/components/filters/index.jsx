@@ -30,17 +30,30 @@ const Filters = (props) => {
         { id: 3, name: "turn_count" }
     ];
     const [checkedList, setCheckedList] = useState(checkboxFilterOptions);
+    const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
 
     const checkboxClicked = (id) => {
         setCheckedList((prevCheckedList) =>
             prevCheckedList.map((checkedItem) => {
                 if (checkedItem.id === id) {
-                    return { ...checkedItem, checked: !checkedItem.checked };
+                    const updatedItem = { ...checkedItem, checked: !checkedItem.checked };
+                    if (updatedItem.checked) {
+                        setSelectedCheckboxes((prevCheckedList) => [
+                            ...prevCheckedList,
+                            id,
+                        ]);
+                    } else {
+                        setSelectedCheckboxes((prevCheckedList) =>
+                            prevCheckedList.filter((checkboxId) => checkboxId !== id)
+                        );
+                    }
+                    return updatedItem;
                 }
                 return checkedItem;
             })
         );
-    }
+    };
+
     // ---------add filter button toogle start----------
     const [filterOptionsShow, setFilterOptionsShow] = useState(false)
     // ---------add filter button toogle end----------
@@ -140,7 +153,17 @@ const Filters = (props) => {
                             </label>
 
                         ))}
+
+                        {checkedList.map(({ id, name, checked }) => (
+                            (checked || selectedCheckboxes.includes(id)) && (
+                                <div key={id}>
+                                    {/* Add your content for the checkbox here */}
+                                    <p>{name} Content</p>
+                                </div>
+                            )
+                        ))}
                     </div>
+
                 }
             </div>
         </div>
