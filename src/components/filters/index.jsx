@@ -42,7 +42,7 @@ const Filters = (props) => {
         );
     }
     // ---------add filter button toogle start----------
-    const [filterOptionsShow, setFilterOptionsShow] = useState(true)
+    const [filterOptionsShow, setFilterOptionsShow] = useState(false)
     // ---------add filter button toogle end----------
 
     return (

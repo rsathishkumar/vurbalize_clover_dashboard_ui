@@ -18,7 +18,7 @@ const Dashboard = () => {
     startDate: new Date().setDate(new Date().getDate() - 30),
     endDate: new Date(),
     startTime: "10:00",
-    endTime: "10:00"
+    endTime: new Date()
   })
 
   useEffect(() => {
@@ -53,9 +53,10 @@ const Dashboard = () => {
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
+    var endTime = date.getHours() + ':' + date.getMinutes()
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
-      'endDate': endDate + ' ' + filters.endTime,
+      'endDate': endDate + ' ' + endTime,
     }
     await getAllConversations(object);
     await getAllMetrics(object);
@@ -101,8 +102,7 @@ const Dashboard = () => {
       body: JSON.stringify({})
      }).then(response => response.json())
      .then(data => {
-      setLandingPage(data[0])
-      console.log(data)
+      setLandingPage(data)
      })
      .catch((error) => {
       console.error(error);

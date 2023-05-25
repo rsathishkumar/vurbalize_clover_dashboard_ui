@@ -7,6 +7,7 @@ import ChatConversation from "views/admin/chatconversation";
 import ChatRating from "views/admin/chatrating";
 import TimetoAnswer from "views/admin/timetoanswer";
 import TurnChat from "views/admin/turnchat";
+import Chat from "views/admin/chat";
 
 
 //import Profile from "views/admin/profile";
@@ -68,6 +69,12 @@ const routes = [
     layout: "/auth",
     path: "sign-in",
     component: <SignIn />,
+  },
+  {
+    name: "Chat",
+    layout: "/admin",
+    path: "chat",
+    component: <Chat />,
   },
 ];
 export default routes;
