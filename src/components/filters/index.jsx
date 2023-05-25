@@ -107,28 +107,18 @@ const Filters = (props) => {
                 <div>
                     <p className="font-poppins font-medium text-sm text-secondaryColor pb-1">Pages
                     </p>
-                    <Dropdown options={props.landingPage} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
+                    <Dropdown options={props.landingPage} onChange={(e) => {props.setFilters({landingpage: e.value[0]})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
                 </div>
             </div>
             <h4 className="font-poppins font-medium text-sm text-green-900 mb-6">Showing results for {props.total} conversations</h4>
             <h4 className="font-poppins font-medium text-sm text-secondaryColor mb-4">Advanced filters</h4>
-            <div className="flex justify-center items-start gap-x-16 mb-6 max-w-6xl advance_filter">
-                <div className="border border-gray-200 rounded bg-white p-1.5 flex items-center">
+            <div className="flex items-start gap-x-16 mb-6 max-w-6xl advance_filter">
+                <div className="border border-gray-200 rounded bg-white flex items-center">
                     <p className="font-poppins font-normal text-sm text-secondaryColor leading-7">Conversation_ID</p>
                 </div>
                 <div className="flex justify-start max-w-6xl gap-x-16 gap-y-4 flex-wrap advance_filter">
-                    <div className="border border-gray-200 rounded bg-white p-1.5 flex items-center">
-                        <p className="font-poppins font-normal text-sm text-secondaryColor">ap0023564gh87kllhkagjlakjl445</p>
-                    </div>
-                    <div className="border border-gray-200 rounded bg-white px-1.5 flex gap-1 items-center">
-                        <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">Between</p>
-                        <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
-                        <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
-                    </div>
-
-                    <div className="border border-gray-200 rounded bg-white px-1.5 py-[4px] flex gap-1 items-center">
-                        <p className="font-poppins font-normal text-sm text-secondaryColor flex items-center">More than</p>
-                        <input className="border border-gray-200 rounded bg-white w-16 px-1" type="number" step="1" min="1" />
+                    <div className="border border-gray-600 rounded bg-white p-1.5 flex items-center">
+                        <input name="conversation_id" value={props.filters.conversationId} onChange={(e) => props.setFilters({conversationId: e.target.value})}></input>
                     </div>
                 </div>
             </div>

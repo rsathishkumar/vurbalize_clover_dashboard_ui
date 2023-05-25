@@ -14,11 +14,14 @@ const Dashboard = () => {
   const [metrics, setMetrics] = useState({});
   const [landingPage, setLandingPage] = useState([]);
   const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({
     startDate: new Date().setDate(new Date().getDate() - 30),
     endDate: new Date(),
     startTime: "10:00",
-    endTime: new Date()
+    endTime: new Date(),
+    conversationId: '',
+    landingpage: ''
   })
 
   useEffect(() => {
@@ -39,14 +42,33 @@ const Dashboard = () => {
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
+    var endTime = date.getHours() + ':' + date.getMinutes()
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
-      'endDate': endDate + ' ' + filters.endTime,
+      'endDate': endDate + ' ' + endTime,
+      'page_no': 1,
+      'conversation_id': filters.conversationId,
+      'landingpage': filters.landingpage
     }
 
     getAllConversations(object)
     getAllMetrics(object);
   },[filters])
+
+  useEffect(() => {
+    var date = new Date(filters.startDate);
+    var startDate = date.toLocaleDateString('en-US')
+    date = new Date(filters.endDate);
+    var endDate = date.toLocaleDateString('en-US')
+    var endTime = date.getHours() + ':' + date.getMinutes()
+    let object = {
+      'startDate': startDate + ' ' + filters.startTime,
+      'endDate': endDate + ' ' + endTime,
+      'page_no': page
+    }
+
+    getAllConversations(object)
+  },[page])
 
   async function __init() {
     var date = new Date(filters.startDate);
@@ -57,6 +79,7 @@ const Dashboard = () => {
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
       'endDate': endDate + ' ' + endTime,
+      'page_no': 1
     }
     await getAllConversations(object);
     await getAllMetrics(object);
@@ -65,7 +88,7 @@ const Dashboard = () => {
 
   function getAllConversations(object) {
 
-    fetch('http://localhost:3112/conversation_list', {
+    fetch(`${process.env.REACT_APP_APIURL}/conversation_list`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(object)
@@ -81,7 +104,7 @@ const Dashboard = () => {
 
   function getAllMetrics(object) {
 
-    fetch('http://localhost:3112/conversation_metrics', {
+    fetch(`${process.env.REACT_APP_APIURL}/conversation_metrics`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(object)
@@ -96,7 +119,7 @@ const Dashboard = () => {
 
   function getAllLandingPages() {
 
-    fetch('http://localhost:3112/landing_pages', {
+    fetch(`${process.env.REACT_APP_APIURL}/landing_pages`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({})
@@ -160,6 +183,9 @@ const Dashboard = () => {
           <CheckTable
             columnsData={columnsDataCheck}
             tableData={tableList}
+            setPage={setPage}
+            total={total}
+            page={page}
           />
         </div>
 
