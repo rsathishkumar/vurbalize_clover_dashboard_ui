@@ -13,7 +13,7 @@ const Widget = ({ icon, title, subtitle }) => {
 
       <div className="h-50 ml-4 flex w-auto flex-col justify-center">
         <p className="font-dm text-sm font-medium text-secondaryColor font-poppins">{title}</p>
-        <h4 className="text-2xl font-semibold text-secondaryColor leading-[68px] font-poppins dark:text-white">
+        <h4 className="text-2xl font-semibold text-secondaryColor leading-[56px] font-poppins dark:text-white">
           {subtitle}
         </h4>
       </div>
