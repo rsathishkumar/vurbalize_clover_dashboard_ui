@@ -18,7 +18,7 @@ const Chat = () => {
 
   function getConversations(object) {
 
-    fetch('http://localhost:3112/getconversation', {
+    fetch(`${process.env.REACT_APP_APIURL}/getconversation`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(object)
@@ -34,11 +34,14 @@ const Chat = () => {
 
   return (
     <div class="grid grid-cols-6 gap-3">
-      <div class="col-span-4">01</div>
+      <div class="col-span-4">HTML Content</div>
       <div class="col-span-2">
       {/* Card widget */}
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800 w-full">
       <div class="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
+        <div className="p-5 bg-green-900 text-white">
+          Header
+        </div>
 		<div class="flex flex-col flex-grow h-0 p-4 overflow-auto">
       {conversationList.length > 0 && conversationList.map((row, index) => { 
         var message = row.message.replace("User received message", "")

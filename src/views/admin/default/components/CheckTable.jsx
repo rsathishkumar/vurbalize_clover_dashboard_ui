@@ -93,8 +93,8 @@ const CheckTable = (props) => {
           </thead>
           <tbody>
             {tableData.map((row, index) => (  
-              <tr data-index={index}>  
-              <td className="pl-2">{index}</td>  
+              <tr data-index={index + ((props.page - 1) * 10)}>  
+              <td className="pl-2">{(index+1) + ((props.page - 1) * 10)}</td>  
               <td className="pl-2"><a href={`/chat/conversation?cid=${row.conversation_id}`} target="_blank">{row.conversation_id}</a></td>  
               <td className="pl-2">{row.su_id}</td>  
               <td className="pl-2">{row.logtime}</td>  
@@ -105,6 +105,15 @@ const CheckTable = (props) => {
           </tbody>
         </table>
       </div>
+      <div className="m-auto my-12 flex gap-2">
+        {props.page > 1 &&
+          <button className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-16 h-10" onClick={() => props.setPage(props.page-1)}>Prev</button>
+        }
+        {(props.page * 10) < props.total &&
+          <button className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-16 h-10" onClick={() => props.setPage(props.page+1)}>Next</button>
+        }
+      </div>
+
     </Card>
   );
 };
