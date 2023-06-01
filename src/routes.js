@@ -69,12 +69,6 @@ const routes = [
     layout: "/auth",
     path: "sign-in",
     component: <SignIn />,
-  },
-  {
-    name: "Chat",
-    layout: "/admin",
-    path: "chat",
-    component: <Chat />,
-  },
+  }
 ];
 export default routes;

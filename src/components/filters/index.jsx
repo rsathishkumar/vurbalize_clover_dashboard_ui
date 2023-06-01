@@ -13,6 +13,7 @@ const Filters = (props) => {
     // ------------for date time and dropdown start ----------
     const [value, setValue] = useState('10:00');
     const { startDate, endDate, startTime, endTime } = props.filters;
+    const [dateError, setDateError] = useState(false)
 
     const CustomInput = forwardRef(({ value, onClick, onChange }, ref) => (
         <input
@@ -54,6 +55,11 @@ const Filters = (props) => {
         );
     };
 
+    const showError = () => {
+        setDateError(true);
+        setTimeout(() => {setDateError(false)}, 2000)
+    }
+
     // ------------nested checkboxes start---------
     const nestedFilterCheckbox = [
         { id: 1, name: "Categroy 1" },
@@ -67,6 +73,9 @@ const Filters = (props) => {
 
     return (
         <div className="filters">
+            {dateError && 
+             <div className="pb-6 text-red-500">Please select valid start date and end date</div>
+            }
             <div className="flex gap-8 mb-10">
                 <div>
                     <p className="font-poppins font-medium text-sm text-secondaryColor pb-1">From
@@ -76,7 +85,10 @@ const Filters = (props) => {
                         <DatePicker
                             showIcon
                             selected={startDate}
-                            onChange={(date) => props.setFilters({ startDate: date })}
+                            onChange={(date) => {
+                                if (date > endDate){showError();return;}
+                                props.setFilters({ startDate: date })
+                            }}
                             customInput={<CustomInput />}
                         />
 
@@ -94,7 +106,10 @@ const Filters = (props) => {
                         <DatePicker
                             showIcon
                             selected={endDate}
-                            onChange={(date) => props.setFilters({ endDate: date })}
+                            onChange={(date) => {
+                                if (date < startDate){showError();return;}
+                                props.setFilters({ endDate: date })}
+                            }
                             customInput={<CustomInput />}
                         />
 
@@ -107,7 +122,7 @@ const Filters = (props) => {
                 <div className="basis-1/2">
                     <p className="font-poppins font-medium text-sm text-secondaryColor pb-1">Pages
                     </p>
-                    <Dropdown options={props.landingPage} onChange={(e) => {props.setFilters({landingpage: e.value[0]})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
+                    <Dropdown options={props.landingPage} onChange={(e) => {props.setFilters({landingpage: e.value})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
                 </div>
             </div>
             <h4 className="font-poppins font-medium text-sm text-green-900 mb-6">Showing results for {props.total} conversations</h4>

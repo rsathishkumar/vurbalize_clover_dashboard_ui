@@ -38,9 +38,9 @@ const Dashboard = () => {
 
 
   useEffect(() => {
-    var date = new Date(filters.startDate);
-    var startDate = date.toLocaleDateString('en-US')
-    date = new Date(filters.endDate);
+    var start_date = new Date(filters.startDate);
+    var startDate = start_date.toLocaleDateString('en-US')
+    var date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
     var endTime = date.getHours() + ':' + date.getMinutes()
     let object = {
@@ -125,7 +125,8 @@ const Dashboard = () => {
       body: JSON.stringify({})
      }).then(response => response.json())
      .then(data => {
-      setLandingPage(data)
+      const uniqueArray = Array.from(new Set(data));
+      setLandingPage(uniqueArray)
      })
      .catch((error) => {
       console.error(error);
