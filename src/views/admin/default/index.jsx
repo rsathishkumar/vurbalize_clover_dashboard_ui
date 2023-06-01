@@ -150,27 +150,27 @@ const Dashboard = () => {
         <Widget
           icon={<ChatIcon className="h-7 w-7 text-white" />}
           title={"Chat Engagement"}
-          subtitle={metrics.total_conversation}
+          subtitle={Math.round(metrics.unique_conversation/metrics.unique_session,2)}
         />
         <Widget
           icon={<MarketIcon className="h-6 w-6 text-white" />}
           title={"Chat Conversion"}
-          subtitle={metrics.unique_conversation}
+          subtitle={Math.round(metrics.tot_conversation/metrics.unique_conversation,2)}
         />
         <Widget
           icon={<MarketIcon className="h-7 w-7 text-white" />}
           title={"Chat Ratings"}
-          subtitle=""
+          subtitle={""}
         />
         <Widget
           icon={<MarketIcon className="h-6 w-6" />}
           title={"Leads per 1000 visitors"}
-          subtitle=""
+          subtitle={Math.round(metrics.leads*1000/metrics.unique_conversation,2)}
         />
         <Widget
           icon={<MarketIcon className="h-7 w-7" />}
           title={"Avg # of turns/chats"}
-          subtitle={Math.round((metrics.unique_conversation / metrics.total_conversation) * 100, 2)}
+          subtitle={Math.round((metrics.unique_conversation / metrics.tot_conversation) * 100, 2)}
         />
         <Widget
           icon={<MarketIcon className="h-6 w-6" />}
