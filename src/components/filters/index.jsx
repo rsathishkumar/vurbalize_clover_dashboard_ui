@@ -29,10 +29,11 @@ const Filters = (props) => {
         { id: 1, name: "Conversation_id" },
         { id: 2, name: "su_id" },
         { id: 3, name: "turn_count" },
-        { id: 4, name: "turn_count" },
-        { id: 5, name: "turn_count" },
-        { id: 6, name: "turn_count" },
-        { id: 7, name: "turn_count" },
+        { id: 4, name: "ConvT2A" },
+        { id: 5, name: "ConvOutcome" },
+        { id: 6, name: "ApptDate" },
+        { id: 7, name: "ApptTime" },
+        { id: 8, name: "MarketoLead" },
     ];
     const [checkedList, setCheckedList] = useState(checkboxFilterOptions);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
