@@ -28,7 +28,11 @@ const Filters = (props) => {
     const checkboxFilterOptions = [
         { id: 1, name: "Conversation_id" },
         { id: 2, name: "su_id" },
-        { id: 3, name: "turn_count" }
+        { id: 3, name: "turn_count" },
+        { id: 4, name: "turn_count" },
+        { id: 5, name: "turn_count" },
+        { id: 6, name: "turn_count" },
+        { id: 7, name: "turn_count" },
     ];
     const [checkedList, setCheckedList] = useState(checkboxFilterOptions);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
@@ -57,7 +61,7 @@ const Filters = (props) => {
 
     const showError = () => {
         setDateError(true);
-        setTimeout(() => {setDateError(false)}, 2000)
+     //   setTimeout(() => {setDateError(false)}, 2000)
     }
 
     // ------------nested checkboxes start---------
@@ -86,6 +90,7 @@ const Filters = (props) => {
                             showIcon
                             selected={startDate}
                             onChange={(date) => {
+                                setDateError(false);
                                 if (date > endDate){showError();return;}
                                 props.setFilters({ startDate: date })
                             }}
@@ -107,6 +112,7 @@ const Filters = (props) => {
                             showIcon
                             selected={endDate}
                             onChange={(date) => {
+                                setDateError(false);
                                 if (date < startDate){showError();return;}
                                 props.setFilters({ endDate: date })}
                             }

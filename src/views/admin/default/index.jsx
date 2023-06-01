@@ -3,8 +3,6 @@ import MarketIcon from "components/icons/MarketIcon";
 import ChatIcon from "components/icons/ChatIcon";
 import Filters from "../../../components/filters";
 
-import { columnsDataCheck, columnsDataComplex } from "./variables/columnsData";
-
 import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
 
@@ -15,6 +13,7 @@ const Dashboard = () => {
   const [landingPage, setLandingPage] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
+  const [columnsDataCheck, setColumnsDataCheck] = useState(false);
   const [filters, setFilters] = useState({
     startDate: new Date().setDate(new Date().getDate() - 30),
     endDate: new Date(),
@@ -94,6 +93,7 @@ const Dashboard = () => {
       body: JSON.stringify(object)
      }).then(response => response.json())
      .then(data => {
+       setColumnsDataCheck(true)
       setTableList(data[0]['record'])
       setTotal(data[0]['total'])
      })
@@ -150,12 +150,18 @@ const Dashboard = () => {
         <Widget
           icon={<ChatIcon className="h-7 w-7 text-white" />}
           title={"Chat Engagement"}
-          subtitle={Math.round(metrics.unique_conversation/metrics.unique_session,2)}
+          subtitle={
+            (metrics.unique_conversation != null)?
+              Math.round(metrics.unique_conversation/metrics.unique_session,2):"-"
+            }
         />
         <Widget
           icon={<MarketIcon className="h-6 w-6 text-white" />}
           title={"Chat Conversion"}
-          subtitle={Math.round(metrics.tot_conversation/metrics.unique_conversation,2)}
+          subtitle={
+            (metrics.unique_conversation != null)?
+              Math.round(metrics.tot_conversation/metrics.unique_conversation,2):"-"
+            }
         />
         <Widget
           icon={<MarketIcon className="h-7 w-7 text-white" />}
@@ -165,17 +171,23 @@ const Dashboard = () => {
         <Widget
           icon={<MarketIcon className="h-6 w-6" />}
           title={"Leads per 1000 visitors"}
-          subtitle={Math.round(metrics.leads*1000/metrics.unique_conversation,2)}
+          subtitle={
+            (metrics.unique_conversation != null)?
+              Math.round(metrics.leads*1000/metrics.unique_conversation,2):"-"
+            }
         />
         <Widget
           icon={<MarketIcon className="h-7 w-7" />}
           title={"Avg # of turns/chats"}
-          subtitle={Math.round((metrics.unique_conversation / metrics.tot_conversation) * 100, 2)}
+          subtitle={
+            (metrics.unique_conversation != null)?
+              Math.round((metrics.unique_conversation / metrics.tot_conversation) * 100, 2):"-"
+            }
         />
         <Widget
           icon={<MarketIcon className="h-6 w-6" />}
           title={"Avg time to answer"}
-          subtitle={metrics.avg_turn_time}
+          subtitle={(metrics.avg_turn_time != null?metrics.avg_turn_time:"-")}
         />
       </div>
 

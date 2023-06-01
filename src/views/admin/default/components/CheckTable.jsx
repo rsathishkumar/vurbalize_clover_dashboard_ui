@@ -1,45 +1,15 @@
 import React, { useMemo } from "react";
 import Card from "components/card";
 
-import {
-  useGlobalFilter,
-  usePagination,
-  useSortBy,
-  useTable,
-} from "react-table";
 
 const CheckTable = (props) => {
   const { columnsData, tableData } = props;
-
-  const columns = useMemo(() => columnsData, [columnsData]);
-  const data = useMemo(() => tableData, [tableData]);
-
-  const tableInstance = useTable(
-    {
-      columns,
-      data,
-    },
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    initialState,
-  } = tableInstance;
-  initialState.pageSize = 11;
 
   return (
     <Card extra={"w-full h-full sm:overflow-auto shadow-none rounded-none mt-1"}>
 
       <div className="pt-4 overflow-x-scroll">
         <table
-          {...getTableProps()}
           className="w-full"
           variant="simple"
           color="gray-500"
@@ -102,8 +72,11 @@ const CheckTable = (props) => {
               <td className="pl-2 text-sm">{row.turn_user}</td>  
               </tr>
             ))}
-            {tableData.length === 0 &&
-              <tr><td colspan="6" className="text-center text-lg">Please wait ...</td></tr>
+            {columnsData === false &&
+              <tr><td colspan="6" className="text-center text-lg">loading ...</td></tr>
+            }
+            {columnsData === true && tableData.length === 0 &&
+              <tr><td colspan="6" className="text-center text-lg">No Result</td></tr>
             }
           </tbody>
         </table>
