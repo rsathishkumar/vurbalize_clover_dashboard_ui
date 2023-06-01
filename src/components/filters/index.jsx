@@ -104,7 +104,7 @@ const Filters = (props) => {
                     </div>
 
                 </div>
-                <div>
+                <div className="basis-1/2">
                     <p className="font-poppins font-medium text-sm text-secondaryColor pb-1">Pages
                     </p>
                     <Dropdown options={props.landingPage} onChange={(e) => {props.setFilters({landingpage: e.value[0]})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />

@@ -93,15 +93,18 @@ const CheckTable = (props) => {
           </thead>
           <tbody>
             {tableData.map((row, index) => (  
-              <tr data-index={index + ((props.page - 1) * 10)}>  
-              <td className="pl-2">{(index+1) + ((props.page - 1) * 10)}</td>  
-              <td className="pl-2"><a href={`/chat/conversation?cid=${row.conversation_id}`} target="_blank">{row.conversation_id}</a></td>  
-              <td className="pl-2">{row.su_id}</td>  
-              <td className="pl-2">{row.logtime}</td>  
-              <td className="pl-2">{row.landing_page}</td>  
-              <td className="pl-2">{row.turn_user}</td>  
+              <tr data-index={index + ((props.page - 1) * 25)}>  
+              <td className="pl-2 text-sm">{(index+1) + ((props.page - 1) * 25)}</td>  
+              <td className="pl-2 text-sm"><a href={`/chat/conversation?cid=${row.conversation_id}`} target="_blank" className="text-blueSecondary">{row.conversation_id}</a></td>  
+              <td className="pl-2 text-sm">{row.su_id}</td>  
+              <td className="pl-2 text-sm">{row.logtime}</td>  
+              <td className="pl-2 text-sm">{row.landing_page}</td>  
+              <td className="pl-2 text-sm">{row.turn_user}</td>  
               </tr>
             ))}
+            {tableData.length === 0 &&
+              <tr><td colspan="6" className="text-center text-lg">Please wait ...</td></tr>
+            }
           </tbody>
         </table>
       </div>
@@ -109,7 +112,7 @@ const CheckTable = (props) => {
         {props.page > 1 &&
           <button className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-16 h-10" onClick={() => props.setPage(props.page-1)}>Prev</button>
         }
-        {(props.page * 10) < props.total &&
+        {(props.page * 25) < props.total &&
           <button className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-16 h-10" onClick={() => props.setPage(props.page+1)}>Next</button>
         }
       </div>

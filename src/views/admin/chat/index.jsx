@@ -50,16 +50,18 @@ const Chat = () => {
       </div>
       <div className="col-span-2">
         {/* Card widget */}
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800 w-full">
+        <div className="flex flex-col items-center justify-center min-h-[85%] bg-gray-100 text-gray-800 w-[30%] fixed">
           <div className="flex flex-col flex-grow w-full max-w-xl bg-white shadow-7xl rounded-lg overflow-hidden">
             <div className="p-3 bg-green-900 text-white text-2xl font-normal font-TimesNewRoman">
               Clover chat
             </div>
-            <div className="flex flex-col flex-grow h-0 pt-4 pb-[76px] px-3 overflow-auto relative">
+            <div className="flex flex-col flex-grow h-0 pt-4 pb-[76px] px-6 overflow-auto relative">
               {conversationList.length > 0 && conversationList.map((row, index) => {
                 var message = row.message.replace("User received message", "")
                 message = message.replace("User send message", "")
                 message = message.replace(/['"]+/g, '')
+                console.log("feedback", row.user_rating)
+                console.log("rating", row.user_feedback)
                 if (row.turn_actor === "bot") {
                   return (
                     <div className="flex mt-2 space-x-3 max-w-md items-end">
@@ -67,11 +69,18 @@ const Chat = () => {
                         <img className="w-full" src={Icon} />
                       </div>
                       <div>
-                        <div className="bg-[#F1F1F1] py-4 px-5 rounded-r-[20px] rounded-tl-[20px] w-[290px] relative">
+                        <div className="bg-[#F1F1F1] py-4 px-5 rounded-r-[20px] rounded-tl-[20px] relative">
                           <span className="font-normal font-TimesNewRoman text-black text-base" dangerouslySetInnerHTML={{ __html: message }}></span>
                           <div className="absolute right-[20px] gap-[8px] flex">
-                            <img className="h-[26px] w-[26px]" src={thumbIcon} />
-                            <img className="h-[26px] w-[26px]" src={messageIcon} />
+                            {row.user_rating === "1" &&
+                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={thumbIcon} />
+                            }
+                            {row.user_rating === "-1" &&
+                              <img className="h-[32px] w-[32px] rotate-180 bg-white rounded-[50px] p-[3px]" src={thumbIcon} />
+                            }
+                            {row.user_feedback != null &&
+                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={messageIcon} />
+                            }
                           </div>
                         </div>
                       </div>
@@ -80,9 +89,9 @@ const Chat = () => {
                 }
                 else {
                   return (
-                    <div className="flex w-full mt-8 space-x-3 max-w-md ml-auto justify-end">
+                    <div className="flex w-full my-8 space-x-3 max-w-md ml-auto justify-end">
                       <div>
-                        <div className="bg-green-900 py-4 px-5 text-white p-3 rounded-l-[20px] rounded-tr-[20px] w-[290px]">
+                        <div className="bg-green-900 py-4 px-5 text-white p-3 rounded-l-[20px] rounded-tr-[20px]">
                           <span className="text-base font-normal text-right font-TimesNewRoman"> {message}</span>
                         </div>
                       </div>
@@ -90,12 +99,13 @@ const Chat = () => {
                   )
                 }
               })}
-              <div className="absolute bg-[#F7F8FA] block w-full h-[76px] right-0 left-0 bottom-0 p-4 flex align-center justify-between gap-[11px]">
+              {/*<div className="absolute bg-[#F7F8FA] block w-full h-[76px] right-0 left-0 bottom-0 p-4 flex align-center justify-between gap-[11px]">
                 <input className="placeholder:text-black px-[17px] py-[11px] w-full border border-solid border-[#DFE3E7] rounded-[100px] bg-white font-TimesNewRoman font-normal text-base text-black" placeholder="Type your message here..." />
                 <button className="cursor-pointer">
                   <img src={sendIcon} />
                 </button>
               </div>
+            */}
             </div>
           </div>
         </div>
