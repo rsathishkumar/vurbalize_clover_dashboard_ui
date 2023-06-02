@@ -14,13 +14,16 @@ const Dashboard = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [columnsDataCheck, setColumnsDataCheck] = useState(false);
+  const [isAsending, setIsAsending] = useState(false)
   const [filters, setFilters] = useState({
     startDate: new Date().setDate(new Date().getDate() - 30),
     endDate: new Date(),
     startTime: "10:00",
     endTime: new Date(),
     conversationId: '',
-    landingpage: ''
+    landingpage: '',
+    sort: "DESC",
+    sorting: 'logtime'
   })
 
   useEffect(() => {
@@ -47,7 +50,9 @@ const Dashboard = () => {
       'endDate': endDate + ' ' + endTime,
       'page_no': 1,
       'conversation_id': filters.conversationId,
-      'landingpage': filters.landingpage
+      'landingpage': filters.landingpage,
+      'sort': filters.sort,
+      'sorting': filters.sorting
     }
 
     getAllConversations(object)
@@ -78,7 +83,9 @@ const Dashboard = () => {
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
       'endDate': endDate + ' ' + endTime,
-      'page_no': 1
+      'page_no': 1,
+      'sort': "DESC",
+      'sorting': 'logtime'
     }
     await getAllConversations(object);
     await getAllMetrics(object);
@@ -131,6 +138,17 @@ const Dashboard = () => {
      .catch((error) => {
       console.error(error);
     });
+  }
+
+  async function sortFunction(field) {
+    let asending = true;
+    await setIsAsending((prevValue) => {
+      asending = prevValue;
+      return prevValue;
+    });
+
+    await setIsAsending(!asending)
+    updateFilterValue({'sort':(asending?"ASC":"DESC"), 'sorting':field})
   }
 
 
@@ -199,6 +217,7 @@ const Dashboard = () => {
             setPage={setPage}
             total={total}
             page={page}
+            sortFunction={sortFunction}
           />
         </div>
 

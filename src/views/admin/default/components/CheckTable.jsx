@@ -28,35 +28,35 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    Conversation_ID
+                    <a href="#" onClick={() => props.sortFunction('i.conversation_id')}>Conversation_ID</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    su_ID
+                    <a href="#" onClick={() => props.sortFunction('su_id')}>su_ID</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    convDate_created
+                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>convDate_created</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    LandingPage
+                    <a href="#" onClick={() => props.sortFunction('landing_page')}>LandingPage</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    TurnCount
+                    <a href="#" onClick={() => props.sortFunction('turn_user')}>TurnCount</a>
                   </div>
                 </th>
               </tr>

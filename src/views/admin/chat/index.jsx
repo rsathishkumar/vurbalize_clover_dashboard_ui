@@ -79,7 +79,10 @@ const Chat = () => {
                               <img className="h-[32px] w-[32px] rotate-180 bg-white rounded-[50px] p-[3px]" src={thumbIcon} />
                             }
                             {row.user_feedback != null &&
+                             <div className="relative group">
                               <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={messageIcon} />
+                              <div class="opacity-0 group-hover:opacity-100 duration-100 absolute left-[-300px] w-[350px] inset-x-0 flex justify-left items-end text-lg bg-green-900 z-50 text-white p-4">{row.user_feedback}</div>
+                           </div>
                             }
                           </div>
                         </div>
