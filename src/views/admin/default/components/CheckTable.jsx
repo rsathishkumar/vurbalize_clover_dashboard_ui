@@ -42,7 +42,7 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>convDate_created</a>
+                    <a href="#" onClick={() => props.sortFunction('logtime')}>Date time</a>
                   </div>
                 </th>
                 <th
