@@ -7,6 +7,8 @@ import messageIcon from "../../../assets/svg/message.svg";
 const Chat = () => {
 
   const [conversationList, setConversationList] = useState([]);
+  const [indexValue, setIndexValue] = useState('');
+  const [showFeedback, setShowFeedback] = useState(false);
 
   useEffect(() => {
     __init()
@@ -80,9 +82,11 @@ const Chat = () => {
                             }
                             {row.user_feedback != null &&
                              <div className="relative group">
-                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={messageIcon} />
-                              <div class="opacity-0 group-hover:opacity-100 duration-100 absolute left-[-300px] w-[350px] inset-x-0 flex justify-left items-end text-lg bg-green-900 z-50 text-white p-4">{row.user_feedback}</div>
-                           </div>
+                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" onClick={()=>{(index === indexValue)?setIndexValue(""):setIndexValue(index)}} src={messageIcon} />
+                              {indexValue === index &&
+                                <div className={`group${index} duration-100 absolute left-[-300px] w-[350px] inset-x-0 flex justify-left items-end text-lg bg-green-900 z-50 text-white p-4`}>{row.user_feedback}</div>
+                              }
+                              </div>
                             }
                           </div>
                         </div>
