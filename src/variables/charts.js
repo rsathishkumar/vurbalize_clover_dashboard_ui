@@ -1,3 +1,6 @@
+import { IoTrendingUpOutline } from "react-icons/io5";
+import { TiArrowUpOutline } from "react-icons/ti";
+
 export const barChartDataDailyTraffic = [
   {
     name: "Daily Traffic",
@@ -258,15 +261,10 @@ export const barChartOptionsWeeklyRevenue = {
 
 export const lineChartDataTotalSpent = [
   {
-    name: "Revenue",
-    data: [50, 64, 48, 66, 49, 68],
+    name: "Chat Engagement",
+    data: [5.04, 2.96],
     color: "#4318FF",
-  },
-  {
-    name: "Profit",
-    data: [30, 40, 24, 46, 20, 46],
-    color: "#6AD2FF",
-  },
+  }
 ];
 
 export const lineChartOptionsTotalSpent = {
@@ -289,7 +287,7 @@ export const lineChartOptionsTotalSpent = {
     enabled: false,
   },
   stroke: {
-    curve: "smooth",
+    curve: "straight",
   },
 
   tooltip: {
@@ -304,14 +302,14 @@ export const lineChartOptionsTotalSpent = {
     },
   },
   grid: {
-    show: false,
+    show: true,
   },
   xaxis: {
     axisBorder: {
-      show: false,
+      show: true,
     },
     axisTicks: {
-      show: false,
+      show: IoTrendingUpOutline,
     },
     labels: {
       style: {
@@ -322,10 +320,10 @@ export const lineChartOptionsTotalSpent = {
     },
     type: "text",
     range: undefined,
-    categories: ["SEP", "OCT", "NOV", "DEC", "JAN", "FEB"],
+    categories: ["2023-05-29", "2023-05-23"],
   },
 
   yaxis: {
-    show: false,
+    show: true,
   },
 };

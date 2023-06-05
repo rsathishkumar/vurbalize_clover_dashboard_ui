@@ -44,16 +44,16 @@ const Dashboard = () => {
     var startDate = start_date.toLocaleDateString('en-US')
     var date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var endTime = date.getHours() + ':' + date.getMinutes()
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
-      'endDate': endDate + ' ' + endTime,
+      'endDate': endDate + ' ' + filters.endTime,
       'page_no': 1,
       'conversation_id': filters.conversationId,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
       'sorting': filters.sorting
     }
+    localStorage.setItem("filters", JSON.stringify(filters));
 
     getAllConversations(object)
     getAllMetrics(object);
