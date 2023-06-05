@@ -21,7 +21,7 @@ const ChatConversation = () => {
   const [filters, setFilters] = useState({
     startDate: new Date().setDate(new Date().getDate() - 30),
     endDate: new Date(),
-    startTime: "10:00",
+    startTime: new Date().setDate(new Date().getDate() - 30),
     endTime: new Date(),
     conversationId: '',
     landingpage: '',
@@ -45,11 +45,14 @@ const ChatConversation = () => {
   useEffect(() => {
     var start_date = new Date(filters.startDate);
     var startDate = start_date.toLocaleDateString('en-US')
+    var start_time = new Date(filters.startTime);
+    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     var date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var endTime = date.getHours() + ':' + date.getMinutes()
+    var end_time = new Date(filters.endTime);
+    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
     let object = {
-      'startDate': startDate + ' ' + filters.startTime,
+      'startDate': startDate + ' ' + startTime,
       'endDate': endDate + ' ' + endTime,
       'page_no': 1,
       'conversation_id': filters.conversationId,
@@ -57,6 +60,7 @@ const ChatConversation = () => {
       'sort': filters.sort,
       'sorting': filters.sorting
     }
+    localStorage.setItem("filters", JSON.stringify(filters));
 
     getAllConversations(object)
     getChatConversationChartMetrics(object);
@@ -65,11 +69,14 @@ const ChatConversation = () => {
   useEffect(() => {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
+    var start_time = new Date(filters.startTime);
+    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var endTime = date.getHours() + ':' + date.getMinutes()
+    var end_time = new Date(filters.endTime);
+    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
     let object = {
-      'startDate': startDate + ' ' + filters.startTime,
+      'startDate': startDate + ' ' + startTime,
       'endDate': endDate + ' ' + endTime,
       'page_no': page,
       'conversation_id': filters.conversationId,
@@ -82,21 +89,18 @@ const ChatConversation = () => {
   },[page])
 
   async function __init() {
-    let filters_object = localStorage.getItem("filters");
-    let filters_list = filters;
-    if (filters_object) {
-      filters_list = JSON.parse(filters_object);
-      filters_list.startDate = new Date(filters_list.startDate);
-      filters_list.endDate = new Date(filters_list.endDate);
-      setFilters(filters_list);
-    }
-    var date = new Date(filters_list.startDate);
+    var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
-    date = new Date(filters_list.endDate);
+    var start_time = new Date(filters.startTime);
+    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
+    date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
+    var end_time = new Date(filters.endTime);
+    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
+
     let object = {
-      'startDate': startDate + ' ' + filters_list.startTime,
-      'endDate': endDate + ' ' + filters_list.endTime,
+      'startDate': startDate + ' ' + startTime,
+      'endDate': endDate + ' ' + endTime,
       'page_no': 1,
       'sort': "DESC",
       'sorting': 'logtime'

@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [filters, setFilters] = useState({
     startDate: new Date().setDate(new Date().getDate() - 30),
     endDate: new Date(),
-    startTime: "10:00",
+    startTime: new Date().setDate(new Date().getDate() - 30),
     endTime: new Date(),
     conversationId: '',
     landingpage: '',
@@ -42,11 +42,15 @@ const Dashboard = () => {
   useEffect(() => {
     var start_date = new Date(filters.startDate);
     var startDate = start_date.toLocaleDateString('en-US')
+    var start_time = new Date(filters.startTime);
+    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     var date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
+    var end_time = new Date(filters.endTime);
+    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
     let object = {
-      'startDate': startDate + ' ' + filters.startTime,
-      'endDate': endDate + ' ' + filters.endTime,
+      'startDate': startDate + ' ' + startTime,
+      'endDate': endDate + ' ' + endTime,
       'page_no': 1,
       'conversation_id': filters.conversationId,
       'landingpage': filters.landingpage,
@@ -62,11 +66,14 @@ const Dashboard = () => {
   useEffect(() => {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
+    var start_time = new Date(filters.startTime);
+    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var endTime = date.getHours() + ':' + date.getMinutes()
+    var end_time = new Date(filters.endTime);
+    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
     let object = {
-      'startDate': startDate + ' ' + filters.startTime,
+      'startDate': startDate + ' ' + startTime,
       'endDate': endDate + ' ' + endTime,
       'page_no': page,
       'conversation_id': filters.conversationId,
@@ -81,11 +88,15 @@ const Dashboard = () => {
   async function __init() {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
+    var start_time = new Date(filters.startTime);
+    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var endTime = date.getHours() + ':' + date.getMinutes()
+    var end_time = new Date(filters.endTime);
+    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
+
     let object = {
-      'startDate': startDate + ' ' + filters.startTime,
+      'startDate': startDate + ' ' + startTime,
       'endDate': endDate + ' ' + endTime,
       'page_no': 1,
       'sort': "DESC",
@@ -209,7 +220,7 @@ const Dashboard = () => {
         <Widget
           icon={<MarketIcon className="h-6 w-6" />}
           title={"Avg time to answer"}
-          subtitle={(metrics.avg_turn_time != null?metrics.avg_turn_time:"-")}
+          subtitle={(metrics.avg_turn_time != null?metrics.avg_turn_time+'s':"-")}
         />
       </div>
 
