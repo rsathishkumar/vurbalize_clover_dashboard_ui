@@ -68,7 +68,11 @@ const Dashboard = () => {
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
       'endDate': endDate + ' ' + endTime,
-      'page_no': page
+      'page_no': page,
+      'conversation_id': filters.conversationId,
+      'landingpage': filters.landingpage,
+      'sort': filters.sort,
+      'sorting': filters.sorting
     }
 
     getAllConversations(object)
