@@ -3,12 +3,12 @@ import MarketIcon from "components/icons/MarketIcon";
 import ChatIcon from "components/icons/ChatIcon";
 import Filters from "../../../components/filters";
 import LineChart from "components/charts/LineChart";
-import { lineChartOptionsTotalSpent } from "../../../variables/charts";
-import { lineChartDataTotalSpent } from "../../../variables/charts";
+import Dropdown from 'react-dropdown';
 
 import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
 
+let get_start_date = new Date().setDate(new Date().getDate() - 30);
 const ChatEngagement = () => {
 
   const [tableList, setTableList] = useState([]);
@@ -18,16 +18,33 @@ const ChatEngagement = () => {
   const [page, setPage] = useState(1);
   const [columnsDataCheck, setColumnsDataCheck] = useState(false);
   const [isAsending, setIsAsending] = useState(false)
-  const [xaxis, setXaxis] = useState(false);
+  const [xaxis, setXaxis] = useState([]);
+  const [lineChartDataTotalSpent, setLineChartDataTotalSpent] = useState(
+    {
+      options: {
+        chart: {
+          id: 'chatengagement'
+        },
+        xaxis: {
+          categories: []
+        }
+      },
+      series: [{
+        name: 'Chat Engagement',
+        data: []
+      }]
+    }
+  )
   const [filters, setFilters] = useState({
-    startDate: new Date().setDate(new Date().getDate() - 30),
+    startDate: get_start_date,
     endDate: new Date(),
-    startTime: new Date().setDate(new Date().getDate() - 30),
-    endTime: new Date(),
+    startTime: new Date().getHours() + ":" + new Date().getMinutes(),
+    endTime: new Date().getHours() + ":" + new Date().getMinutes(),
     conversationId: '',
     landingpage: '',
     sort: "DESC",
-    sorting: 'logtime'
+    sorting: 'logtime',
+    reporttype: 'weekly'
   })
 
   useEffect(() => {
@@ -46,22 +63,18 @@ const ChatEngagement = () => {
   useEffect(() => {
     var start_date = new Date(filters.startDate);
     var startDate = start_date.toLocaleDateString('en-US')
-    var start_time = new Date(filters.startTime);
-    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     var date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var end_time = new Date(filters.endTime);
-    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
     let object = {
-      'startDate': startDate + ' ' + startTime,
-      'endDate': endDate + ' ' + endTime,
+      'startDate': startDate + ' ' + filters.startTime,
+      'endDate': endDate + ' ' + filters.endTime,
       'page_no': 1,
       'conversation_id': filters.conversationId,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
-      'sorting': filters.sorting
+      'sorting': filters.sorting,
+      'reporttype': filters.reporttype
     }
-    localStorage.setItem("filters", JSON.stringify(filters));
 
     getAllConversations(object)
     getChatConversationChartMetrics(object);
@@ -70,20 +83,17 @@ const ChatEngagement = () => {
   useEffect(() => {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
-    var start_time = new Date(filters.startTime);
-    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var end_time = new Date(filters.endTime);
-    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
     let object = {
-      'startDate': startDate + ' ' + startTime,
-      'endDate': endDate + ' ' + endTime,
+      'startDate': startDate + ' ' + filters.startTime,
+      'endDate': endDate + ' ' + filters.endTime,
       'page_no': page,
       'conversation_id': filters.conversationId,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
-      'sorting': filters.sorting
+      'sorting': filters.sorting,
+      'reporttype': filters.reporttype
     }
 
     getAllConversations(object)
@@ -92,19 +102,16 @@ const ChatEngagement = () => {
   async function __init() {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
-    var start_time = new Date(filters.startTime);
-    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var end_time = new Date(filters.endTime);
-    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
 
     let object = {
-      'startDate': startDate + ' ' + startTime,
-      'endDate': endDate + ' ' + endTime,
+      'startDate': startDate + ' ' + filters.startTime,
+      'endDate': endDate + ' ' + filters.endTime,
       'page_no': 1,
       'sort': "DESC",
-      'sorting': 'logtime'
+      'sorting': 'logtime',
+      'reporttype': "weekly"
     }
     await getAllConversations(object);
     await getChatConversationChartMetrics(object);
@@ -136,11 +143,22 @@ const ChatEngagement = () => {
       body: JSON.stringify(object)
      }).then(response => response.json())
      .then(data => {
-//      lineChartOptionsTotalSpent.xaxis.categories = data[0]['record_data']
-      setXaxis(true)
-      
-
-      
+      setXaxis(data[0]['record_data'])
+      setLineChartDataTotalSpent({
+        options: {
+          chart: {
+            id: 'apexchart-example'
+          },
+          xaxis: {
+            categories: data[0]['record_data']
+          }
+        },
+        series: [{
+          name: 'series-1',
+          data: data[0]['record_day']
+        }]
+      }
+      )   
      })
      .catch((error) => {
       console.error(error);
@@ -186,11 +204,13 @@ const ChatEngagement = () => {
                 />
       </div>
 
+      <div className=" w-1/4 pt-10 pb-0">
+        <Dropdown options={['weekly', 'daily', 'monthly', 'yearly']} onChange={(e) => {updateFilterValue({reporttype: e.value})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
+      </div>
       <div className="h-[300px] w-2/4 pt-10 pb-0">
       {xaxis &&
       <LineChart
         xaxis={xaxis}
-        options={lineChartOptionsTotalSpent}
         series={lineChartDataTotalSpent}
       />
       }

@@ -6,6 +6,7 @@ import Filters from "../../../components/filters";
 import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
 
+let get_start_date = new Date().setDate(new Date().getDate() - 30);
 const Dashboard = () => {
 
   const [tableList, setTableList] = useState([]);
@@ -16,10 +17,10 @@ const Dashboard = () => {
   const [columnsDataCheck, setColumnsDataCheck] = useState(false);
   const [isAsending, setIsAsending] = useState(false)
   const [filters, setFilters] = useState({
-    startDate: new Date().setDate(new Date().getDate() - 30),
+    startDate: get_start_date,
     endDate: new Date(),
-    startTime: new Date().setDate(new Date().getDate() - 30),
-    endTime: new Date(),
+    startTime: new Date().getHours() + ":" + new Date().getMinutes(),
+    endTime: new Date().getHours() + ":" + new Date().getMinutes(),
     conversationId: '',
     landingpage: '',
     sort: "DESC",
@@ -42,15 +43,11 @@ const Dashboard = () => {
   useEffect(() => {
     var start_date = new Date(filters.startDate);
     var startDate = start_date.toLocaleDateString('en-US')
-    var start_time = new Date(filters.startTime);
-    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     var date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var end_time = new Date(filters.endTime);
-    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
     let object = {
-      'startDate': startDate + ' ' + startTime,
-      'endDate': endDate + ' ' + endTime,
+      'startDate': startDate + ' ' + filters.startTime,
+      'endDate': endDate + ' ' + filters.endTime,
       'page_no': 1,
       'conversation_id': filters.conversationId,
       'landingpage': filters.landingpage,
@@ -66,15 +63,11 @@ const Dashboard = () => {
   useEffect(() => {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
-    var start_time = new Date(filters.startTime);
-    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var end_time = new Date(filters.endTime);
-    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
     let object = {
-      'startDate': startDate + ' ' + startTime,
-      'endDate': endDate + ' ' + endTime,
+      'startDate': startDate + ' ' + filters.startTime,
+      'endDate': endDate + ' ' + filters.endTime,
       'page_no': page,
       'conversation_id': filters.conversationId,
       'landingpage': filters.landingpage,
@@ -88,16 +81,12 @@ const Dashboard = () => {
   async function __init() {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
-    var start_time = new Date(filters.startTime);
-    var startTime = start_time.getHours() + ":" + start_time.getMinutes()
     date = new Date(filters.endDate);
     var endDate = date.toLocaleDateString('en-US')
-    var end_time = new Date(filters.endTime);
-    var endTime = end_time.getHours() + ":" + end_time.getMinutes()
 
     let object = {
-      'startDate': startDate + ' ' + startTime,
-      'endDate': endDate + ' ' + endTime,
+      'startDate': startDate + ' ' + filters.startTime,
+      'endDate': endDate + ' ' + filters.endTime,
       'page_no': 1,
       'sort': "DESC",
       'sorting': 'logtime'

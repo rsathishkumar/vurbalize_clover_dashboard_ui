@@ -182,10 +182,7 @@ const ChatConversation = () => {
       </div>
 
       <div className="h-[300px] w-2/4 pt-10 pb-0">
-      <LineChart
-            options={lineChartOptionsTotalSpent}
-            series={lineChartDataTotalSpent}
-          />
+
       </div>
 
       <div className="mt-5 grid grid-cols-1 gap-1">

@@ -1,16 +1,18 @@
+import { useEffect } from "react";
 import Chart from "react-apexcharts";
 
 const LineChart = (props) => {
-  const { series, options } = props;
 
   return (
-    <Chart
-      options={options}
-      type="line"
-      width="100%"
-      height="100%"
-      series={series}
-    />
+    <>
+      <Chart
+        options={props.series.options}
+        type="line"
+        width="100%"
+        height="100%"
+        series={props.series.series}
+      />
+    </>
   );
 };
 

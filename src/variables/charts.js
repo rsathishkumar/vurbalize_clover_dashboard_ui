@@ -259,14 +259,6 @@ export const barChartOptionsWeeklyRevenue = {
   },
 };
 
-export const lineChartDataTotalSpent = [
-  {
-    name: "Chat Engagement",
-    data: [5.04, 2.96],
-    color: "#4318FF",
-  }
-];
-
 export const lineChartOptionsTotalSpent = {
   legend: {
     show: false,
@@ -320,7 +312,7 @@ export const lineChartOptionsTotalSpent = {
     },
     type: "text",
     range: undefined,
-    categories: ["2023-05-29", "2023-05-23"],
+    categories: [],
   },
 
   yaxis: {

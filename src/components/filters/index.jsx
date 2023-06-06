@@ -77,8 +77,6 @@ const Filters = (props) => {
     const [filterOptionsShow, setFilterOptionsShow] = useState(false)
     // ---------add filter button toogle end----------
 
-    let start_time = new Date(startTime);
-
     return (
         <div className="filters">
             {dateError && 
@@ -101,7 +99,7 @@ const Filters = (props) => {
                             customInput={<CustomInput />}
                         />
 
-                        <TimePicker clearIcon="" onChange={(time) => props.setFilters({ startTime: time })} value={start_time.getHours() + ':' + start_time.getMinutes()}
+                        <TimePicker clearIcon="" onChange={(time) => props.setFilters({ startTime: time })} value={startTime}
                             className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                         />
                     </div>
