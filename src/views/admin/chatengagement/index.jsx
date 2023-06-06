@@ -147,14 +147,14 @@ const ChatEngagement = () => {
       setLineChartDataTotalSpent({
         options: {
           chart: {
-            id: 'apexchart-example'
+            id: 'chatengagement'
           },
           xaxis: {
             categories: data[0]['record_data']
           }
         },
         series: [{
-          name: 'series-1',
+          name: 'Chat Engagement',
           data: data[0]['record_day']
         }]
       }

@@ -59,6 +59,13 @@ const CheckTable = (props) => {
                     <a href="#" onClick={() => props.sortFunction('turn_user')}>TurnCount</a>
                   </div>
                 </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
+                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>Conv_Rate</a>
+                  </div>
+                </th>
               </tr>
           </thead>
           <tbody>
@@ -70,6 +77,7 @@ const CheckTable = (props) => {
               <td className="pl-2 text-sm">{row.logtime}</td>  
               <td className="pl-2 text-sm">{row.landing_page}</td>  
               <td className="pl-2 text-sm">{row.turn_user}</td>  
+              <td className="pl-2 text-sm">{row.conv_rate} sec</td>  
               </tr>
             ))}
             {columnsData === false &&

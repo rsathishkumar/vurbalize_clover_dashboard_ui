@@ -203,7 +203,7 @@ const Dashboard = () => {
           title={"Avg # of turns/chats"}
           subtitle={
             (metrics.unique_conversation != null)?
-              Math.round((metrics.unique_conversation / metrics.tot_conversation) * 100, 2):"-"
+              Math.round((metrics.unique_conversation / metrics.tot_conversation) * 100, 2) + "%":"-"
             }
         />
         <Widget

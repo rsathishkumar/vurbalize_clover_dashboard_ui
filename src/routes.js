@@ -7,6 +7,7 @@ import ChatConversation from "views/admin/chatconversation";
 import ChatRating from "views/admin/chatrating";
 import TimetoAnswer from "views/admin/timetoanswer";
 import TurnChat from "views/admin/turnchat";
+import Leads from "views/admin/leads";
 import Chat from "views/admin/chat";
 
 
@@ -51,6 +52,12 @@ const routes = [
     layout: "/admin",
     path: "chat_rating",
     component: <ChatRating />,
+  },
+  {
+    name: "Leads/1000 Visitors",
+    layout: "/admin",
+    path: "leads",
+    component: <Leads />,
   },
   {
     name: "Time to Answer",

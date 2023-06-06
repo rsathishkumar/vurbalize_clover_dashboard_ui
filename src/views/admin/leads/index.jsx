@@ -9,7 +9,7 @@ import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
 
 let get_start_date = new Date().setDate(new Date().getDate() - 30);
-const ChatConversation = () => {
+const Leads = () => {
 
   const [tableList, setTableList] = useState([]);
   const [metrics, setMetrics] = useState({});
@@ -23,14 +23,14 @@ const ChatConversation = () => {
     {
       options: {
         chart: {
-          id: 'chatconversation'
+          id: 'leads'
         },
         xaxis: {
           categories: []
         }
       },
       series: [{
-        name: 'Chat Conversation',
+        name: 'Leads',
         data: []
       }]
     }
@@ -137,7 +137,7 @@ const ChatConversation = () => {
 
   function getChatConversationChartMetrics(object) {
 
-    fetch(`${process.env.REACT_APP_APIURL}/chartConversationChartDetails`, {
+    fetch(`${process.env.REACT_APP_APIURL}/leads`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(object)
@@ -147,14 +147,14 @@ const ChatConversation = () => {
       setLineChartDataTotalSpent({
         options: {
           chart: {
-            id: 'chatconversation'
+            id: 'leads'
           },
           xaxis: {
             categories: data[0]['record_data']
           }
         },
         series: [{
-          name: 'conversation',
+          name: 'Leads/1000',
           data: data[0]['record_day']
         }]
       }
@@ -233,4 +233,4 @@ const ChatConversation = () => {
   );
 };
 
-export default ChatConversation;
+export default Leads;
