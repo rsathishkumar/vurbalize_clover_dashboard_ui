@@ -88,6 +88,7 @@ const Filters = (props) => {
                     </p>
                     {/* <BsFillCalendarCheckFill /> */}
                     <div className="flex gap-2">
+                    <label>
                         <DatePicker
                             showIcon
                             selected={startDate}
@@ -98,8 +99,8 @@ const Filters = (props) => {
                             }}
                             customInput={<CustomInput />}
                         />
-
-                        <TimePicker clearIcon="" onChange={(time) => props.setFilters({ startTime: time })} value={startTime}
+                        </label>
+                        <TimePicker  clearIcon="" onChange={(time) => props.setFilters({ startTime: time })} value={startTime}
                             className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                         />
                     </div>
@@ -110,6 +111,7 @@ const Filters = (props) => {
                     </p>
                     {/* <BsFillCalendarCheckFill /> */}
                     <div className="flex gap-2">
+                    <label>
                         <DatePicker
                             showIcon
                             selected={endDate}
@@ -120,7 +122,7 @@ const Filters = (props) => {
                             }
                             customInput={<CustomInput />}
                         />
-
+                    </label>
                         <TimePicker clearIcon="" onChange={(time) => props.setFilters({ endTime: time })} value={endTime}
                             className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                         />

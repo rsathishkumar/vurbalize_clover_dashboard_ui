@@ -41,26 +41,19 @@ const Dashboard = () => {
 
 
   useEffect(() => {
-    var start_date = new Date(filters.startDate);
-    var startDate = start_date.toLocaleDateString('en-US')
-    var date = new Date(filters.endDate);
-    var endDate = date.toLocaleDateString('en-US')
-    let object = {
-      'startDate': startDate + ' ' + filters.startTime,
-      'endDate': endDate + ' ' + filters.endTime,
-      'page_no': 1,
-      'conversation_id': filters.conversationId,
-      'landingpage': filters.landingpage,
-      'sort': filters.sort,
-      'sorting': filters.sorting
+    if (page === 1) {
+      sendRequestToBackend()
     }
-    localStorage.setItem("filters", JSON.stringify(filters));
-
-    getAllConversations(object)
-    getAllMetrics(object);
+    else {
+      setPage(1);
+    }
   },[filters])
 
   useEffect(() => {
+    sendRequestToBackend()
+  },[page])
+
+  function sendRequestToBackend() {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
@@ -74,9 +67,10 @@ const Dashboard = () => {
       'sort': filters.sort,
       'sorting': filters.sorting
     }
-
+    localStorage.setItem("filters", JSON.stringify(filters));
     getAllConversations(object)
-  },[page])
+    getAllMetrics(object);
+  }
 
   async function __init() {
     var date = new Date(filters.startDate);
@@ -195,7 +189,7 @@ const Dashboard = () => {
           title={"Leads per 1000 visitors"}
           subtitle={
             (metrics.unique_conversation != null)?
-              Math.round(metrics.leads*1000/metrics.unique_conversation,2):"-"
+              Math.round(metrics.leads*1000/metrics.unique_session,2):"-"
             }
         />
         <Widget
