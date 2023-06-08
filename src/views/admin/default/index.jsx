@@ -6,7 +6,9 @@ import Filters from "../../../components/filters";
 import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
 
-let get_start_date = new Date().setDate(new Date().getDate() - 30);
+const currentTimeMillis = new Date().getTime();
+const currentDate = new Date(currentTimeMillis);
+
 const Dashboard = () => {
 
   const [tableList, setTableList] = useState([]);
@@ -17,10 +19,10 @@ const Dashboard = () => {
   const [columnsDataCheck, setColumnsDataCheck] = useState(false);
   const [isAsending, setIsAsending] = useState(false)
   const [filters, setFilters] = useState({
-    startDate: get_start_date,
-    endDate: new Date(),
-    startTime: new Date().getHours() + ":" + new Date().getMinutes(),
-    endTime: new Date().getHours() + ":" + new Date().getMinutes(),
+    startDate: currentDate - (30 * 24 * 60 * 60 * 1000),
+    endDate: currentDate,
+    startTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
+    endTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
     conversationId: '',
     landingpage: '',
     sort: "DESC",
@@ -28,7 +30,7 @@ const Dashboard = () => {
   })
 
   useEffect(() => {
-    __init()
+        __init()
   },[])
 
 
