@@ -204,10 +204,7 @@ const Dashboard = () => {
         <Widget
           icon={<MarketIcon className="h-6 w-6" />}
           title={"Avg time to answer"}
-          subtitle={
-            (metrics.avg_turn_time != null && metrics.avg_turn_time != 0)?
-            (metrics.avg_turn_time != null?metrics.avg_turn_time+'s':"-").toFixed(2) + "%":"-"
-            }
+          subtitle={(metrics.avg_turn_time != null?metrics.avg_turn_time+'s':"-")}
         />
       </div>
 
