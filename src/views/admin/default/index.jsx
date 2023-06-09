@@ -168,7 +168,7 @@ const Dashboard = () => {
           icon={<ChatIcon className="h-7 w-7 text-white" />}
           title={"Chat Engagement"}
           subtitle={
-            (metrics.user_engaged != null || metrics.user_engaged != 0)?
+            (metrics.user_engaged != null && metrics.user_engaged != 0)?
               (metrics.user_engaged/metrics.unique_conversation).toFixed(2) + '%':"-"
             }
         />
@@ -176,7 +176,7 @@ const Dashboard = () => {
           icon={<MarketIcon className="h-6 w-6 text-white" />}
           title={"Chat Conversion"}
           subtitle={
-            (metrics.unique_conversation != null || metrics.unique_conversation != 0)?
+            (metrics.unique_conversation != null && metrics.unique_conversation != 0)?
               (metrics.unique_conversation/metrics.unique_session).toFixed(2) + "%":"-"
             }
         />
@@ -189,7 +189,7 @@ const Dashboard = () => {
           icon={<MarketIcon className="h-6 w-6" />}
           title={"Leads per 1000 visitors"}
           subtitle={
-            (metrics.unique_conversation != null || metrics.leads != 0)?
+            (metrics.unique_conversation != null && metrics.leads != 0)?
               (metrics.leads/metrics.user_engaged).toFixed(2) + '%':"-"
             }
         />
@@ -197,14 +197,17 @@ const Dashboard = () => {
           icon={<MarketIcon className="h-7 w-7" />}
           title={"Avg # of turns/chats"}
           subtitle={
-            (metrics.unique_conversation != null)?
+            (metrics.unique_conversation != null && metrics.unique_conversation != 0)?
               (((metrics.unique_su_id/metrics.turn_count) / metrics.unique_conversation)).toFixed(5) + "%":"-"
             }
         />
         <Widget
           icon={<MarketIcon className="h-6 w-6" />}
           title={"Avg time to answer"}
-          subtitle={(metrics.avg_turn_time != null?metrics.avg_turn_time+'s':"-")}
+          subtitle={
+            (metrics.avg_turn_time != null && metrics.avg_turn_time != 0)?
+            (metrics.avg_turn_time != null?metrics.avg_turn_time+'s':"-").toFixed(2) + "%":"-"
+            }
         />
       </div>
 
