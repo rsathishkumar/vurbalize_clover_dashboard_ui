@@ -8,7 +8,8 @@ import Dropdown from 'react-dropdown';
 import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
 
-let get_start_date = new Date().setDate(new Date().getDate() - 30);
+const currentTimeMillis = new Date().getTime();
+const currentDate = new Date(currentTimeMillis);
 const TimetoAnswer = () => {
 
   const [tableList, setTableList] = useState([]);
@@ -36,10 +37,10 @@ const TimetoAnswer = () => {
     }
   )
   const [filters, setFilters] = useState({
-    startDate: get_start_date,
-    endDate: new Date(),
-    startTime: new Date().getHours() + ":" + new Date().getMinutes(),
-    endTime: new Date().getHours() + ":" + new Date().getMinutes(),
+    startDate: currentDate - (30 * 24 * 60 * 60 * 1000),
+    endDate: currentDate,
+    startTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
+    endTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
     conversationId: '',
     landingpage: '',
     sort: "DESC",
@@ -59,28 +60,20 @@ const TimetoAnswer = () => {
     }));
   }
 
-
   useEffect(() => {
-    var start_date = new Date(filters.startDate);
-    var startDate = start_date.toLocaleDateString('en-US')
-    var date = new Date(filters.endDate);
-    var endDate = date.toLocaleDateString('en-US')
-    let object = {
-      'startDate': startDate + ' ' + filters.startTime,
-      'endDate': endDate + ' ' + filters.endTime,
-      'page_no': 1,
-      'conversation_id': filters.conversationId,
-      'landingpage': filters.landingpage,
-      'sort': filters.sort,
-      'sorting': filters.sorting,
-      'reporttype': filters.reporttype
+    if (page === 1) {
+      sendRequestToBackend()
     }
-
-    getAllConversations(object)
-    getChatConversationChartMetrics(object);
+    else {
+      setPage(1);
+    }
   },[filters])
 
   useEffect(() => {
+    sendRequestToBackend()
+  },[page])
+
+  function sendRequestToBackend() {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
@@ -95,9 +88,10 @@ const TimetoAnswer = () => {
       'sorting': filters.sorting,
       'reporttype': filters.reporttype
     }
-
+    localStorage.setItem("filters", JSON.stringify(filters));
     getAllConversations(object)
-  },[page])
+    getChatConversationChartMetrics(object);
+  }
 
   async function __init() {
     var date = new Date(filters.startDate);
@@ -120,7 +114,7 @@ const TimetoAnswer = () => {
 
   function getAllConversations(object) {
 
-    fetch(`${process.env.REACT_APP_APIURL}/conversation_list`, {
+    fetch(`${process.env.REACT_APP_APIURL}/conversation_engaged_list`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(object)
@@ -205,7 +199,7 @@ const TimetoAnswer = () => {
       </div>
 
       <div className=" w-1/4 pt-10 pb-0">
-        <Dropdown options={['weekly', 'daily', 'monthly', 'yearly']} onChange={(e) => {updateFilterValue({reporttype: e.value})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
+        <Dropdown options={['weekly', 'daily', 'monthly', 'yearly']} value={filters.reporttype} onChange={(e) => {updateFilterValue({reporttype: e.value})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
       </div>
       <div className="h-[300px] w-2/4 pt-10 pb-0">
       {xaxis &&

@@ -255,7 +255,7 @@ const CheckTable = (props) => {
               <td className="pl-2 text-sm">{row.avg_total_user_words}</td>  
               <td className="pl-2 text-sm">{row.avg_total_bot_words}</td>  
               <td className="pl-2 text-sm">{row.total_words_in_message_bot}</td>  
-              <td className="pl-2 text-sm">{row.conv_rate} sec</td>  
+              <td className="pl-2 text-sm">{row.conv_rate?row.conv_rate + ' s':''}</td>  
               <td className="pl-2 text-sm">{row.conv_outcome}</td>  
               <td className="pl-2 text-sm">{row.calendly_link}</td>  
               <td className="pl-2 text-sm"></td>  

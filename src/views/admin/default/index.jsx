@@ -41,7 +41,6 @@ const Dashboard = () => {
     }));
   }
 
-
   useEffect(() => {
     if (page === 1) {
       sendRequestToBackend()
@@ -169,16 +168,16 @@ const Dashboard = () => {
           icon={<ChatIcon className="h-7 w-7 text-white" />}
           title={"Chat Engagement"}
           subtitle={
-            (metrics.unique_conversation != null)?
-              Math.round(metrics.unique_conversation/metrics.unique_session,2):"-"
+            (metrics.user_engaged != null || metrics.user_engaged != 0)?
+              (metrics.user_engaged/metrics.unique_conversation).toFixed(2) + '%':"-"
             }
         />
         <Widget
           icon={<MarketIcon className="h-6 w-6 text-white" />}
           title={"Chat Conversion"}
           subtitle={
-            (metrics.unique_conversation != null)?
-              Math.round(metrics.tot_conversation/metrics.unique_conversation,2):"-"
+            (metrics.unique_conversation != null || metrics.unique_conversation != 0)?
+              (metrics.unique_conversation/metrics.unique_session).toFixed(2) + "%":"-"
             }
         />
         <Widget
@@ -190,8 +189,8 @@ const Dashboard = () => {
           icon={<MarketIcon className="h-6 w-6" />}
           title={"Leads per 1000 visitors"}
           subtitle={
-            (metrics.unique_conversation != null)?
-              Math.round(metrics.leads*1000/metrics.unique_session,2):"-"
+            (metrics.unique_conversation != null || metrics.leads != 0)?
+              (metrics.leads/metrics.user_engaged).toFixed(2) + '%':"-"
             }
         />
         <Widget
@@ -199,7 +198,7 @@ const Dashboard = () => {
           title={"Avg # of turns/chats"}
           subtitle={
             (metrics.unique_conversation != null)?
-              Math.round((metrics.unique_conversation / metrics.tot_conversation) * 100, 2) + "%":"-"
+              (((metrics.unique_su_id/metrics.turn_count) / metrics.unique_conversation)).toFixed(5) + "%":"-"
             }
         />
         <Widget
