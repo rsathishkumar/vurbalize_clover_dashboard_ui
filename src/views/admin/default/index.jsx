@@ -183,7 +183,10 @@ const Dashboard = () => {
         <Widget
           icon={<MarketIcon className="h-7 w-7 text-white" />}
           title={"Chat Ratings"}
-          subtitle={""}
+          subtitle={
+            (metrics.distinct_conversation_rating != null && metrics.distinct_conversation_rating != 0)?
+              (metrics.total_rating/metrics.distinct_conversation_rating).toFixed(2) + '%':"-"
+            }
         />
         <Widget
           icon={<MarketIcon className="h-6 w-6" />}

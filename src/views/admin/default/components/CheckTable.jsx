@@ -261,8 +261,8 @@ const CheckTable = (props) => {
               <td className="pl-2 text-sm"></td>  
               <td className="pl-2 text-sm"></td>  
               <td className="pl-2 text-sm"></td>  
-              <td className="pl-2 text-sm"></td>  
-              <td className="pl-2 text-sm"></td>  
+              <td className="pl-2 text-sm">{row.user_rating}</td>  
+              <td className="pl-2 text-sm">{row.user_feedback}</td>  
               </tr>
             ))}
             {columnsData === false &&
