@@ -100,7 +100,7 @@ const Filters = (props) => {
                             customInput={<CustomInput />}
                         />
                         </label>
-                        <TimePicker  clearIcon="" onChange={(time) => props.setFilters({ startTime: time })} value={startTime}
+                        <TimePicker  disableClock onChange={(time) => props.setFilters({ startTime: time })} value={startTime}
                             className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                         />
                     </div>
@@ -123,7 +123,7 @@ const Filters = (props) => {
                             customInput={<CustomInput />}
                         />
                     </label>
-                        <TimePicker clearIcon="" onChange={(time) => props.setFilters({ endTime: time })} value={endTime}
+                        <TimePicker disableClock onChange={(time) => props.setFilters({ endTime: time })} value={endTime}
                             className="border border-gray-200 rounded bg-white pl-2 font-poppins text-secondaryColor leading-7 text-sm font-normal"
                         />
                     </div>
@@ -132,21 +132,12 @@ const Filters = (props) => {
                 <div className="basis-1/2">
                     <p className="font-poppins font-medium text-sm text-secondaryColor pb-1">Pages
                     </p>
-                    <Dropdown options={props.landingPage} onChange={(e) => {props.setFilters({landingpage: e.value})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
+                    <Dropdown options={props.landingPage} onChange={(e) => {props.setFilters({landingpage: e.value})}} placeholder="All" className="font-poppins font-medium text-sm text-secondaryColor" />
                 </div>
             </div>
             <h4 className="font-poppins font-medium text-sm text-green-900 mb-6">Showing results for {props.total} conversations</h4>
             <h4 className="font-poppins font-medium text-sm text-secondaryColor mb-4">Advanced filters</h4>
-            <div className="flex items-start gap-x-16 mb-6 max-w-6xl advance_filter">
-                <div className="border border-gray-200 rounded bg-white flex items-center">
-                    <p className="font-poppins font-normal text-sm text-secondaryColor leading-7">Conversation_ID</p>
-                </div>
-                <div className="flex justify-start max-w-6xl gap-x-16 gap-y-4 flex-wrap advance_filter">
-                    <div className="border border-gray-600 rounded bg-white p-1.5 flex items-center">
-                        <input name="conversation_id" value={props.filters.conversationId} onChange={(e) => props.setFilters({conversationId: e.target.value})}></input>
-                    </div>
-                </div>
-            </div>
+
             <div className="relative">
                 <button onClick={() => setFilterOptionsShow(!filterOptionsShow)} className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-36 h-10">
                     <AiOutlinePlus />

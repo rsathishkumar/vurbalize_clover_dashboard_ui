@@ -3,6 +3,7 @@ import Icon from "../../../assets/svg/icon.svg";
 import sendIcon from "../../../assets/svg/send.svg";
 import thumbIcon from "../../../assets/svg/thumbsup.svg";
 import messageIcon from "../../../assets/svg/message.svg";
+import Feedback from "views/admin/chat/components/Feedback";
 
 const Chat = () => {
 
@@ -25,6 +26,23 @@ const Chat = () => {
   function getConversations(object) {
 
     fetch(`${process.env.REACT_APP_APIURL}/getconversation`, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(object)
+    }).then(response => response.json())
+      .then(data => {
+        setConversationList(data)
+        console.log(data)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  function submitFeedback(rating, turn_id, conversation_id) {
+    var object = { 'conversation_id': conversation_id, 'rating': rating, 'turn_id': turn_id }
+
+    fetch(`${process.env.REACT_APP_APIURL}/feedback`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(object)
@@ -62,17 +80,21 @@ const Chat = () => {
                 var message = row.message.replace("User received message", "")
                 message = message.replace("User send message", "")
                 message = message.replace(/['"]+/g, '')
-                console.log("feedback", row.user_rating)
-                console.log("rating", row.user_feedback)
                 if (row.turn_actor === "bot") {
+                  let isRating = true;
+                  if ((row.user_rating === null || row.user_rating === 0) && (row.user_feedback === null || row.user_feedback === '')) {
+                    isRating = false;
+                  }
+                  console.log("Ratings", isRating)
                   return (
-                    <div className="flex mt-2 space-x-3 max-w-md items-end">
+                    <div className="flex mt-2 mb-2 space-x-3 max-w-md items-end">
                       <div className="flex-shrink-0 h-[26px] w-[26px] rounded-full flex items-center justify-center">
                         <img className="w-full" src={Icon} />
                       </div>
                       <div>
                         <div className="bg-[#F1F1F1] py-4 px-5 rounded-r-[20px] rounded-tl-[20px] relative">
                           <span className="font-normal font-TimesNewRoman text-black text-base" dangerouslySetInnerHTML={{ __html: message }}></span>
+                          {isRating && 
                           <div className="absolute right-[20px] gap-[8px] flex">
                             {row.user_rating === "1" &&
                               <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={thumbIcon} />
@@ -89,6 +111,10 @@ const Chat = () => {
                               </div>
                             }
                           </div>
+                          }
+                          {!isRating &&
+                            <Feedback submitFeedback={(rating, turn_id, conversation_id)=>submitFeedback(rating, turn_id, conversation_id)} turn_id={row.turn_id} conversation_id={row.conversation_id} />
+                          }
                         </div>
                       </div>
                     </div>
