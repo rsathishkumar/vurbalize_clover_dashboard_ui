@@ -1,9 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useMem, useState } from "react";
 import thumbIcon from "../../../../assets/svg/thumbsup.svg";
 import messageIcon from "../../../../assets/svg/message.svg";
+import { useEffect } from "react";
 
 
 const Feedback = (props) => {
+
+  const [feedback, setFeedback] = useState();
+  const [showFeedbackBox,setShowFeedbackBox] = useState(false);
 
   function showThumbsUp() {
     return (
@@ -33,25 +37,37 @@ const Feedback = (props) => {
   }
 
   return (
+    <div>
     <div className="absolute right-[20px] gap-[8px] flex bottom-[-30px] z-10">
-      <div className={`thumbs_up cursor-pointer ${props.mode === "1"?"selected":""}`} 
+      <div className={`thumbs_up cursor-pointer ${props.row.evaluator_rating === "1"?"selected":""}`} 
             onClick={() => {
-              props.submitFeedback("1", props.turn_id, props.conversation_id)
+              props.submitFeedback("1", props.row.turn_id, props.row.conversation_id)
             }}>
-              {props.mode === "1"? showThumbsUpSelected():showThumbsUp()}
+              {props.row.evaluator_rating === "1"? showThumbsUpSelected():showThumbsUp()}
           </div>
-          <div className={`thumbs_down rotate-180 cursor-pointer ${props.mode === "1"?"selected":""}`} 
+          <div className={`thumbs_down rotate-180 cursor-pointer ${props.row.evaluator_rating === "-1"?"selected":""}`} 
             onClick={() => {
-              props.submitFeedback("-1", props.turn_id, props.conversation_id)
+              props.submitFeedback("-1", props.row.turn_id, props.row.conversation_id)
             }}>
-              {props.mode === "1"? showThumbsUpSelected():showThumbsUp()}
+              {props.row.evaluator_rating === "-1"? showThumbsUpSelected():showThumbsUp()}
           </div>
-          <div className={`feedback_icon cursor-pointer ${props.feedbackText !== undefined && props.feedbackText != ""?"selected":""}`}
+          <div className={`feedback_icon cursor-pointer ${props.row.evaluator_feedback !== null && props.row.evaluator_feedback != ""?"selected":""}`}
             onClick={() => {
-          }}>
+              setFeedback(props.row.evaluator_feedback)
+              setShowFeedbackBox(!showFeedbackBox);
+            }}>
             {feedbackDiv()}
           </div>
-
+          
+    </div>
+    {showFeedbackBox && 
+          <div className="absolute left-2 bottom-[-80px]">
+          <div className={`flex border-2 border-gray-600 rounded-md p-2 bg-white`}>
+            <textarea className="focus:outline-none pr-3 w-[250px]"  name="feedback" rows = "2" value={feedback} onChange={e => setFeedback(e.target.value)} required placeholder="Enter Feedback"></textarea>
+            <button type="button" onClick={()=>{setShowFeedbackBox(false);props.submitFeedbackMessage(feedback, props.row.turn_id, props.row.conversation_id);}} value="Go"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path d="M476.59,227.05l-.16-.07L49.35,49.84A23.56,23.56,0,0,0,27.14,52,24.65,24.65,0,0,0,16,72.59V185.88a24,24,0,0,0,19.52,23.57l232.93,43.07a4,4,0,0,1,0,7.86L35.53,303.45A24,24,0,0,0,16,327V440.31A23.57,23.57,0,0,0,26.59,460a23.94,23.94,0,0,0,13.22,4,24.55,24.55,0,0,0,9.52-1.93L476.4,285.94l.19-.09a32,32,0,0,0,0-58.8Z"/></svg></button>
+          </div>
+          </div>
+      }
     </div>
 );
 };

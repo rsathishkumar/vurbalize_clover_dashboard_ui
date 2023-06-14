@@ -142,3 +142,14 @@ input[type=number]::-webkit-outer-spin-button * {
 
 
 /******* CSS for Chat transcription page ************/
+.selected svg path { 
+  fill: #228800;
+}
+
+.feedback_icon.selected svg path {
+  stroke: #FFFFFF;
+}
+.feedback_icon.selected svg path:first-child {
+	fill: #228800;
+	stroke: #228800;
+}

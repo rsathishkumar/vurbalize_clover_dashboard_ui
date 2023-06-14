@@ -10,6 +10,7 @@ const Chat = () => {
   const [conversationList, setConversationList] = useState([]);
   const [indexValue, setIndexValue] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
+  const [selectedTurnid, setSelectedTurnid] = useState(-1)
 
   useEffect(() => {
     __init()
@@ -32,6 +33,22 @@ const Chat = () => {
     }).then(response => response.json())
       .then(data => {
         setConversationList(data)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  function submitFeedback(rating, turn_id, conversation_id, feedbacktext='') {
+    setSelectedTurnid(-1)
+    var object = { 'conversation_id': conversation_id, 'rating': rating, 'turn_id': turn_id, 'feebacktext': feedbacktext }
+    refreshConversationRating(rating, turn_id, conversation_id, feedbacktext)
+    fetch(`${process.env.REACT_APP_APIURL}/feedback`, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(object)
+    }).then(response => response.json())
+      .then(data => {
         console.log(data)
       })
       .catch((error) => {
@@ -39,21 +56,35 @@ const Chat = () => {
       });
   }
 
-  function submitFeedback(rating, turn_id, conversation_id) {
-    var object = { 'conversation_id': conversation_id, 'rating': rating, 'turn_id': turn_id }
+  useEffect(() => {
+    const handleClick = async (e) => {
+      let l_tmp = e.target;
+      if (l_tmp.classList.contains('user-message') || l_tmp.classList.contains('all-messages') || l_tmp.classList.contains('clover-chat-container')) {
+        setSelectedTurnid(-1);
+      }
+    };
 
-    fetch(`${process.env.REACT_APP_APIURL}/feedback`, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(object)
-    }).then(response => response.json())
-      .then(data => {
-        setConversationList(data)
-        console.log(data)
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener('click',handleClick)
+    }
+  }, [])
+
+  function refreshConversationRating(rating, turn_id, conversation_id, feedbacktext) {
+    var tmp = conversationList;
+    var newlist = [];
+    tmp.map(function (row, index) {
+      if (turn_id === row.turn_id) {
+        if (rating != '') {
+          tmp[index]['evaluator_rating'] = rating;
+        }
+        else {
+          tmp[index]['evaluator_feedback'] = feedbacktext;
+        }
+      }
+    })
+    setConversationList(tmp)
+    console.log(conversationList);
   }
 
   return (
@@ -71,28 +102,31 @@ const Chat = () => {
       <div className="col-span-2">
         {/* Card widget */}
         <div className="flex flex-col items-center justify-center min-h-[85%] bg-gray-100 text-gray-800 w-[30%] fixed">
-          <div className="flex flex-col flex-grow w-full max-w-xl bg-white shadow-7xl rounded-lg overflow-hidden">
+          <div className="flex flex-col flex-grow w-full max-w-xl bg-white shadow-7xl rounded-lg overflow-hidden clover-chat-container">
             <div className="p-3 bg-green-900 text-white text-2xl font-normal font-TimesNewRoman">
               Clover chat
             </div>
-            <div className="flex flex-col flex-grow h-0 pt-4 pb-[76px] px-6 overflow-auto relative">
+            <div className="flex flex-col flex-grow h-0 pt-4 pb-[76px] px-6 overflow-auto relative all-messages">
               {conversationList.length > 0 && conversationList.map((row, index) => {
                 var message = row.message.replace("User received message", "")
                 message = message.replace("User send message", "")
                 message = message.replace(/['"]+/g, '')
                 if (row.turn_actor === "bot") {
                   let isRating = true;
+                  let isEvaluator = false;
                   if ((row.user_rating === null || row.user_rating === 0) && (row.user_feedback === null || row.user_feedback === '')) {
                     isRating = false;
                   }
-                  console.log("Ratings", isRating)
+                  if (row.evaluator_rating !== null || row.evaluator_feedback !== null) {
+                    isEvaluator = true;
+                  }
                   return (
-                    <div className="flex mt-2 mb-2 space-x-3 max-w-md items-end">
+                    <div className="flex mt-2 mb-2 space-x-3 max-w-md items-end" >
                       <div className="flex-shrink-0 h-[26px] w-[26px] rounded-full flex items-center justify-center">
                         <img className="w-full" src={Icon} />
                       </div>
                       <div>
-                        <div className="bg-[#F1F1F1] py-4 px-5 rounded-r-[20px] rounded-tl-[20px] relative">
+                        <div className="bg-[#F1F1F1] py-4 px-5 rounded-r-[20px] rounded-tl-[20px] relative" onClick={()=>{if(row.turn_id != selectedTurnid)setSelectedTurnid(row.turn_id)}}>
                           <span className="font-normal font-TimesNewRoman text-black text-base" dangerouslySetInnerHTML={{ __html: message }}></span>
                           {isRating && 
                           <div className="absolute right-[20px] gap-[8px] flex">
@@ -105,15 +139,30 @@ const Chat = () => {
                             {row.user_feedback != null &&
                              <div className="relative group">
                               <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" onClick={()=>{(index === indexValue)?setIndexValue(""):setIndexValue(index)}} src={messageIcon} />
-                              {indexValue === index &&
+                              {selectedTurnid === row.turn_id &&
                                 <div className={`group${index} duration-100 absolute left-[-300px] w-[350px] inset-x-0 flex justify-left items-end text-lg bg-green-900 z-50 text-white p-4`}>{row.user_feedback}</div>
                               }
                               </div>
                             }
                           </div>
                           }
-                          {!isRating &&
-                            <Feedback submitFeedback={(rating, turn_id, conversation_id)=>submitFeedback(rating, turn_id, conversation_id)} turn_id={row.turn_id} conversation_id={row.conversation_id} />
+                          {isEvaluator && selectedTurnid != row.turn_id &&
+                          <div className="absolute right-[20px] gap-[8px] flex">
+                            {row.evaluator_rating === "1" &&
+                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={thumbIcon} />
+                            }
+                            {row.evaluator_rating === "-1" &&
+                              <img className="h-[32px] w-[32px] rotate-180 bg-white rounded-[50px] p-[3px]" src={thumbIcon} />
+                            }
+                            {row.evaluator_feedback != null && row.evaluator_feedback != "" &&
+                             <div className="relative group">
+                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={messageIcon} />
+                              </div>
+                            }
+                          </div>
+                          }
+                          {!isRating && selectedTurnid === row.turn_id &&
+                            <Feedback submitFeedbackMessage={(feedback, turn_id, conversation_id) => submitFeedback('', turn_id, conversation_id, feedback)} submitFeedback={(rating, turn_id, conversation_id)=>submitFeedback(rating, turn_id, conversation_id)} row={row} />
                           }
                         </div>
                       </div>
@@ -122,10 +171,10 @@ const Chat = () => {
                 }
                 else {
                   return (
-                    <div className="flex w-full my-8 space-x-3 max-w-md ml-auto justify-end">
+                    <div className="flex w-full my-8 space-x-3 max-w-md ml-auto justify-end user-message">
                       <div>
-                        <div className="bg-green-900 py-4 px-5 text-white p-3 rounded-l-[20px] rounded-tr-[20px]">
-                          <span className="text-base font-normal text-right font-TimesNewRoman"> {message}</span>
+                        <div className="bg-green-900 py-4 px-5 text-white p-3 rounded-l-[20px] rounded-tr-[20px] user-message">
+                          <span className="text-base font-normal text-right font-TimesNewRoman user-message"> {message}</span>
                         </div>
                       </div>
                     </div>
