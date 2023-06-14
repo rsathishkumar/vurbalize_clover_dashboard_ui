@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import Icon from "../../../assets/svg/icon.svg";
-import sendIcon from "../../../assets/svg/send.svg";
 import thumbIcon from "../../../assets/svg/thumbsup.svg";
 import messageIcon from "../../../assets/svg/message.svg";
+import thumbIconEval from "../../../assets/svg/thumbsup_eval.svg";
+import messageIconEval from "../../../assets/svg/message_eval.svg";
 import Feedback from "views/admin/chat/components/Feedback";
 
 const Chat = () => {
@@ -84,7 +85,6 @@ const Chat = () => {
       }
     })
     setConversationList(tmp)
-    console.log(conversationList);
   }
 
   return (
@@ -149,14 +149,14 @@ const Chat = () => {
                           {isEvaluator && selectedTurnid != row.turn_id &&
                           <div className="absolute right-[20px] gap-[8px] flex">
                             {row.evaluator_rating === "1" &&
-                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={thumbIcon} />
+                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={thumbIconEval} />
                             }
                             {row.evaluator_rating === "-1" &&
-                              <img className="h-[32px] w-[32px] rotate-180 bg-white rounded-[50px] p-[3px]" src={thumbIcon} />
+                              <img className="h-[32px] w-[32px] rotate-180 bg-white rounded-[50px] p-[3px]" src={thumbIconEval} />
                             }
                             {row.evaluator_feedback != null && row.evaluator_feedback != "" &&
                              <div className="relative group">
-                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={messageIcon} />
+                              <img className="h-[32px] w-[32px] bg-white rounded-[50px] p-[3px]" src={messageIconEval} />
                               </div>
                             }
                           </div>

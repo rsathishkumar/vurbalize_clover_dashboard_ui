@@ -23,7 +23,8 @@ const Dashboard = () => {
     endDate: currentDate,
     startTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
     endTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
-    conversationId: '',
+    conversationId: [],
+    suId:[],
     landingpage: '',
     sort: "DESC",
     sorting: 'logtime'
@@ -64,6 +65,7 @@ const Dashboard = () => {
       'endDate': endDate + ' ' + filters.endTime,
       'page_no': page,
       'conversation_id': filters.conversationId,
+      'su_id': filters.suId,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
       'sorting': filters.sorting

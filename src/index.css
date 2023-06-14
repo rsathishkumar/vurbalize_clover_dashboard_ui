@@ -143,13 +143,13 @@ input[type=number]::-webkit-outer-spin-button * {
 
 /******* CSS for Chat transcription page ************/
 .selected svg path { 
-  fill: #228800;
+  fill: #9F336C;
 }
 
 .feedback_icon.selected svg path {
   stroke: #FFFFFF;
 }
 .feedback_icon.selected svg path:first-child {
-	fill: #228800;
-	stroke: #228800;
+	fill: #9F336C;
+	stroke: #9F336C;
 }

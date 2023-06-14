@@ -7,6 +7,7 @@ import 'react-clock/dist/Clock.css';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { AiOutlinePlus } from "react-icons/ai"
+import MultiListSearchText from "components/multiListSearchText/index.jsx"
 
 
 const Filters = (props) => {
@@ -27,34 +28,51 @@ const Filters = (props) => {
     ));
     // ------------for date time and dropdown end ----------
     const checkboxFilterOptions = [
-        { id: 1, name: "Conversation_id" },
-        { id: 2, name: "su_id" },
-        { id: 3, name: "turn_count" },
-        { id: 4, name: "ConvT2A" },
-        { id: 5, name: "ConvOutcome" },
-        { id: 6, name: "ApptDate" },
+        { id: 1, name: "Conversation_id", type:'multilist' },
+        { id: 2, name: "su_id", type:'multilist' },
+        { id: 3, name: "turn_count", type:'numeric' },
+        { id: 4, name: "ConvT2A", type:'numeric' },
+        { id: 5, name: "ConvOutcome", type:'category' },
+        { id: 6, name: "ApptDate", type:'datetime' },
         { id: 7, name: "ApptTime" },
-        { id: 8, name: "MarketoLead" },
+        { id: 8, name: "MarketoLead", type:'multilist' },
     ];
     const [checkedList, setCheckedList] = useState(checkboxFilterOptions);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+    const [showAdvancedFilters, setShowAdvancedFilters] = useState({
+        'Conversation_id':[],
+        'su_id':[]
+    });
+    const [showFiltersOptions, setShowFiltersOptions] = useState([]);
+
+    const submitListValues = (list, field_name) => {
+        console.log("List", list);
+        var values = [];
+        values[field_name] = list;
+
+        setShowAdvancedFilters((prevValues) => {    
+          return { ...prevValues, ...values };
+        });
+        console.log("filteroptions", showFiltersOptions.indexOf(field_name))
+        if (showFiltersOptions.indexOf(field_name) === -1) {
+            setShowFiltersOptions([...showFiltersOptions, field_name])
+        }
+        if (field_name === "Conversation_id") {
+            props.setFilters({conversationId: list})
+        }
+        if (field_name === "su_id") {
+            props.setFilters({suId: list})
+        }
+    };
 
     const checkboxClicked = (id) => {
         setCheckedList((prevCheckedList) =>
             prevCheckedList.map((checkedItem) => {
                 if (checkedItem.id === id) {
-                    const updatedItem = { ...checkedItem, checked: !checkedItem.checked };
-                    if (updatedItem.checked) {
-                        setSelectedCheckboxes((prevCheckedList) => [
-                            ...prevCheckedList,
-                            id,
-                        ]);
-                    } else {
-                        setSelectedCheckboxes((prevCheckedList) =>
-                            prevCheckedList.filter((checkboxId) => checkboxId !== id)
-                        );
-                    }
-                    return updatedItem;
+                    checkedItem = { ...checkedItem, checked: !checkedItem.checked };
+                }
+                else {
+                    checkedItem = { ...checkedItem, checked: false };
                 }
                 return checkedItem;
             })
@@ -137,7 +155,28 @@ const Filters = (props) => {
             </div>
             <h4 className="font-poppins font-medium text-sm text-green-900 mb-6">Showing results for {props.total} conversations</h4>
             <h4 className="font-poppins font-medium text-sm text-secondaryColor mb-4">Advanced filters</h4>
-
+            <div className="my-4">
+            {
+                showFiltersOptions.map((key,index) => {
+                    var fields = showAdvancedFilters[key]
+                    console.log("Fields", showFiltersOptions)
+                    return (
+                        <div className="flex justify-start max-w-6xl gap-x-8 gap-y-4 flex-wrap my-4">
+                            <div className="font-poppins font-normal text-sm text-secondaryColor leading-7 min-width-[100px]">
+                                {key}
+                            </div>
+                            {fields.map((field_key, field_index) => {
+                              return (
+                                <div className="border border-gray-400 rounded p-1 min-w-[200px]">
+                                    {field_key}
+                                </div>
+                              )  
+                            })}
+                        </div>
+                    )
+                })
+            }
+            </div>
             <div className="relative">
                 <button onClick={() => setFilterOptionsShow(!filterOptionsShow)} className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-36 h-10">
                     <AiOutlinePlus />
@@ -167,33 +206,15 @@ const Filters = (props) => {
 
                         ))}
 
-                        {checkedList.map(({ id, name, checked }) => (
-                            checked && (
-                                <div className="absolute bg-white rounded p-3 ml-2 left-full top-0 w-52 shadow-6xl" key={id}>
-                                    {/* Add your content for the checkbox here */}
-                                    <button className="absolute -right-2 -top-2">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 7.56885C15.5 11.7111 12.1423 15.0688 8 15.0688C3.85775 15.0688 0.5 11.7111 0.5 7.56885C0.5 3.4266 3.85775 0.0688477 8 0.0688477C12.1423 0.0688477 15.5 3.4266 15.5 7.56885ZM5.7275 5.29635C5.83297 5.19101 5.97594 5.13184 6.125 5.13184C6.27406 5.13184 6.41703 5.19101 6.5225 5.29635L8 6.77385L9.4775 5.29635C9.58413 5.19699 9.72517 5.14289 9.87089 5.14547C10.0166 5.14804 10.1557 5.20707 10.2587 5.31013C10.3618 5.41319 10.4208 5.55223 10.4234 5.69796C10.426 5.84368 10.3719 5.98472 10.2725 6.09135L8.795 7.56885L10.2725 9.04635C10.3719 9.15298 10.426 9.29401 10.4234 9.43974C10.4208 9.58547 10.3618 9.7245 10.2587 9.82756C10.1557 9.93062 10.0166 9.98966 9.87089 9.99223C9.72517 9.9948 9.58413 9.94071 9.4775 9.84135L8 8.36385L6.5225 9.84135C6.41587 9.94071 6.27483 9.9948 6.12911 9.99223C5.98338 9.98966 5.84434 9.93062 5.74128 9.82756C5.63822 9.7245 5.57919 9.58547 5.57662 9.43974C5.57405 9.29401 5.62814 9.15298 5.7275 9.04635L7.205 7.56885L5.7275 6.09135C5.62216 5.98588 5.56299 5.84291 5.56299 5.69385C5.56299 5.54478 5.62216 5.40182 5.7275 5.29635Z" fill="#228800" />
-                                        </svg>
-
-                                    </button>
-                                    <p className="font-poppins text-secondaryColor text-sm">{name} Content</p>
-                                    {nestedFilterCheckbox.map(({  id: nestedId, name: nestedName}) => (
-                                        <label
-                                            htmlFor={nestedId}
-                                            className={`checkboxFilterOption nestedFilterCheckbox pb-3 pr-8 relative cursor-pointer font-poppins text-secondaryColor leading-[21px] tracking-wide-[0.05em] text-sm font-medium block ${checked ? "checkboxFilter" : ""
-                                                }`}
-                                            key={nestedId}
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                id={nestedId}
-                                            />
-                                            {nestedName}
-                                        </label>
-                                    ))}
-                                    <button className="bg-green-900 px-3 py-1 cursor-pointer font-poppins text-white leading-5 tracking-wide-[0.05em] text-xs font-normal float-right relative rounded-sm mt-2.5">Confirm</button>
-                                </div>
+                        {checkedList.map(({ id, name, checked, type }) => (
+                            checked && type === 'multilist' &&  (
+                                <MultiListSearchText 
+                                    field_name={name} 
+                                    id={props.id} 
+                                    submitListValues={(list, field_name) => submitListValues(list, field_name)} 
+                                    currentValues={showAdvancedFilters[name]} 
+                                    closePopup={() => {console.log(id); checkboxClicked(id)}}
+                                />
                             )
                         ))}
                     </div>
