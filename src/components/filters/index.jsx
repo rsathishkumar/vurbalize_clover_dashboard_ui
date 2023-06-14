@@ -159,6 +159,9 @@ const Filters = (props) => {
             {
                 showFiltersOptions.map((key,index) => {
                     var fields = showAdvancedFilters[key]
+                    if (fields.length === 0) {
+                        return;
+                    }
                     console.log("Fields", showFiltersOptions)
                     return (
                         <div className="flex justify-start max-w-6xl gap-x-8 gap-y-4 flex-wrap my-4">
