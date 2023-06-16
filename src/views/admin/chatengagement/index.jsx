@@ -20,6 +20,7 @@ const ChatEngagement = () => {
   const [columnsDataCheck, setColumnsDataCheck] = useState(false);
   const [isAsending, setIsAsending] = useState(false)
   const [xaxis, setXaxis] = useState([]);
+  const [filterChange, setFilterChange] = useState(false);
   const [lineChartDataTotalSpent, setLineChartDataTotalSpent] = useState(
     {
       options: {
@@ -58,7 +59,7 @@ const ChatEngagement = () => {
       filters.endDate = new Date(filters.endDate)
       filters.reporttype = 'weekly'
       console.log(filters)
-      setFilters(filters)
+      updateFilterValue(filters)
       return;
     }
     else {
@@ -72,23 +73,22 @@ const ChatEngagement = () => {
       ...prevState,
       ...obj
     }));
+    setFilterChange(true)
   }
 
   useEffect(() => {
-    if (page === 1) {
+    if (filterChange === true) {
+      setFilterChange(false);
       sendRequestToBackend()
     }
-    else {
-      setPage(1);
-    }
-  },[filters])
+  },[filterChange])
 
-  useEffect(() => {
-    sendRequestToBackend()
-  },[page])
+  function changePage(page_no) {
+    sendRequestToBackend(page_no);
+  }
 
-  function sendRequestToBackend() {
-    console.log("init2")
+
+  function sendRequestToBackend(page_no='') {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
@@ -96,7 +96,7 @@ const ChatEngagement = () => {
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
       'endDate': endDate + ' ' + filters.endTime,
-      'page_no': page,
+      'page_no': page_no != ''?page_no:page,
       'conversation_id': filters.conversationId,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
@@ -210,7 +210,7 @@ const ChatEngagement = () => {
       <div className="abc py-5 mx-auto p-2">
                 <Filters
                   filters={filters}
-                  setFilters={() => updateFilterValue}
+                  setFilters={(obj) => updateFilterValue(obj)}
                   landingPage={landingPage}
                   total={total}
                 />
@@ -233,7 +233,7 @@ const ChatEngagement = () => {
         <CheckTable
             columnsData={columnsDataCheck}
             tableData={tableList}
-            setPage={setPage}
+            setPage={(page)=>{setPage(page);changePage(page)}}
             total={total}
             page={page}
             sortFunction={sortFunction}
