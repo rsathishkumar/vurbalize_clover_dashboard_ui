@@ -25,6 +25,7 @@ const Dashboard = () => {
     endTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
     conversationId: [],
     suId:[],
+    apptDate:{from:'',to:''},
     landingpage: '',
     sort: "DESC",
     sorting: 'logtime'
@@ -64,11 +65,12 @@ const Dashboard = () => {
       'startDate': startDate + ' ' + filters.startTime,
       'endDate': endDate + ' ' + filters.endTime,
       'page_no': page,
-      'conversation_id': filters.conversationId,
-      'su_id': filters.suId,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
-      'sorting': filters.sorting
+      'sorting': filters.sorting,
+      'conversation_id': filters.conversationId,
+      'su_id': filters.suId,
+      'apptDate': filters.apptDate
     }
     localStorage.setItem("filters", JSON.stringify(filters));
     getAllConversations(object)

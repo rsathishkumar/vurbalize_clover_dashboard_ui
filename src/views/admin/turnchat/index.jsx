@@ -41,7 +41,9 @@ const TurnChat = () => {
     endDate: currentDate,
     startTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
     endTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
-    conversationId: '',
+    conversationId: [],
+    suId:[],
+    apptDate:{from:'',to:''},
     landingpage: '',
     sort: "DESC",
     sorting: 'logtime',
@@ -49,7 +51,19 @@ const TurnChat = () => {
   })
 
   useEffect(() => {
-    __init()
+    var localstorage = localStorage.getItem('filters')
+    if (localstorage !== "") {
+      var filters = JSON.parse(localStorage.filters);
+      filters.startDate = new Date(filters.startDate)
+      filters.endDate = new Date(filters.endDate)
+      filters.reporttype = 'weekly'
+      console.log(filters)
+      setFilters(filters)
+      return;
+    }
+    else {
+      __init()
+    }
   },[])
 
 
@@ -86,9 +100,11 @@ const TurnChat = () => {
       'landingpage': filters.landingpage,
       'sort': filters.sort,
       'sorting': filters.sorting,
-      'reporttype': filters.reporttype
+      'reporttype': filters.reporttype,
+      'conversation_id': filters.conversationId,
+      'su_id': filters.suId,
+      'apptDate': filters.apptDate
     }
-    localStorage.setItem("filters", JSON.stringify(filters));
     getAllConversations(object)
     getChatConversationChartMetrics(object);
   }

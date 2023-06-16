@@ -57,6 +57,10 @@ input:checked.defaultCheckbox::before {
 	min-width: 45px;
 }
 
+.advanced_filters .react-time-picker__inputGroup {
+	min-width: max-content;
+}
+
 .filters .react-time-picker__inputGroup__hour {
 	padding-right:8px;
 }

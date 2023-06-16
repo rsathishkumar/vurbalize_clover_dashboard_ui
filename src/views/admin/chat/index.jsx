@@ -111,7 +111,7 @@ const Chat = () => {
                 var message = row.message.replace("User received message", "")
                 message = message.replace("User send message", "")
                 message = message.replace(/['"]+/g, '')
-                if (row.turn_actor === "bot") {
+                if (row.turn_actor === "bot" || row.turn_actor === "welcome") {
                   let isRating = true;
                   let isEvaluator = false;
                   if ((row.user_rating === null || row.user_rating === 0) && (row.user_feedback === null || row.user_feedback === '')) {

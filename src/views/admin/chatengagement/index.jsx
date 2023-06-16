@@ -41,7 +41,9 @@ const ChatEngagement = () => {
     endDate: currentDate,
     startTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
     endTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
-    conversationId: '',
+    conversationId: [],
+    suId:[],
+    apptDate:{from:'',to:''},
     landingpage: '',
     sort: "DESC",
     sorting: 'logtime',
@@ -49,7 +51,19 @@ const ChatEngagement = () => {
   })
 
   useEffect(() => {
-    __init()
+    var localstorage = localStorage.getItem('filters')
+    if (localstorage !== "") {
+      var filters = JSON.parse(localStorage.filters);
+      filters.startDate = new Date(filters.startDate)
+      filters.endDate = new Date(filters.endDate)
+      filters.reporttype = 'weekly'
+      console.log(filters)
+      setFilters(filters)
+      return;
+    }
+    else {
+      __init()
+    }
   },[])
 
 
@@ -74,6 +88,7 @@ const ChatEngagement = () => {
   },[page])
 
   function sendRequestToBackend() {
+    console.log("init2")
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
@@ -86,14 +101,17 @@ const ChatEngagement = () => {
       'landingpage': filters.landingpage,
       'sort': filters.sort,
       'sorting': filters.sorting,
-      'reporttype': filters.reporttype
+      'reporttype': filters.reporttype,
+      'conversation_id': filters.conversationId,
+      'su_id': filters.suId,
+      'apptDate': filters.apptDate
     }
-    localStorage.setItem("filters", JSON.stringify(filters));
     getAllConversations(object)
     getChatConversationChartMetrics(object);
   }
 
   async function __init() {
+
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
@@ -192,7 +210,7 @@ const ChatEngagement = () => {
       <div className="abc py-5 mx-auto p-2">
                 <Filters
                   filters={filters}
-                  setFilters={updateFilterValue}
+                  setFilters={() => updateFilterValue}
                   landingPage={landingPage}
                   total={total}
                 />

@@ -41,13 +41,23 @@ const Feedback = (props) => {
     <div className="absolute right-[20px] gap-[8px] flex bottom-[-30px] z-10">
       <div className={`thumbs_up cursor-pointer ${props.row.evaluator_rating === "1"?"selected":""}`} 
             onClick={() => {
-              props.submitFeedback("1", props.row.turn_id, props.row.conversation_id)
+              if (props.row.evaluator_rating === "1") {
+                props.submitFeedback("0", props.row.turn_id, props.row.conversation_id)
+              }
+              else {
+                props.submitFeedback("1", props.row.turn_id, props.row.conversation_id)
+              }
             }}>
               {props.row.evaluator_rating === "1"? showThumbsUpSelected():showThumbsUp()}
           </div>
           <div className={`thumbs_down rotate-180 cursor-pointer ${props.row.evaluator_rating === "-1"?"selected":""}`} 
             onClick={() => {
-              props.submitFeedback("-1", props.row.turn_id, props.row.conversation_id)
+              if (props.row.evaluator_rating === "-1") {
+                props.submitFeedback("0", props.row.turn_id, props.row.conversation_id)
+              }
+              else {
+                props.submitFeedback("-1", props.row.turn_id, props.row.conversation_id)
+              }
             }}>
               {props.row.evaluator_rating === "-1"? showThumbsUpSelected():showThumbsUp()}
           </div>
