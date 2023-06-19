@@ -145,7 +145,7 @@ const ChatEngagement = () => {
   }
 
   function getAllConversations(object) {
-
+    object['page_type'] = "engage";
     fetch(`${process.env.REACT_APP_APIURL}/conversation_engaged_list`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},
