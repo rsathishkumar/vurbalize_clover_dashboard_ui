@@ -68,6 +68,7 @@ const ChatRating = () => {
       filters.reporttype = 'weekly'
       console.log(filters)
       updateFilterValue(filters)
+      getAllLandingPages();
       return;
     }
     else {

@@ -67,6 +67,7 @@ const Leads = () => {
       filters.reporttype = 'weekly'
       console.log(filters)
       updateFilterValue(filters)
+      getAllLandingPages();
       return;
     }
     else {
