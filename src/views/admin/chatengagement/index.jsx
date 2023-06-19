@@ -44,6 +44,12 @@ const ChatEngagement = () => {
     endTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
     conversationId: [],
     suId:[],
+    turnID:{},
+    convT2A:{},
+    convOutcome:[],
+    MarketoLead:[],
+    chatRating:{},
+    chatFeedback:[],
     apptDate:{from:'',to:''},
     landingpage: '',
     sort: "DESC",
@@ -97,14 +103,19 @@ const ChatEngagement = () => {
       'startDate': startDate + ' ' + filters.startTime,
       'endDate': endDate + ' ' + filters.endTime,
       'page_no': page_no != ''?page_no:page,
-      'conversation_id': filters.conversationId,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
       'sorting': filters.sorting,
       'reporttype': filters.reporttype,
       'conversation_id': filters.conversationId,
       'su_id': filters.suId,
-      'apptDate': filters.apptDate
+      'apptDate': filters.apptDate,
+      'turn_id':filters.turnID,
+      'convT2A':filters.convT2A,
+      'convOutcome':filters.convOutcome,
+      'MarketoLead':filters.MarketoLead,
+      'chatRating':filters.chatRating,
+      'chatFeedback':filters.chatFeedback,
     }
     getAllConversations(object)
     getChatConversationChartMetrics(object);
@@ -213,6 +224,7 @@ const ChatEngagement = () => {
                   setFilters={(obj) => updateFilterValue(obj)}
                   landingPage={landingPage}
                   total={total}
+                  filterChange={filterChange}
                 />
       </div>
 

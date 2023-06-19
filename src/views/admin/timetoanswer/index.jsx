@@ -20,6 +20,7 @@ const TimetoAnswer = () => {
   const [columnsDataCheck, setColumnsDataCheck] = useState(false);
   const [isAsending, setIsAsending] = useState(false)
   const [xaxis, setXaxis] = useState([]);
+  const [filterChange, setFilterChange] = useState(false);
   const [lineChartDataTotalSpent, setLineChartDataTotalSpent] = useState(
     {
       options: {
@@ -43,6 +44,12 @@ const TimetoAnswer = () => {
     endTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
     conversationId: [],
     suId:[],
+    turnID:{},
+    convT2A:{},
+    convOutcome:[],
+    MarketoLead:[],
+    chatRating:{},
+    chatFeedback:[],
     apptDate:{from:'',to:''},
     landingpage: '',
     sort: "DESC",
@@ -58,7 +65,7 @@ const TimetoAnswer = () => {
       filters.endDate = new Date(filters.endDate)
       filters.reporttype = 'weekly'
       console.log(filters)
-      setFilters(filters)
+      updateFilterValue(filters)
       return;
     }
     else {
@@ -72,22 +79,21 @@ const TimetoAnswer = () => {
       ...prevState,
       ...obj
     }));
+    setFilterChange(true)
   }
 
   useEffect(() => {
-    if (page === 1) {
+    if (filterChange === true) {
+      setFilterChange(false);
       sendRequestToBackend()
     }
-    else {
-      setPage(1);
-    }
-  },[filters])
+  },[filterChange])
 
-  useEffect(() => {
-    sendRequestToBackend()
-  },[page])
+  function changePage(page_no) {
+    sendRequestToBackend(page_no);
+  }
 
-  function sendRequestToBackend() {
+  function sendRequestToBackend(page_no='') {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
@@ -95,15 +101,20 @@ const TimetoAnswer = () => {
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
       'endDate': endDate + ' ' + filters.endTime,
-      'page_no': page,
-      'conversation_id': filters.conversationId,
+      'page_no': page_no != ''?page_no:page,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
       'sorting': filters.sorting,
       'reporttype': filters.reporttype,
       'conversation_id': filters.conversationId,
       'su_id': filters.suId,
-      'apptDate': filters.apptDate
+      'apptDate': filters.apptDate,
+      'turn_id':filters.turnID,
+      'convT2A':filters.convT2A,
+      'convOutcome':filters.convOutcome,
+      'MarketoLead':filters.MarketoLead,
+      'chatRating':filters.chatRating,
+      'chatFeedback':filters.chatFeedback,
     }
     getAllConversations(object)
     getChatConversationChartMetrics(object);
@@ -211,6 +222,7 @@ const TimetoAnswer = () => {
                   setFilters={updateFilterValue}
                   landingPage={landingPage}
                   total={total}
+                  filterChange={filterChange}
                 />
       </div>
 
@@ -231,7 +243,7 @@ const TimetoAnswer = () => {
         <CheckTable
             columnsData={columnsDataCheck}
             tableData={tableList}
-            setPage={setPage}
+            setPage={(page)=>{setPage(page);changePage(page)}}
             total={total}
             page={page}
             sortFunction={sortFunction}

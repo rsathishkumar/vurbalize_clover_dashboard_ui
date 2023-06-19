@@ -141,6 +141,15 @@ input[type=number]::-webkit-outer-spin-button * {
     top: 50%;
     transform: translateY(-50%) rotate(45deg);
 }
+.checkboxFilterOption_black::before {
+	border: 2px solid #000;
+	top: 12px;
+}
+.checkboxFilter_black::after {
+    border-bottom: 2px solid #000;
+    border-right: 2px solid #000;
+	top: 12px;
+}
 .react-time-picker__clock { display: none; }
 
 

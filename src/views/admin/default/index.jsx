@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [page, setPage] = useState(1);
   const [columnsDataCheck, setColumnsDataCheck] = useState(false);
   const [isAsending, setIsAsending] = useState(false)
+  const [filterChange, setFilterChange] = useState(false);
   const [filters, setFilters] = useState({
     startDate: currentDate - (30 * 24 * 60 * 60 * 1000),
     endDate: currentDate,
@@ -25,6 +26,12 @@ const Dashboard = () => {
     endTime: currentDate.getUTCHours() + ":" + currentDate.getUTCMinutes(),
     conversationId: [],
     suId:[],
+    turnID:{},
+    convT2A:{},
+    convOutcome:[],
+    MarketoLead:[],
+    chatRating:{},
+    chatFeedback:[],
     apptDate:{from:'',to:''},
     landingpage: '',
     sort: "DESC",
@@ -32,7 +39,19 @@ const Dashboard = () => {
   })
 
   useEffect(() => {
-        __init()
+    var localstorage = localStorage.getItem('filters')
+    if (localstorage !== "") {
+      var filters = JSON.parse(localStorage.filters);
+      filters.startDate = new Date(filters.startDate)
+      filters.endDate = new Date(filters.endDate)
+      filters.reporttype = 'weekly'
+      console.log(filters)
+      updateFilterValue(filters)
+      return;
+    }
+    else {
+      __init()
+    }
   },[])
 
 
@@ -41,22 +60,21 @@ const Dashboard = () => {
       ...prevState,
       ...obj
     }));
+    setFilterChange(true)
   }
 
   useEffect(() => {
-    if (page === 1) {
+    if (filterChange === true) {
+      setFilterChange(false);
       sendRequestToBackend()
     }
-    else {
-      setPage(1);
-    }
-  },[filters])
+  },[filterChange])
 
-  useEffect(() => {
-    sendRequestToBackend()
-  },[page])
+  function changePage(page_no) {
+    sendRequestToBackend(page_no);
+  }
 
-  function sendRequestToBackend() {
+  function sendRequestToBackend(page_no='') {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
@@ -64,13 +82,19 @@ const Dashboard = () => {
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
       'endDate': endDate + ' ' + filters.endTime,
-      'page_no': page,
+      'page_no': page_no != ''?page_no:page,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
       'sorting': filters.sorting,
       'conversation_id': filters.conversationId,
       'su_id': filters.suId,
-      'apptDate': filters.apptDate
+      'apptDate': filters.apptDate,
+      'turn_id':filters.turnID,
+      'convT2A':filters.convT2A,
+      'convOutcome':filters.convOutcome,
+      'MarketoLead':filters.MarketoLead,
+      'chatRating':filters.chatRating,
+      'chatFeedback':filters.chatFeedback,
     }
     localStorage.setItem("filters", JSON.stringify(filters));
     getAllConversations(object)
@@ -161,9 +185,10 @@ const Dashboard = () => {
       <div className="abc py-5 mx-auto p-2">
                 <Filters
                   filters={filters}
-                  setFilters={updateFilterValue}
+                  setFilters={(obj) => updateFilterValue(obj)}
                   landingPage={landingPage}
                   total={total}
+                  filterChange={filterChange}
                 />
       </div>
 
@@ -220,7 +245,7 @@ const Dashboard = () => {
           <CheckTable
             columnsData={columnsDataCheck}
             tableData={tableList}
-            setPage={setPage}
+            setPage={(page)=>{setPage(page);changePage(page)}}
             total={total}
             page={page}
             sortFunction={sortFunction}
