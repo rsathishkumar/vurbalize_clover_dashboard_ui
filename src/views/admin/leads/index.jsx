@@ -143,7 +143,7 @@ const Leads = () => {
   }
 
   function getAllConversations(object) {
-
+    object['page_type'] = "leads";
     fetch(`${process.env.REACT_APP_APIURL}/conversation_engaged_list`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},

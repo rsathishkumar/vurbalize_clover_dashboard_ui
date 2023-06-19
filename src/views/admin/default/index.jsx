@@ -210,6 +210,7 @@ const Dashboard = () => {
         <Widget
           icon={<ChatIcon className="h-7 w-7 text-white" />}
           title={"Chat Engagement"}
+          url={"/admin/chat_engagement"}
           subtitle={
             (metrics.user_engaged != null && metrics.user_engaged != 0)?
               (metrics.user_engaged/metrics.unique_conversation).toFixed(2) + '%':"-"
@@ -218,6 +219,7 @@ const Dashboard = () => {
         <Widget
           icon={<ChatConversionIcon className="h-6 w-6 text-white" />}
           title={"Chat Conversion"}
+          url={"/admin/chat_conversation"}
           subtitle={
             (metrics.unique_conversation != null && metrics.unique_conversation != 0)?
               (metrics.unique_conversation/metrics.unique_session).toFixed(2) + "%":"-"
@@ -226,6 +228,7 @@ const Dashboard = () => {
         <Widget
           icon={<ChatRatingIcon className="h-7 w-7 text-white" />}
           title={"Chat Rating"}
+          url={"/admin/chat_rating"}
           subtitle={
             (metrics.distinct_conversation_rating != null && metrics.distinct_conversation_rating != 0)?
               (metrics.total_rating/metrics.distinct_conversation_rating).toFixed(2) + '%':"-"
@@ -234,6 +237,7 @@ const Dashboard = () => {
         <Widget
           icon={<ChatLeadIcon className="h-6 w-6" />}
           title={"Leads per 1000 visitors"}
+          url={"/admin/leads"}
           subtitle={
             (metrics.unique_conversation != null && metrics.leads != 0)?
               (metrics.leads/metrics.user_engaged).toFixed(2) + '%':"-"
@@ -242,6 +246,7 @@ const Dashboard = () => {
         <Widget
           icon={<TurnsChatIcon className="h-7 w-7" />}
           title={"Avg # of turns/chats"}
+          url={"/admin/time_to_answer"}
           subtitle={
             (metrics.unique_conversation != null && metrics.unique_conversation != 0) && metrics.turn_count != 0?
               (((metrics.unique_su_id/metrics.turn_count) / metrics.unique_conversation)).toFixed(5) + "%":"-"
@@ -250,6 +255,7 @@ const Dashboard = () => {
         <Widget
           icon={<AvgTimeIcon className="h-6 w-6" />}
           title={"Avg time to answer"}
+          url={"/admin/turn_chat"}
           subtitle={(metrics.avg_turn_time != null?metrics.avg_turn_time+'s':"-")}
         />
       </div>

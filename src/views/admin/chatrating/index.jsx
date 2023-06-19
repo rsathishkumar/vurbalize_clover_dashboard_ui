@@ -146,7 +146,7 @@ const ChatRating = () => {
   }
 
   function getAllConversations(object) {
-
+    object['page_type'] = "rating";
     fetch(`${process.env.REACT_APP_APIURL}/conversation_engaged_list`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},
