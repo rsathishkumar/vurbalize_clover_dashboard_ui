@@ -50,8 +50,9 @@ const TimetoAnswer = () => {
     MarketoLead:[],
     chatRating:{},
     chatFeedback:[],
+    utmParam:[],
     apptDate:{from:'',to:''},
-    landingpage: '',
+    landingpage: [],
     sort: "DESC",
     sorting: 'logtime',
     reporttype: 'weekly'
@@ -111,6 +112,7 @@ const TimetoAnswer = () => {
       'apptDate': filters.apptDate,
       'turn_id':filters.turnID,
       'convT2A':filters.convT2A,
+      'utmParam':filters.utmParam,
       'convOutcome':filters.convOutcome,
       'MarketoLead':filters.MarketoLead,
       'chatRating':filters.chatRating,

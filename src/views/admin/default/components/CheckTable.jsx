@@ -42,14 +42,14 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>conv_user_rating</a>
+                    <a href="#" onClick={() => props.sortFunction('user_rating')}>conv_user_rating</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('turn_user,bot_turn')}>conv_outcome</a>
+                    <a href="#" onClick={() => props.sortFunction('conv_outcome')}>conv_outcome</a>
                   </div>
                 </th>
                 <th
@@ -70,14 +70,14 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('total_words_in_message_bot')}>conv_avg_userwords_perturn</a>
+                    <a href="#" onClick={() => props.sortFunction('avg_user_words')}>conv_avg_userwords_perturn</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('total_words_in_message_bot')}>conv_avg_agentwords_perturn</a>
+                    <a href="#" onClick={() => props.sortFunction('avg_bot_words')}>conv_avg_agentwords_perturn</a>
                   </div>
                 </th>
                 <th
@@ -112,7 +112,7 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('calendly_link')}>calendly_link</a>
+                    <a href="#" onClick={() => props.sortFunction('leads')}>calendly_link</a>
                   </div>
                 </th>
                 <th

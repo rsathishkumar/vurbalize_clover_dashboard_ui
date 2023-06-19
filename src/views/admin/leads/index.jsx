@@ -51,7 +51,8 @@ const Leads = () => {
     chatRating:{},
     chatFeedback:[],
     apptDate:{from:'',to:''},
-    landingpage: '',
+    utmParam:[],
+    landingpage: [],
     sort: "DESC",
     sorting: 'logtime',
     reporttype: 'weekly'
@@ -111,6 +112,7 @@ const Leads = () => {
       'apptDate': filters.apptDate,
       'turn_id':filters.turnID,
       'convT2A':filters.convT2A,
+      'utmParam':filters.utmParam,
       'convOutcome':filters.convOutcome,
       'MarketoLead':filters.MarketoLead,
       'chatRating':filters.chatRating,

@@ -1,10 +1,16 @@
 import {useEffect, useState} from 'react'
 import MarketIcon from "components/icons/MarketIcon";
 import ChatIcon from "components/icons/ChatIcon";
+import ChatConversionIcon from "components/icons/ChatConversionIcon";
+import ChatRatingIcon from "components/icons/ChatRatingIcon";
+import ChatLeadIcon from "components/icons/ChatLeadIcon";
+import TurnsChatIcon from "components/icons/TurnsChatIcon";
+import AvgTimeIcon from "components/icons/AvgTimeIcon";
 import Filters from "../../../components/filters";
 
 import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
+import { MdLastPage } from 'react-icons/md';
 
 const currentTimeMillis = new Date().getTime();
 const currentDate = new Date(currentTimeMillis);
@@ -33,20 +39,22 @@ const Dashboard = () => {
     chatRating:{},
     chatFeedback:[],
     apptDate:{from:'',to:''},
-    landingpage: '',
+    utmParam:[],
+    landingpage: [],
     sort: "DESC",
     sorting: 'logtime'
   })
 
   useEffect(() => {
     var localstorage = localStorage.getItem('filters')
-    if (localstorage !== "") {
+    if (localstorage !== "" && localstorage !== null) {
       var filters = JSON.parse(localStorage.filters);
       filters.startDate = new Date(filters.startDate)
       filters.endDate = new Date(filters.endDate)
       filters.reporttype = 'weekly'
       console.log(filters)
       updateFilterValue(filters)
+      getAllLandingPages();
       return;
     }
     else {
@@ -60,11 +68,13 @@ const Dashboard = () => {
       ...prevState,
       ...obj
     }));
+    console.log("updated valeus1",obj)
     setFilterChange(true)
   }
 
   useEffect(() => {
     if (filterChange === true) {
+      console.log("updated valeus2",filters)
       setFilterChange(false);
       sendRequestToBackend()
     }
@@ -89,6 +99,7 @@ const Dashboard = () => {
       'conversation_id': filters.conversationId,
       'su_id': filters.suId,
       'apptDate': filters.apptDate,
+      'utmParam':filters.utmParam,
       'turn_id':filters.turnID,
       'convT2A':filters.convT2A,
       'convOutcome':filters.convOutcome,
@@ -160,7 +171,11 @@ const Dashboard = () => {
      }).then(response => response.json())
      .then(data => {
       const uniqueArray = Array.from(new Set(data));
-      setLandingPage(uniqueArray)
+      var list = []
+      uniqueArray.map((item,index) => {
+        list.push({"value":item, "label":item})
+      })
+      setLandingPage(list)
      })
      .catch((error) => {
       console.error(error);
@@ -177,7 +192,6 @@ const Dashboard = () => {
     await setIsAsending(!asending)
     updateFilterValue({'sort':(asending?"ASC":"DESC"), 'sorting':field})
   }
-
 
   return (
     <div>
@@ -202,7 +216,7 @@ const Dashboard = () => {
             }
         />
         <Widget
-          icon={<MarketIcon className="h-6 w-6 text-white" />}
+          icon={<ChatConversionIcon className="h-6 w-6 text-white" />}
           title={"Chat Conversion"}
           subtitle={
             (metrics.unique_conversation != null && metrics.unique_conversation != 0)?
@@ -210,15 +224,15 @@ const Dashboard = () => {
             }
         />
         <Widget
-          icon={<MarketIcon className="h-7 w-7 text-white" />}
-          title={"Chat Ratings"}
+          icon={<ChatRatingIcon className="h-7 w-7 text-white" />}
+          title={"Chat Rating"}
           subtitle={
             (metrics.distinct_conversation_rating != null && metrics.distinct_conversation_rating != 0)?
               (metrics.total_rating/metrics.distinct_conversation_rating).toFixed(2) + '%':"-"
             }
         />
         <Widget
-          icon={<MarketIcon className="h-6 w-6" />}
+          icon={<ChatLeadIcon className="h-6 w-6" />}
           title={"Leads per 1000 visitors"}
           subtitle={
             (metrics.unique_conversation != null && metrics.leads != 0)?
@@ -226,15 +240,15 @@ const Dashboard = () => {
             }
         />
         <Widget
-          icon={<MarketIcon className="h-7 w-7" />}
+          icon={<TurnsChatIcon className="h-7 w-7" />}
           title={"Avg # of turns/chats"}
           subtitle={
-            (metrics.unique_conversation != null && metrics.unique_conversation != 0)?
+            (metrics.unique_conversation != null && metrics.unique_conversation != 0) && metrics.turn_count != 0?
               (((metrics.unique_su_id/metrics.turn_count) / metrics.unique_conversation)).toFixed(5) + "%":"-"
             }
         />
         <Widget
-          icon={<MarketIcon className="h-6 w-6" />}
+          icon={<AvgTimeIcon className="h-6 w-6" />}
           title={"Avg time to answer"}
           subtitle={(metrics.avg_turn_time != null?metrics.avg_turn_time+'s':"-")}
         />

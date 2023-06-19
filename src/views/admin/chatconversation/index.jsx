@@ -25,14 +25,14 @@ const ChatConversation = () => {
     {
       options: {
         chart: {
-          id: 'chatconversation'
+          id: 'chatconversion'
         },
         xaxis: {
           categories: []
         }
       },
       series: [{
-        name: 'Chat Conversation',
+        name: 'Chat Conversion',
         data: []
       }]
     }
@@ -51,7 +51,8 @@ const ChatConversation = () => {
     chatRating:{},
     chatFeedback:[],
     apptDate:{from:'',to:''},
-    landingpage: '',
+    utmParam:[],
+    landingpage: [],
     sort: "DESC",
     sorting: 'logtime',
     reporttype: 'weekly'
@@ -112,6 +113,7 @@ const ChatConversation = () => {
       'turn_id':filters.turnID,
       'convT2A':filters.convT2A,
       'convOutcome':filters.convOutcome,
+      'utmParam':filters.utmParam,
       'MarketoLead':filters.MarketoLead,
       'chatRating':filters.chatRating,
       'chatFeedback':filters.chatFeedback,

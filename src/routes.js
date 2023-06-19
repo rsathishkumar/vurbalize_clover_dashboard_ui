@@ -42,7 +42,7 @@ const routes = [
     secondary: true,
   },
   {
-    name: "Chat Conversation",
+    name: "Chat Conversion",
     layout: "/admin",
     path: "chat_conversation",
     component: <ChatConversation />,
