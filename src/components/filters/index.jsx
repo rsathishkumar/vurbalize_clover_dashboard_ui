@@ -618,9 +618,9 @@ const Filters = (props) => {
                     <AiOutlinePlus />
                     Add Filters
                 </button>
-
                 {filterOptionsShow &&
-                    <div className="absolute bg-green-900 rounded font-poppins font-normal text-base text-white flex flex-col gap-y-4 top-12 w-60 z-10 py-2 px-2">
+                    <div className="absolute bg-green-900 rounded font-poppins font-normal text-base text-white top-12 w-60 z-10 py-2 px-2">
+                        <div className="max-h-80 overflow-scroll px-4 flex flex-col gap-y-4">
                         {checkedList.map(({ id, name, checked, label }) => (
                             <label
                                 htmlFor={id}
@@ -641,7 +641,7 @@ const Filters = (props) => {
                             </label>
 
                         ))}
-
+                        </div>
                         {checkedList.map(({ id, name, checked, type }) => {
                             if (checked && type === 'multilist') {
                                 return (
