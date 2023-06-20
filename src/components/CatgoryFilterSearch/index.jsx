@@ -73,7 +73,6 @@ const CatgoryFilterSearch = (props) => {
           console.error(error);
         });
       }
-    
 
 
     return (

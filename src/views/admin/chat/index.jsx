@@ -12,6 +12,7 @@ const Chat = () => {
   const [indexValue, setIndexValue] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
   const [selectedTurnid, setSelectedTurnid] = useState(-1)
+  const [userRating, setUserRating] = useState({user_rating:'', user_feedback:''})
 
   useEffect(() => {
     __init()
@@ -33,7 +34,8 @@ const Chat = () => {
       body: JSON.stringify(object)
     }).then(response => response.json())
       .then(data => {
-        setConversationList(data)
+        setConversationList(data[0]['record'])
+        setUserRating({user_rating:data[0]['rating_record'][0]['user_rating'], user_feedback:data[0]['rating_record'][0]['user_feedback']})
       })
       .catch((error) => {
         console.error(error);
@@ -188,6 +190,16 @@ const Chat = () => {
                 </button>
               </div>
             */}
+                {userRating.user_rating != '' && (
+                  <div className="flex w-full my-2 space-x-3 max-w-md ml-auto">
+                      <span className="text-base font-normal text-right font-TimesNewRoman"> User Rating: {userRating['user_rating']}</span>
+                </div>
+                )}
+                {userRating.user_feedback != '' && (
+                  <div className="flex w-full my-2 space-x-3 max-w-md ml-auto">
+                      <span className="text-base font-normal text-right font-TimesNewRoman"> User Feedback: {userRating['user_feedback']}</span>
+                </div>
+                )}
             </div>
           </div>
         </div>
