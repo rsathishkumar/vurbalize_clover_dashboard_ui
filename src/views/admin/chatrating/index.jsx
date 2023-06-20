@@ -52,7 +52,17 @@ const ChatRating = () => {
     chatRating:{},
     chatFeedback:[],
     apptDate:{from:'',to:''},
-    utmParam:[],
+    utm_source:[],
+    utm_medium:[],
+    utm_campaign:[],
+    utm_placement:[],
+    utm_term:[],
+    utm_content:[],
+    utm_adplacement:[],
+    utm_match:[],
+    utm_device:[],
+    utm_location:[],
+    utm_target:[],
     landingpage: [],
     sort: "DESC",
     sorting: 'logtime',
@@ -116,14 +126,24 @@ const ChatRating = () => {
       'apptDate': filters.apptDate,
       'turn_id':filters.turnID,
       'convT2A':filters.convT2A,
-      'utmParam':filters.utmParam,
       'convOutcome':filters.convOutcome,
       'MarketoLead':filters.MarketoLead,
       'chatRating':filters.chatRating,
       'chatFeedback':filters.chatFeedback,
+      'utm_source':filters.utm_source,
+      'utm_medium':filters.utm_medium,
+      'utm_campaign':filters.utm_campaign,
+      'utm_placement':filters.utm_placement,
+      'utm_term':filters.utm_term,
+      'utm_content':filters.utm_content,
+      'utm_adplacement':filters.utm_adplacement,
+      'utm_match':filters.utm_match,
+      'utm_device':filters.utm_device,
+      'utm_location':filters.utm_location,
+      'utm_target':filters.utm_target
     }
-    getAllConversations(object)
     getChatConversationChartMetrics(object);
+    getAllConversations(object)
   }
 
   async function __init() {
@@ -140,8 +160,8 @@ const ChatRating = () => {
       'sorting': 'logtime',
       'reporttype': "weekly"
     }
-    await getAllConversations(object);
     await getChatConversationChartMetrics(object);
+    await getAllConversations(object);
     await getAllLandingPages();
   }
 

@@ -140,8 +140,8 @@ const TimetoAnswer = () => {
       'utm_location':filters.utm_location,
       'utm_target':filters.utm_target,  
     }
-    getAllConversations(object)
     getChatConversationChartMetrics(object);
+    getAllConversations(object)
   }
 
   async function __init() {
@@ -158,8 +158,8 @@ const TimetoAnswer = () => {
       'sorting': 'logtime',
       'reporttype': "weekly"
     }
-    await getAllConversations(object);
     await getChatConversationChartMetrics(object);
+    await getAllConversations(object);
     await getAllLandingPages();
   }
 

@@ -139,8 +139,8 @@ const TurnChat = () => {
       'chatRating':filters.chatRating,
       'chatFeedback':filters.chatFeedback,
     }
-    getAllConversations(object)
     getChatConversationChartMetrics(object);
+    getAllConversations(object)
   }
 
   async function __init() {
@@ -157,8 +157,8 @@ const TurnChat = () => {
       'sorting': 'logtime',
       'reporttype': "weekly"
     }
-    await getAllConversations(object);
     await getChatConversationChartMetrics(object);
+    await getAllConversations(object);
     await getAllLandingPages();
   }
 
