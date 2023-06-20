@@ -39,7 +39,17 @@ const Dashboard = () => {
     chatRating:{},
     chatFeedback:[],
     apptDate:{from:'',to:''},
-    utmParam:[],
+    utm_source:[],
+    utm_medium:[],
+    utm_campaign:[],
+    utm_placement:[],
+    utm_term:[],
+    utm_content:[],
+    utm_adplacement:[],
+    utm_match:[],
+    utm_device:[],
+    utm_location:[],
+    utm_target:[],
     landingpage: [],
     sort: "DESC",
     sorting: 'logtime'
@@ -106,6 +116,17 @@ const Dashboard = () => {
       'MarketoLead':filters.MarketoLead,
       'chatRating':filters.chatRating,
       'chatFeedback':filters.chatFeedback,
+      'utm_source':filters.utm_source,
+      'utm_medium':filters.utm_medium,
+      'utm_campaign':filters.utm_campaign,
+      'utm_placement':filters.utm_placement,
+      'utm_term':filters.utm_term,
+      'utm_content':filters.utm_content,
+      'utm_adplacement':filters.utm_adplacement,
+      'utm_match':filters.utm_match,
+      'utm_device':filters.utm_device,
+      'utm_location':filters.utm_location,
+      'utm_target':filters.utm_target,  
     }
     localStorage.setItem("filters", JSON.stringify(filters));
     getAllConversations(object)
@@ -213,7 +234,7 @@ const Dashboard = () => {
           url={"/admin/chat_engagement"}
           subtitle={
             (metrics.user_engaged != null && metrics.user_engaged != 0)?
-              (metrics.user_engaged/metrics.unique_conversation).toFixed(2) + '%':"-"
+              ((metrics.user_engaged/metrics.unique_conversation) * 100).toFixed(2) + '%':"-"
             }
         />
         <Widget
@@ -222,7 +243,7 @@ const Dashboard = () => {
           url={"/admin/chat_conversation"}
           subtitle={
             (metrics.unique_conversation != null && metrics.unique_conversation != 0)?
-              (metrics.unique_conversation/metrics.unique_session).toFixed(2) + "%":"-"
+              ((metrics.unique_conversation/metrics.unique_session) * 100).toFixed(2) + "%":"-"
             }
         />
         <Widget
@@ -231,7 +252,7 @@ const Dashboard = () => {
           url={"/admin/chat_rating"}
           subtitle={
             (metrics.distinct_conversation_rating != null && metrics.distinct_conversation_rating != 0)?
-              (metrics.total_rating/metrics.distinct_conversation_rating).toFixed(2) + '%':"-"
+              (metrics.total_rating/metrics.distinct_conversation_rating).toFixed(2):"-"
             }
         />
         <Widget
@@ -240,22 +261,22 @@ const Dashboard = () => {
           url={"/admin/leads"}
           subtitle={
             (metrics.unique_conversation != null && metrics.leads != 0)?
-              (metrics.leads/metrics.user_engaged).toFixed(2) + '%':"-"
+              (metrics.leads*1000/metrics.unique_conversation).toFixed(2):"-"
             }
         />
         <Widget
           icon={<TurnsChatIcon className="h-7 w-7" />}
           title={"Avg # of turns/chats"}
-          url={"/admin/time_to_answer"}
+          url={"/admin/turn_chat"}
           subtitle={
             (metrics.unique_conversation != null && metrics.unique_conversation != 0) && metrics.turn_count != 0?
-              (((metrics.unique_su_id/metrics.turn_count) / metrics.unique_conversation)).toFixed(5) + "%":"-"
+              ((metrics.turn_count / metrics.user_engaged)).toFixed(2):"-"
             }
         />
         <Widget
           icon={<AvgTimeIcon className="h-6 w-6" />}
+          url={"/admin/time_to_answer"}
           title={"Avg time to answer"}
-          url={"/admin/turn_chat"}
           subtitle={(metrics.avg_turn_time != null?metrics.avg_turn_time+'s':"-")}
         />
       </div>

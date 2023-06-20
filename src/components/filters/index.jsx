@@ -36,16 +36,26 @@ const Filters = (props) => {
     ));
     // ------------for date time and dropdown end ----------
     const checkboxFilterOptions = [
-        { id: 1, name: "conversation_id", label:"Conversation ID", type:'multilist' },
-        { id: 2, name: "su_id", label:"SuID", type:'multilist' },
+        { id: 1, name: "conversation_id", label:"Conversation #", type:'multilist' },
+        { id: 2, name: "su_id", label:"User #", type:'multilist' },
         { id: 3, name: "turnID", label:"Turn count", type:'numeric' },
-        { id: 4, name: "convT2A", label:"Conversation avg time", type:'numeric' },
-        { id: 5, name: "convOutcome", type:'category', label:"Conversation Outcome" },
+        { id: 4, name: "convT2A", label:"Time to Answer", type:'numeric' },
+        { id: 5, name: "convOutcome", type:'category', label:"Outcome" },
         { id: 6, name: "apptDate", type:'datetime', label:"Appointment Date" },
-        { id: 7, name: "MarketoLead", type:'multilist', label:"Marketo ID" },
-        { id: 8, name: "chatRating", type:'numeric', label:"Chat Rating" },
-        { id: 9, name: "chatFeedback", type:'multilist', label: "Chat Feedback" },
-        { id: 10, name: "utmParam", type:'multichoicelist', label: "UTM Params and values" },
+        { id: 7, name: "MarketoLead", type:'multilist', label:"Marketo Lead #" },
+        { id: 8, name: "chatRating", type:'numeric', label:"User Rating" },
+        { id: 9, name: "chatFeedback", type:'multilist', label: "User Feedback" },
+        { id: 10, name: "utm_source", type:'category', label: "UTM Source" },
+        { id: 11, name: "utm_medium", type:'category', label: "UTM medium" },
+        { id: 12, name: "utm_campaign", type:'category', label: "UTM campaign" },
+        { id: 13, name: "utm_placement", type:'category', label: "UTM placement" },
+        { id: 14, name: "utm_term", type:'category', label: "UTM term" },
+        { id: 15, name: "utm_content", type:'category', label: "UTM content" },
+        { id: 16, name: "utm_adplacement", type:'category', label: "UTM adplacement" },
+        { id: 17, name: "utm_match", type:'category', label: "UTM match" },
+        { id: 18, name: "utm_device", type:'category', label: "UTM device" },
+        { id: 19, name: "utm_location", type:'category', label: "UTM location" },
+        { id: 19, name: "utm_target", type:'category', label: "UTM target" },
     ];
     const [checkedList, setCheckedList] = useState(checkboxFilterOptions);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
@@ -59,7 +69,17 @@ const Filters = (props) => {
         'MarketoLead':[],
         'chatRating':{},
         'chatFeedback':[],
-        'utmParam':[],
+        'utm_source':[],
+        'utm_medium':[],
+        'utm_campaign':[],
+        'utm_placement':[],
+        'utm_term':[],
+        'utm_content':[],
+        'utm_adplacement':[],
+        'utm_match':[],
+        'utm_device':[],
+        'utm_location':[],
+        'utm_target':[]
     });
     const [showFiltersOptions, setShowFiltersOptions] = useState([]);
 
@@ -68,7 +88,8 @@ const Filters = (props) => {
     }, [props.filterChange])
 
     const __init = async () => {
-        const { conversationId, suId, apptDate, turnID,convT2A,convOutcome, MarketoLead, chatRating, chatFeedback, utmParam } = props.filters;
+        const { conversationId, suId, apptDate, turnID,convT2A,convOutcome, MarketoLead, chatRating, chatFeedback } = props.filters;
+        const { utm_source, utm_medium, utm_campaign, utm_placement,utm_term,utm_content, utm_adplacement, utm_match, utm_device, utm_location, utm_target } = props.filters;
         var key_values = {}
         var show_filters = []
 
@@ -87,9 +108,59 @@ const Filters = (props) => {
             show_filters.push('su_id');
         }
 
-        if (utmParam.length > 0) {
-            key_values['utmParam'] = utmParam;
-            show_filters.push('utmParam');
+        if (utm_source.length > 0) {
+            key_values['utm_source'] = utm_source;
+            show_filters.push('utm_source');
+        }
+
+        if (utm_medium.length > 0) {
+            key_values['utm_medium'] = utm_medium;
+            show_filters.push('utm_medium');
+        }
+
+        if (utm_campaign.length > 0) {
+            key_values['utm_campaign'] = utm_campaign;
+            show_filters.push('utm_campaign');
+        }
+
+        if (utm_placement.length > 0) {
+            key_values['utm_placement'] = utm_placement;
+            show_filters.push('utm_placement');
+        }
+
+        if (utm_term.length > 0) {
+            key_values['utm_term'] = utm_term;
+            show_filters.push('utm_term');
+        }
+
+        if (utm_adplacement.length > 0) {
+            key_values['utm_adplacement'] = utm_adplacement;
+            show_filters.push('utm_adplacement');
+        }
+
+        if (utm_match.length > 0) {
+            key_values['utm_match'] = utm_match;
+            show_filters.push('utm_match');
+        }
+
+        if (utm_content.length > 0) {
+            key_values['utm_content'] = utm_content;
+            show_filters.push('utm_content');
+        }
+
+        if (utm_device.length > 0) {
+            key_values['utm_device'] = utm_device;
+            show_filters.push('utm_device');
+        }
+
+        if (utm_location.length > 0) {
+            key_values['utm_location'] = utm_location;
+            show_filters.push('utm_location');
+        }
+
+        if (utm_target.length > 0) {
+            key_values['utm_target'] = utm_target;
+            show_filters.push('utm_target');
         }
 
         if (MarketoLead.length > 0) {
@@ -164,9 +235,6 @@ const Filters = (props) => {
         if (field_name === "su_id") {
             await props.setFilters({suId: list})
         }
-        if (field_name === "utmParam") {
-            await props.setFilters({utmParam: list})
-        }
         if (field_name === "MarketoLead") {
             await props.setFilters({MarketoLead: list})
         }
@@ -184,6 +252,39 @@ const Filters = (props) => {
         }
         if (field_name === "chatFeedback") {
             await props.setFilters({chatFeedback: list})
+        }
+        if (field_name === "utm_source") {
+            await props.setFilters({utm_source: list})
+        }
+        if (field_name === "utm_medium") {
+            await props.setFilters({utm_medium: list})
+        }
+        if (field_name === "utm_campaign") {
+            await props.setFilters({utm_campaign: list})
+        }
+        if (field_name === "utm_placement") {
+            await props.setFilters({utm_placement: list})
+        }
+        if (field_name === "utm_term") {
+            await props.setFilters({utm_term: list})
+        }
+        if (field_name === "utm_content") {
+            await props.setFilters({utm_content: list})
+        }
+        if (field_name === "utm_adplacement") {
+            await props.setFilters({utm_adplacement: list})
+        }
+        if (field_name === "utm_match") {
+            await props.setFilters({utm_match: list})
+        }
+        if (field_name === "utm_device") {
+            await props.setFilters({utm_device: list})
+        }
+        if (field_name === "utm_location") {
+            await props.setFilters({utm_location: list})
+        }
+        if (field_name === "utm_target") {
+            await props.setFilters({utm_target: list})
         }
         if (field_name === "apptDate") {
             var fromdate = '';
@@ -373,7 +474,7 @@ const Filters = (props) => {
 
                 </div>
                 <div className="basis-1/2">
-                    <p className="font-poppins font-medium text-sm text-secondaryColor pb-1">Pages
+                    <p className="font-poppins font-medium text-sm text-secondaryColor pb-1">Landing Pages
                     </p>
                     <ReactSelect
                     options={props.landingPage}
@@ -386,6 +487,7 @@ const Filters = (props) => {
                     onChange={(value) => handleChange(value)}
                     allowSelectAll={true}
                     value={props.filters.landingpage}
+                    placeholder="All"
                     />
                 </div>
             </div>
@@ -518,8 +620,8 @@ const Filters = (props) => {
                 </button>
 
                 {filterOptionsShow &&
-                    <div className="absolute bg-green-900 rounded font-poppins font-normal text-base text-white flex flex-col gap-y-4 top-12 w-52 z-10 py-2 px-2">
-                        {checkedList.map(({ id, name, checked }) => (
+                    <div className="absolute bg-green-900 rounded font-poppins font-normal text-base text-white flex flex-col gap-y-4 top-12 w-60 z-10 py-2 px-2">
+                        {checkedList.map(({ id, name, checked, label }) => (
                             <label
                                 htmlFor={id}
                                 className={`checkboxFilterOption relative cursor-pointer ${checked ? "checkboxFilter" : ""
@@ -535,7 +637,7 @@ const Filters = (props) => {
                                     onChange={() => checkboxClicked(id)}
                                     checked={checked}
                                 />
-                                {name}
+                                {label}
                             </label>
 
                         ))}
@@ -575,7 +677,6 @@ const Filters = (props) => {
                                 )
                             }
                             else if(checked && type === "category") {
-                                console.log("advanced filters", name)
                                 return (
                                     <CatgoryFilterSearch 
                                         field_name={name} 
@@ -583,11 +684,11 @@ const Filters = (props) => {
                                         submitListValues={(list, field_name) => submitListValues(list, field_name)} 
                                         currentValues={(showAdvancedFilters[name] !== undefined)?showAdvancedFilters[name]:{}} 
                                         closePopup={() => {console.log(id); checkboxClicked(id)}}
+                                        filters={props.filters}
                                     />
                                 )
                             }
                             else if(checked && type === "multichoicelist") {
-                                console.log("advanced filters", name)
                                 return (
                                     <MultiChoiceSearchText 
                                         field_name={name} 

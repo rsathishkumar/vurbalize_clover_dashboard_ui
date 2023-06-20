@@ -20,127 +20,127 @@ const CheckTable = (props) => {
                 <th
                   className="pl-[2px] text-center"
                   >
-                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
+                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
                     No.
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('i.conversation_id')}>Conversation_ID</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('i.conversation_id')}>Conversation #</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('logtime')}>conv_date_created</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('logtime')}>Date Created</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('user_rating')}>conv_user_rating</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('user_rating')}>User Rating</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('conv_outcome')}>conv_outcome</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('conv_outcome')}>Outcome</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('turn_user')}>turn_count</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('turn_user')}>Turn Count</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>conv_t2a</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>Time to Answer</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('avg_user_words')}>conv_avg_userwords_perturn</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('avg_user_words')}>Avg User Words/Turn</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('avg_bot_words')}>conv_avg_agentwords_perturn</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('avg_bot_words')}>Avg Agent Words/Turn</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('total_words_in_message_bot')}>conv_agent_totalwords</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('total_words_in_message_bot')}>Tot. Agent Words</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>marketo_lead_id</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>Marketo Lead #</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>appt_date</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>Appt. Date</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>appt_time</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>Appt. Time</a>
                   </div>
                 </th>                
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('leads')}>calendly_link</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('leads')}>Calendly</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('landing_page')}>LandingPage</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('landing_page')}>Landing Page</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('su_id')}>su_ID</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('su_id')}>User #</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('i.session_id')}>Session_ID</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('i.session_id')}>Session #</a>
                   </div>
                 </th>                
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1">
-                    <a href="#" onClick={() => props.sortFunction('referrer_id')}>referrer_id</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a href="#" onClick={() => props.sortFunction('referrer_id')}>Referrer</a>
                   </div>
                 </th>
               </tr>
