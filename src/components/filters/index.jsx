@@ -83,6 +83,24 @@ const Filters = (props) => {
     });
     const [showFiltersOptions, setShowFiltersOptions] = useState([]);
 
+
+    useEffect(() => {
+        const handleClick = async (e) => {
+            let l_tmp = e.target;
+            const parentWithClass = e.target.closest('div.dropdown-filters');
+            const parentWithClass2 = e.target.closest('div.react-datepicker');
+            console.log("parent found", parentWithClass)
+            if (parentWithClass === null && !l_tmp.classList.contains('dropdown-filters') && parentWithClass2 === null) {
+              setFilterOptionsShow(false)
+            }
+          };
+        document.addEventListener("click", handleClick);
+        
+        return () => {
+          document.removeEventListener('click',handleClick)
+        }
+    },[])
+
     useEffect(() => {
         __init();
     }, [props.filterChange])
@@ -614,17 +632,17 @@ const Filters = (props) => {
             }
             </div>
             <div className="relative">
-                <button onClick={() => setFilterOptionsShow(!filterOptionsShow)} className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-36 h-10">
+                <button onClick={() => setFilterOptionsShow(!filterOptionsShow)} className="dropdown-filters font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 w-36 h-10">
                     <AiOutlinePlus />
                     Add Filters
                 </button>
                 {filterOptionsShow &&
-                    <div className="absolute bg-green-900 rounded font-poppins font-normal text-base text-white top-12 w-60 z-10 py-2 px-2">
-                        <div className="max-h-80 overflow-scroll px-4 flex flex-col gap-y-4">
+                    <div className="absolute bg-green-900 rounded font-poppins font-normal text-base text-white top-12 w-60 z-10 py-2 px-2 dropdown-filters">
+                        <div className="max-h-80 overflow-scroll px-4 flex flex-col gap-y-4 dropdown-filters">
                         {checkedList.map(({ id, name, checked, label }) => (
                             <label
                                 htmlFor={id}
-                                className={`checkboxFilterOption relative cursor-pointer ${checked ? "checkboxFilter" : ""
+                                className={`dropdown-filters checkboxFilterOption relative cursor-pointer ${checked ? "checkboxFilter" : ""
                                     }`}
                                 key={id}
                             >
