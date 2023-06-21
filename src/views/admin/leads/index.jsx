@@ -219,7 +219,11 @@ const Leads = () => {
      }).then(response => response.json())
      .then(data => {
       const uniqueArray = Array.from(new Set(data));
-      setLandingPage(uniqueArray)
+      var list = []
+      uniqueArray.map((item,index) => {
+        list.push({"value":item, "label":item})
+      })
+      setLandingPage(list)
      })
      .catch((error) => {
       console.error(error);
