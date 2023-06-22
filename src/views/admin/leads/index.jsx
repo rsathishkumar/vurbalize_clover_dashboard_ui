@@ -70,7 +70,7 @@ const Leads = () => {
 
   useEffect(() => {
     var localstorage = localStorage.getItem('filters')
-    if (localstorage !== "") {
+    if (localstorage !== "" && localstorage !== null) {
       var filters = JSON.parse(localStorage.filters);
       filters.startDate = new Date(filters.startDate)
       filters.endDate = new Date(filters.endDate)
