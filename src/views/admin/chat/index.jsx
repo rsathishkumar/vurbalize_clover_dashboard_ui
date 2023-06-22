@@ -123,11 +123,12 @@ const Chat = () => {
                     isEvaluator = true;
                   }
                   return (
-                    <div className="flex mt-2 mb-2 space-x-3 max-w-md items-end" >
+                    <div className="relative">
+                    <div className="flex mt-6 mb-6 space-x-3 max-w-md items-end" >
                       <div className="flex-shrink-0 h-[26px] w-[26px] rounded-full flex items-center justify-center">
                         <img className="w-full" src={Icon} />
                       </div>
-                      <div>
+                      <div className="relative">
                         <div className="bg-[#F1F1F1] py-4 px-5 rounded-r-[20px] rounded-tl-[20px] relative" onClick={()=>{if(row.turn_id != selectedTurnid)setSelectedTurnid(row.turn_id)}}>
                           <span className="font-normal font-TimesNewRoman text-black text-base" dangerouslySetInnerHTML={{ __html: message }}></span>
                           {isRating && 
@@ -163,17 +164,19 @@ const Chat = () => {
                             }
                           </div>
                           }
-                          {!isRating && selectedTurnid === row.turn_id &&
-                            <Feedback submitFeedbackMessage={(feedback, turn_id, conversation_id) => submitFeedback('', turn_id, conversation_id, feedback)} submitFeedback={(rating, turn_id, conversation_id)=>submitFeedback(rating, turn_id, conversation_id)} row={row} />
-                          }
                         </div>
                       </div>
+                    </div>
+                    {!isRating && selectedTurnid === row.turn_id &&
+                            <Feedback submitFeedbackMessage={(feedback, turn_id, conversation_id) => submitFeedback('', turn_id, conversation_id, feedback)} submitFeedback={(rating, turn_id, conversation_id)=>submitFeedback(rating, turn_id, conversation_id)} row={row} />
+                          }
+
                     </div>
                   )
                 }
                 else {
                   return (
-                    <div className="flex w-full my-8 space-x-3 max-w-md ml-auto justify-end user-message">
+                    <div className="flex w-full my-1 space-x-3 max-w-md ml-auto justify-end user-message">
                       <div>
                         <div className="bg-green-900 py-4 px-5 text-white p-3 rounded-l-[20px] rounded-tr-[20px] user-message">
                           <span className="text-base font-normal text-right font-TimesNewRoman user-message"> {message}</span>

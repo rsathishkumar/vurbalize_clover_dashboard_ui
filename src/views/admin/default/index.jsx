@@ -242,8 +242,8 @@ const Dashboard = () => {
           title={"Chat Conversion"}
           url={"/admin/chat_conversation"}
           subtitle={
-            (metrics.unique_conversation != null && metrics.unique_conversation != 0)?
-              ((metrics.unique_conversation/metrics.unique_session) * 100).toFixed(2) + "%":"-"
+            (metrics.leads != null && metrics.user_engaged != 0)?
+              ((metrics.leads/metrics.user_engaged) * 100).toFixed(2) + "%":"-"
             }
         />
         <Widget

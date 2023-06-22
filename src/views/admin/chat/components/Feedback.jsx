@@ -28,17 +28,17 @@ const Feedback = (props) => {
   function feedbackDiv() {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 25 25" fill="none">
-      <path d="M21 13V7C21 5.11438 21 4.17157 20.4142 3.58579C19.8284 3 18.8856 3 17 3H7C5.11438 3 4.17157 3 3.58579 3.58579C3 4.17157 3 5.11438 3 7V13C3 14.8856 3 15.8284 3.58579 16.4142C4.17157 17 5.11438 17 7 17H7.5C7.77614 17 8 17.2239 8 17.5V20V20.1499C8 20.5037 8.40137 20.7081 8.6875 20.5L13.0956 17.2941C13.3584 17.103 13.675 17 14 17H17C18.8856 17 19.8284 17 20.4142 16.4142C21 15.8284 21 14.8856 21 13Z" stroke="#323232" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M8 10H8.01" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12 10H12.01" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M16 10H16.01" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M21 13V7C21 5.11438 21 4.17157 20.4142 3.58579C19.8284 3 18.8856 3 17 3H7C5.11438 3 4.17157 3 3.58579 3.58579C3 4.17157 3 5.11438 3 7V13C3 14.8856 3 15.8284 3.58579 16.4142C4.17157 17 5.11438 17 7 17H7.5C7.77614 17 8 17.2239 8 17.5V20V20.1499C8 20.5037 8.40137 20.7081 8.6875 20.5L13.0956 17.2941C13.3584 17.103 13.675 17 14 17H17C18.8856 17 19.8284 17 20.4142 16.4142C21 15.8284 21 14.8856 21 13Z" stroke="#323232" strokeWidth="2" stroke-linejoin="round"/>
+      <path d="M8 10H8.01" stroke="#323232" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round"/>
+      <path d="M12 10H12.01" stroke="#323232" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round"/>
+      <path d="M16 10H16.01" stroke="#323232" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round"/>
       </svg>
     )
   }
 
   return (
     <div>
-    <div className="absolute right-[20px] gap-[8px] flex bottom-[-30px] z-10">
+    <div className=" gap-[8px] flex z-10 justify-end mt-[-20px] mr-6">
       <div className={`thumbs_up cursor-pointer ${props.row.evaluator_rating === "1"?"selected":""}`} 
             onClick={() => {
               if (props.row.evaluator_rating === "1") {
@@ -71,10 +71,12 @@ const Feedback = (props) => {
           
     </div>
     {showFeedbackBox && 
-          <div className="absolute left-2 bottom-[-80px]">
-          <div className={`flex border-2 border-gray-600 rounded-md p-2 bg-white`}>
-            <textarea className="focus:outline-none pr-3 w-[250px]"  name="feedback" rows = "2" value={feedback} onChange={e => setFeedback(e.target.value)} required placeholder="Enter Feedback"></textarea>
-            <button type="button" onClick={()=>{setShowFeedbackBox(false);props.submitFeedbackMessage(feedback, props.row.turn_id, props.row.conversation_id);}} value="Go"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path d="M476.59,227.05l-.16-.07L49.35,49.84A23.56,23.56,0,0,0,27.14,52,24.65,24.65,0,0,0,16,72.59V185.88a24,24,0,0,0,19.52,23.57l232.93,43.07a4,4,0,0,1,0,7.86L35.53,303.45A24,24,0,0,0,16,327V440.31A23.57,23.57,0,0,0,26.59,460a23.94,23.94,0,0,0,13.22,4,24.55,24.55,0,0,0,9.52-1.93L476.4,285.94l.19-.09a32,32,0,0,0,0-58.8Z"/></svg></button>
+          <div className="py-4 ml-12 mr-6">
+          <div className={`flex border-2 border-gray-600 rounded-md p-2 bg-white items-center`}>
+            <textarea className="focus:outline-none pr-3 w-[350px]"  name="feedback" rows = "2" value={feedback} onChange={e => setFeedback(e.target.value)} required placeholder="Enter Feedback"></textarea>
+            <button type="button" onClick={()=>{setShowFeedbackBox(false);props.submitFeedbackMessage(feedback, props.row.turn_id, props.row.conversation_id);}} value="Go"
+            className="rounded-full bg-green-900 h-[30px] w-[30px] flex justify-center items-center"
+            ><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 512 512" fill="#FFFFFF"><path d="M476.59,227.05l-.16-.07L49.35,49.84A23.56,23.56,0,0,0,27.14,52,24.65,24.65,0,0,0,16,72.59V185.88a24,24,0,0,0,19.52,23.57l232.93,43.07a4,4,0,0,1,0,7.86L35.53,303.45A24,24,0,0,0,16,327V440.31A23.57,23.57,0,0,0,26.59,460a23.94,23.94,0,0,0,13.22,4,24.55,24.55,0,0,0,9.52-1.93L476.4,285.94l.19-.09a32,32,0,0,0,0-58.8Z"/></svg></button>
           </div>
           </div>
       }

@@ -147,7 +147,7 @@ const CheckTable = (props) => {
           </thead>
           <tbody>
             {tableData.map((row, index) => (  
-              <tr data-index={index + ((props.page - 1) * 25)}>  
+              <tr data-index={index + ((props.page - 1) * 25)} key={index}>  
               <td className="pl-2 text-sm">{(index+1) + ((props.page - 1) * 25)}</td>  
               <td className="pl-2 text-sm"><a href={`/chat/conversation?cid=${row.conversation_id}`} target="_blank" className="text-blueSecondary">{row.conversation_id}</a></td>  
               <td className="pl-2 text-sm">{row.logtime}</td>  

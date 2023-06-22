@@ -141,6 +141,7 @@ const ChatEngagement = () => {
       'utm_location':filters.utm_location,
       'utm_target':filters.utm_target,  
     }
+    localStorage.setItem("filters", JSON.stringify(filters));
     getChatConversationChartMetrics(object);
     getAllConversations(object)
   }

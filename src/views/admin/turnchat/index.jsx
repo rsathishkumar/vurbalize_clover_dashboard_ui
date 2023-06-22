@@ -139,6 +139,7 @@ const TurnChat = () => {
       'chatRating':filters.chatRating,
       'chatFeedback':filters.chatFeedback,
     }
+    localStorage.setItem("filters", JSON.stringify(filters));
     getChatConversationChartMetrics(object);
     getAllConversations(object)
   }
