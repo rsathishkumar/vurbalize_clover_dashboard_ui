@@ -242,7 +242,7 @@ const Dashboard = () => {
           title={"Chat Conversion"}
           url={"/admin/chat_conversation"}
           subtitle={
-            (metrics.leads !== null && metrics.user_engaged !== 0 && metrics.user_engaged !== null)?
+            (metrics.leads !== null && metrics.user_engaged !== 0 && metrics.user_engaged !== "0" && metrics.user_engaged !== null)?
               ((metrics.leads/metrics.user_engaged) * 100).toFixed(2) + "%":"-"
             }
         />
@@ -269,7 +269,7 @@ const Dashboard = () => {
           title={"Avg # of turns/chats"}
           url={"/admin/turn_chat"}
           subtitle={
-            (metrics.unique_conversation !== null && metrics.unique_conversation !== 0) && metrics.turn_count !== 0?
+            (metrics.unique_conversation !== null && metrics.unique_conversation !== 0) && metrics.turn_count !== 0 && metrics.user_engaged !== "0"?
               ((metrics.turn_count / metrics.user_engaged)).toFixed(2):"-"
             }
         />
