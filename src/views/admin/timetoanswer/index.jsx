@@ -1,11 +1,8 @@
 import {useEffect, useState} from 'react'
-import MarketIcon from "components/icons/MarketIcon";
-import ChatIcon from "components/icons/ChatIcon";
 import Filters from "../../../components/filters";
 import LineChart from "components/charts/LineChart";
 import Dropdown from 'react-dropdown';
 
-import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
 
 const currentTimeMillis = new Date().getTime();
@@ -13,7 +10,6 @@ const currentDate = new Date(currentTimeMillis);
 const TimetoAnswer = () => {
 
   const [tableList, setTableList] = useState([]);
-  const [metrics, setMetrics] = useState({});
   const [landingPage, setLandingPage] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -113,7 +109,7 @@ const TimetoAnswer = () => {
     let object = {
       'startDate': startDate + ' ' + filters.startTime,
       'endDate': endDate + ' ' + filters.endTime,
-      'page_no': page_no != ''?page_no:page,
+      'page_no': page_no !== ''?page_no:page,
       'landingpage': filters.landingpage,
       'sort': filters.sort,
       'sorting': filters.sorting,
@@ -259,7 +255,7 @@ const TimetoAnswer = () => {
       <div className=" w-1/4 pt-10 pb-0">
         <Dropdown options={['weekly', 'daily', 'monthly', 'yearly']} value={filters.reporttype} onChange={(e) => {updateFilterValue({reporttype: e.value})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
       </div>
-      <div className="h-[300px] w-2/4 pt-10 pb-0">
+      <div className={`h-[300px] ${filters.reporttype === 'daily'?"w-full":"w-2/4"} pt-10 pb-0`}>
       {xaxis &&
       <LineChart
         xaxis={xaxis}

@@ -258,7 +258,7 @@ const ChatConversation = () => {
       <div className=" w-1/4 pt-10 pb-0">
         <Dropdown options={['weekly', 'daily', 'monthly', 'yearly']} value={filters.reporttype} onChange={(e) => {updateFilterValue({reporttype: e.value})}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor" />
       </div>
-      <div className="h-[300px] w-2/4 pt-10 pb-0">
+      <div className={`h-[300px] ${filters.reporttype === 'daily'?"w-full":"w-2/4"} pt-10 pb-0`}>
       {xaxis &&
       <LineChart
         xaxis={xaxis}
