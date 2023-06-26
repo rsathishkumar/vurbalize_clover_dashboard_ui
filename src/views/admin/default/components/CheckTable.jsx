@@ -6,8 +6,10 @@ const CheckTable = (props) => {
   const { columnsData, tableData } = props;
 
   return (
-    <Card extra={"w-full h-full sm:overflow-auto shadow-none rounded-none mt-1"}>
-
+    <Card extra={"w-full h-full sm:overflow-auto shadow-none rounded-none mt-1 relative"}>
+      {props.isLoading && 
+        <div className="loading-container"> <div className="loading-div"></div></div>
+      }
       <div className="pt-4 overflow-x-scroll">
         <table
           className="w-full"
@@ -28,119 +30,119 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('i.conversation_id')}>Conversation #</a>
+                    <a className={`sorting ${props.filters.sorting === 'i.conversation_id'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('i.conversation_id')}>Conversation #</a>
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className={`text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap`}>
+                    <a className={`sorting ${props.filters.sorting === 'logtime'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('logtime')}>Date Created</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('logtime')}>Date Created</a>
+                    <a className={`sorting ${props.filters.sorting === 'user_rating'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('user_rating')}>User Rating</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('user_rating')}>User Rating</a>
+                    <a className={`sorting ${props.filters.sorting === 'conv_outcome'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_outcome')}>Outcome</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('conv_outcome')}>Outcome</a>
+                    <a className={`sorting ${props.filters.sorting === 'turn_user'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('turn_user')}>Turn Count</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('turn_user')}>Turn Count</a>
+                    <a className={`sorting ${props.filters.sorting === 'conv_rate'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_rate')}>Time to Answer</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>Time to Answer</a>
+                    <a className={`sorting ${props.filters.sorting === 'avg_user_words'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('avg_user_words')}>Avg User Words/Turn</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('avg_user_words')}>Avg User Words/Turn</a>
+                    <a className={`sorting ${props.filters.sorting === 'avg_bot_words'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('avg_bot_words')}>Avg Agent Words/Turn</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('avg_bot_words')}>Avg Agent Words/Turn</a>
+                    <a className={`sorting ${props.filters.sorting === 'total_words_in_message_bot'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('total_words_in_message_bot')}>Tot. Agent Words</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('total_words_in_message_bot')}>Tot. Agent Words</a>
+                    <a className={`sorting ${props.filters.sorting === 'conv_rate'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_rate')}>Marketo Lead #</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>Marketo Lead #</a>
+                    <a className={`sorting ${props.filters.sorting === 'conv_rate'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_rate')}>Appt. Date</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>Appt. Date</a>
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('conv_rate')}>Appt. Time</a>
+                    <a className={`sorting ${props.filters.sorting === 'conv_rate'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_rate')}>Appt. Time</a>
                   </div>
                 </th>                
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('leads')}>Calendly</a>
+                    <a className={`sorting ${props.filters.sorting === 'eads'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('leads')}>Calendly</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('landing_page')}>Landing Page</a>
+                    <a className={`sorting ${props.filters.sorting === 'landing_page'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('landing_page')}>Landing Page</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('su_id')}>User #</a>
+                    <a className={`sorting ${props.filters.sorting === 'su_id'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('su_id')}>User #</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('i.session_id')}>Session #</a>
+                    <a className={`sorting ${props.filters.sorting === 'i.session_id'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('i.session_id')}>Session #</a>
                   </div>
                 </th>                
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a href="#" onClick={() => props.sortFunction('referrer_id')}>Referrer</a>
+                    <a className={`sorting ${props.filters.sorting === 'referrer_id'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('referrer_id')}>Referrer</a>
                   </div>
                 </th>
               </tr>

@@ -11,6 +11,7 @@ import Filters from "../../../components/filters";
 import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
 import { MdLastPage } from 'react-icons/md';
+import { filter } from '@chakra-ui/system';
 
 const currentTimeMillis = new Date().getTime();
 const currentDate = new Date(currentTimeMillis);
@@ -25,6 +26,7 @@ const Dashboard = () => {
   const [columnsDataCheck, setColumnsDataCheck] = useState(false);
   const [isAsending, setIsAsending] = useState(false)
   const [filterChange, setFilterChange] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [filters, setFilters] = useState({
     startDate: currentDate - (30 * 24 * 60 * 60 * 1000),
     endDate: currentDate,
@@ -74,6 +76,7 @@ const Dashboard = () => {
 
 
   function updateFilterValue(obj) {
+    setIsLoading(true);
     setFilters(prevState => ({
       ...prevState,
       ...obj
@@ -159,6 +162,7 @@ const Dashboard = () => {
       body: JSON.stringify(object)
      }).then(response => response.json())
      .then(data => {
+      setIsLoading(false);
        setColumnsDataCheck(true)
       setTableList(data[0]['record'])
       setTotal(data[0]['total'])
@@ -290,6 +294,8 @@ const Dashboard = () => {
             total={total}
             page={page}
             sortFunction={sortFunction}
+            filters={filters}
+            isLoading={isLoading}
           />
         </div>
 

@@ -21,6 +21,7 @@ const ChatConversation = () => {
   const [isAsending, setIsAsending] = useState(false)
   const [xaxis, setXaxis] = useState([]);
   const [filterChange, setFilterChange] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [lineChartDataTotalSpent, setLineChartDataTotalSpent] = useState(
     {
       options: {
@@ -87,6 +88,7 @@ const ChatConversation = () => {
 
 
   function updateFilterValue(obj) {
+    setIsLoading(true);
     setFilters(prevState => ({
       ...prevState,
       ...obj
@@ -172,9 +174,10 @@ const ChatConversation = () => {
       body: JSON.stringify(object)
      }).then(response => response.json())
      .then(data => {
-       setColumnsDataCheck(true)
-      setTableList(data[0]['record'])
-      setTotal(data[0]['total'])
+        setIsLoading(false);
+        setColumnsDataCheck(true)
+        setTableList(data[0]['record'])
+        setTotal(data[0]['total'])
      })
      .catch((error) => {
       console.error(error);
@@ -276,6 +279,8 @@ const ChatConversation = () => {
             total={total}
             page={page}
             sortFunction={sortFunction}
+            filters={filters}
+            isLoading={isLoading}
           />
         </div>
 

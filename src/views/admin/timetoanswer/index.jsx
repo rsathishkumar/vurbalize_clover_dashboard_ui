@@ -17,6 +17,7 @@ const TimetoAnswer = () => {
   const [isAsending, setIsAsending] = useState(false)
   const [xaxis, setXaxis] = useState([]);
   const [filterChange, setFilterChange] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [lineChartDataTotalSpent, setLineChartDataTotalSpent] = useState(
     {
       options: {
@@ -83,6 +84,7 @@ const TimetoAnswer = () => {
 
 
   function updateFilterValue(obj) {
+    setIsLoading(true);
     setFilters(prevState => ({
       ...prevState,
       ...obj
@@ -169,6 +171,7 @@ const TimetoAnswer = () => {
       body: JSON.stringify(object)
      }).then(response => response.json())
      .then(data => {
+      setIsLoading(false);
        setColumnsDataCheck(true)
       setTableList(data[0]['record'])
       setTotal(data[0]['total'])
@@ -273,6 +276,8 @@ const TimetoAnswer = () => {
             total={total}
             page={page}
             sortFunction={sortFunction}
+            filters={filters}
+            isLoading={isLoading}
           />
         </div>
 
