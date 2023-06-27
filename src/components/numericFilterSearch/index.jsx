@@ -4,25 +4,28 @@ var line_index = 0;
 const NumericFilterSearch = (props) => {
 
     const [rangeValue, setRangeValue] = useState({});
-    const [showOptions, setShowOptions] = useState('');
-    const [rangeValue1, setRangeValue1] = useState("0");
+    const [showOptions, setShowOptions] = useState([]);
+    const [rangeValue1, setRangeValue1] = useState({});
     const [rangeValue2, setRangeValue2] = useState("0");
     const ranges = ['less_than', 'less_than_equal', 'greater_than', 'greater_than_equal', 'between']
 
     useEffect(() => {
         var current_values = props.currentValues;
         var values = {}
+        var keys = []
         if (Object.keys(current_values).length > 0) {
             for (const [key, val] of Object.entries(current_values)) {
-                setShowOptions(key)
+                keys.push(key)
                 if (Array.isArray(val)) {
-                    setRangeValue1(val[0])
+                    values[key] = val[0];
                     setRangeValue2(val[1])
                 }
                 else {
-                    setRangeValue1(val)                    
+                    values[key] = val;
                 }
             }
+            setShowOptions(keys)
+            setRangeValue1(values)
         }
     }, [])
 
@@ -30,23 +33,39 @@ const NumericFilterSearch = (props) => {
 
     function submitAllValues() {
         var range = {}
-        if (showOptions === 'between') {
-            range[showOptions] = [rangeValue1, rangeValue2];
+        for(var i = 0; i < showOptions.length; i++) {
+            if (showOptions[i] === 'between' && rangeValue2 !== '' && rangeValue2 !== 0 && rangeValue1[showOptions[i]] !== undefined && rangeValue1[showOptions[i]] !== '') {
+                console.log("values", rangeValue1[showOptions[i]])
+                console.log("values2", rangeValue2)
+                range[showOptions[i]] = [rangeValue1[showOptions[i]], rangeValue2]
+            }
+            else {
+                if (rangeValue1[showOptions[i]] !== '' && rangeValue1[showOptions[i]] !== undefined) {
+                  range[showOptions[i]] = rangeValue1[showOptions[i]]
+                }
+            }
         }
-        else {
-            range[showOptions] = rangeValue1;
-        }
-        console.log("Ranges",range)
         props.submitListValues(range, props.field_name)
     }
 
     const selectOptions = (event) => {
         const { value, checked } = event.target;
         if (checked) {
-            setShowOptions((prevSelectedValues) => value);
+            setShowOptions((prevSelectedValues) => [...prevSelectedValues, value]);
         } else {
-            setShowOptions((prevSelectedValues) => '');
+            setShowOptions((prevSelectedValues) => 
+            prevSelectedValues.filter((item) => item !== value)
+            );
         }
+    };
+
+    const setRangeValues = (value, key) => {
+        var obj = {};
+        obj[key] = value;
+        setRangeValue1(prevState => ({
+            ...prevState,
+            ...obj
+          }));
     };
 
     return (
@@ -60,25 +79,25 @@ const NumericFilterSearch = (props) => {
             {ranges.map((key) => {
                 return (
                     <div className="relative text-black mb-4 w-52">
-                        <label className={`checkboxFilterOption checkboxFilterOption_black ${showOptions === key?"checkboxFilter checkboxFilter_black":""}`}>
+                        <label className={`checkboxFilterOption checkboxFilterOption_black ${showOptions.includes(key)?"checkboxFilter checkboxFilter_black":""}`}>
                         <input type="checkbox" 
                             value={key}
-                            checked={showOptions === key}
+                            checked={showOptions.includes(key)}
                             onChange={selectOptions}
                             className="" /> {key}
                         </label>
                         <div>
-                            {showOptions === key && (
+                            {showOptions.includes(key) && (
                                 <div>
                                     <input type="number" name="range_value" 
                                     className="border border-gray-400 rounded p-1 my-1 text-black" 
-                                    value={rangeValue1}
-                                    onChange={(event) => setRangeValue1(event.target.value)}
+                                    value={rangeValue1[key]}
+                                    onChange={(event) => setRangeValues(event.target.value, key)}
                                     /> 
                                 </div>
                             )
                             }
-                            {showOptions === key && key === 'between' && (
+                            {showOptions.includes(key) && key === 'between' && (
                                 <div>
                                     <input type="number" name="range_value" 
                                     className="border border-gray-400 rounded p-1 my-1 text-black" 

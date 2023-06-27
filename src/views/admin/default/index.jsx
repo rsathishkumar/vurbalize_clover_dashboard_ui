@@ -237,7 +237,7 @@ const Dashboard = () => {
           title={"Chat Engagement"}
           url={"/admin/chat_engagement"}
           subtitle={
-            (metrics.user_engaged !== null && metrics.user_engaged !== 0)?
+            (Object.keys(metrics).length !== 0 && metrics.user_engaged !== null && metrics.user_engaged !== 0)?
               ((metrics.user_engaged/metrics.unique_conversation) * 100).toFixed(2) + '%':"-"
             }
         />
@@ -246,7 +246,7 @@ const Dashboard = () => {
           title={"Chat Conversion"}
           url={"/admin/chat_conversation"}
           subtitle={
-            (metrics.leads !== null && metrics.user_engaged !== 0 && metrics.user_engaged !== "0" && metrics.user_engaged !== null)?
+            (Object.keys(metrics).length !== 0 && metrics.leads !== null && metrics.user_engaged !== 0 && metrics.user_engaged !== "0" && metrics.user_engaged !== null)?
               ((metrics.leads/metrics.user_engaged) * 100).toFixed(2) + "%":"-"
             }
         />
@@ -255,7 +255,7 @@ const Dashboard = () => {
           title={"Chat Rating"}
           url={"/admin/chat_rating"}
           subtitle={
-            (metrics.distinct_conversation_rating !== null && metrics.distinct_conversation_rating !== 0)?
+            (Object.keys(metrics).length !== 0 && metrics.distinct_conversation_rating !== null && metrics.distinct_conversation_rating !== 0)?
               (metrics.total_rating/metrics.distinct_conversation_rating).toFixed(2):"-"
             }
         />
@@ -264,7 +264,7 @@ const Dashboard = () => {
           title={"Leads per 1000 visitors"}
           url={"/admin/leads"}
           subtitle={
-            (metrics.unique_conversation !== null && metrics.leads !== 0)?
+            (Object.keys(metrics).length !== 0 && metrics.unique_conversation !== null && metrics.leads !== 0)?
               (metrics.leads*1000/metrics.unique_conversation).toFixed(2):"-"
             }
         />
@@ -273,7 +273,7 @@ const Dashboard = () => {
           title={"Avg # of turns/chats"}
           url={"/admin/turn_chat"}
           subtitle={
-            (metrics.unique_conversation !== null && metrics.unique_conversation !== 0) && metrics.turn_count !== 0 && metrics.user_engaged !== "0"?
+            (Object.keys(metrics).length !== 0 && metrics.unique_conversation !== null && metrics.unique_conversation !== 0) && metrics.turn_count !== 0 && metrics.user_engaged !== "0"?
               ((metrics.turn_count / metrics.user_engaged)).toFixed(2):"-"
             }
         />
@@ -281,7 +281,7 @@ const Dashboard = () => {
           icon={<AvgTimeIcon className="h-6 w-6" />}
           url={"/admin/time_to_answer"}
           title={"Avg time to answer"}
-          subtitle={(metrics.avg_turn_time !== null?metrics.avg_turn_time+'s':"-")}
+          subtitle={(Object.keys(metrics).length !== 0 && metrics.avg_turn_time !== null?metrics.avg_turn_time+'s':"-")}
         />
       </div>
 
