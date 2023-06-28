@@ -63,6 +63,8 @@ const ChatConversation = () => {
     utm_device:[],
     utm_location:[],
     utm_target:[],
+    gclid:[],
+    msclkid:[],
     landingpage: [],
     sort: "DESC",
     sorting: 'logtime',
@@ -141,6 +143,8 @@ const ChatConversation = () => {
       'utm_device':filters.utm_device,
       'utm_location':filters.utm_location,
       'utm_target':filters.utm_target,  
+      'gclid':filters.gclid,
+      'msclkid':filters.msclkid
     }
     localStorage.setItem("filters", JSON.stringify(filters));
     getChatConversationChartMetrics(object);
@@ -167,7 +171,7 @@ const ChatConversation = () => {
   }
 
   function getAllConversations(object) {
-    object['page_type'] = "engage";
+    object['page_type'] = "leads";
     fetch(`${process.env.REACT_APP_APIURL}/conversation_engaged_list`, {
       method: 'post',
       headers: {'Content-Type':'application/json'},

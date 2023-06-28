@@ -64,6 +64,8 @@ const ChatRating = () => {
     utm_device:[],
     utm_location:[],
     utm_target:[],
+    gclid:[],
+    msclkid:[],
     landingpage: [],
     sort: "DESC",
     sorting: 'logtime',
@@ -142,7 +144,9 @@ const ChatRating = () => {
       'utm_match':filters.utm_match,
       'utm_device':filters.utm_device,
       'utm_location':filters.utm_location,
-      'utm_target':filters.utm_target
+      'utm_target':filters.utm_target,
+      'gclid':filters.gclid,
+      'msclkid':filters.msclkid
     }
     localStorage.setItem("filters", JSON.stringify(filters));
     getChatConversationChartMetrics(object);

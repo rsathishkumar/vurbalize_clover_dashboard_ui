@@ -103,10 +103,10 @@ const Chat = () => {
       </div>
       <div className="col-span-2">
         {/* Card widget */}
-        <div className="flex flex-col items-center justify-center min-h-[85%] bg-gray-100 text-gray-800 w-[30%] fixed">
+        <div className="flex flex-col items-center justify-center min-h-[85%] text-gray-800 w-[30%] fixed">
           <div className="flex flex-col flex-grow w-full max-w-xl bg-white shadow-7xl rounded-lg overflow-hidden clover-chat-container">
             <div className="p-3 bg-green-900 text-white text-2xl font-normal font-TimesNewRoman">
-              Clover chat
+              Clover Product Expert
             </div>
             <div className="flex flex-col flex-grow h-0 pt-4 pb-[76px] px-6 overflow-auto relative all-messages">
               {conversationList.length > 0 && conversationList.map((row, index) => {

@@ -63,6 +63,8 @@ const ChatEngagement = () => {
     utm_device:[],
     utm_location:[],
     utm_target:[],
+    gclid:[],
+    msclkid:[],
     landingpage: [],
     sort: "DESC",
     sorting: 'logtime',
@@ -142,6 +144,8 @@ const ChatEngagement = () => {
       'utm_device':filters.utm_device,
       'utm_location':filters.utm_location,
       'utm_target':filters.utm_target,  
+      'gclid':filters.gclid,
+      'msclkid':filters.msclkid
     }
     localStorage.setItem("filters", JSON.stringify(filters));
     getChatConversationChartMetrics(object);

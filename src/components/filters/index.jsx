@@ -56,6 +56,8 @@ const Filters = (props) => {
         { id: 18, name: "utm_device", type:'category', label: "UTM device" },
         { id: 19, name: "utm_location", type:'category', label: "UTM location" },
         { id: 20, name: "utm_target", type:'category', label: "UTM target" },
+        { id: 21, name: "gclid", type:'category', label: "Google Click ID" },
+        { id: 22, name: "msclkid", type:'category', label: "Bing Click ID" },
     ];
     const [checkedList, setCheckedList] = useState(checkboxFilterOptions);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
@@ -79,7 +81,9 @@ const Filters = (props) => {
         'utm_match':[],
         'utm_device':[],
         'utm_location':[],
-        'utm_target':[]
+        'utm_target':[],
+        'gclid':[],
+        'msclkid':[]
     });
     const [showFiltersOptions, setShowFiltersOptions] = useState([]);
 
@@ -106,7 +110,7 @@ const Filters = (props) => {
 
     const __init = async () => {
         const { conversationId, suId, apptDate, turnID,convT2A,convOutcome, MarketoLead, chatRating, chatFeedback } = props.filters;
-        const { utm_source, utm_medium, utm_campaign, utm_placement,utm_term,utm_content, utm_adplacement, utm_match, utm_device, utm_location, utm_target } = props.filters;
+        const { utm_source, utm_medium, utm_campaign, utm_placement,utm_term,utm_content, utm_adplacement, utm_match, utm_device, utm_location, utm_target, gclid, msclkid } = props.filters;
         var key_values = {}
         var show_filters = []
 
@@ -178,6 +182,16 @@ const Filters = (props) => {
         if (utm_target.length > 0) {
             key_values['utm_target'] = utm_target;
             show_filters.push('utm_target');
+        }
+
+        if (gclid.length > 0) {
+            key_values['gclid'] = gclid;
+            show_filters.push('gclid');
+        }
+
+        if (msclkid.length > 0) {
+            key_values['msclkid'] = msclkid;
+            show_filters.push('msclkid');
         }
 
         if (MarketoLead.length > 0) {
@@ -302,6 +316,12 @@ const Filters = (props) => {
         }
         if (field_name === "utm_target") {
             await props.setFilters({utm_target: list})
+        }
+        if (field_name === "gclid") {
+            await props.setFilters({gclid: list})
+        }
+        if (field_name === "msclkid") {
+            await props.setFilters({msclkid: list})
         }
         if (field_name === "apptDate") {
             var fromdate = '';

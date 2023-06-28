@@ -28,7 +28,7 @@ export default function SignIn() {
     });
 
     if (token !== undefined && token !== '' && token !== null && Object.keys(token).length !== 0) {
-      sessionStorage.setItem('token', token.token);
+      localStorage.setItem('token', token.token);
       window.location.href = "/admin/default"
     }
     else {

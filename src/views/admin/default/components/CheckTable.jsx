@@ -145,6 +145,20 @@ const CheckTable = (props) => {
                     <a className={`sorting ${props.filters.sorting === 'referrer_id'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('referrer_id')}>Referrer</a>
                   </div>
                 </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a className={`sorting ${props.filters.sorting === 'gclid'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('gclid')}>Google Click ID</a>
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a className={`sorting ${props.filters.sorting === 'msclkid'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('msclkid')}>Bing Click ID</a>
+                  </div>
+                </th>
               </tr>
           </thead>
           <tbody>
@@ -167,7 +181,9 @@ const CheckTable = (props) => {
               <td className="pl-2 text-sm">{row.landing_page}</td>  
               <td className="pl-2 text-sm">{row.su_id}</td>  
               <td className="pl-2 text-sm">{row.session_id}</td>  
-              <td className="pl-2 text-sm">{row.referrer_id}</td>  
+              <td className="pl-2 text-sm">{row.referrer_id}</td>
+              <td className="pl-2 text-sm">{row.gclid}</td> 
+              <td className="pl-2 text-sm">{row.msclkid}</td> 
               </tr>
             ))}
             {columnsData === false &&

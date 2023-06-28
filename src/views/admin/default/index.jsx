@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import MarketIcon from "components/icons/MarketIcon";
 import ChatIcon from "components/icons/ChatIcon";
 import ChatConversionIcon from "components/icons/ChatConversionIcon";
@@ -10,13 +10,15 @@ import Filters from "../../../components/filters";
 
 import Widget from "components/widget/Widget";
 import CheckTable from "views/admin/default/components/CheckTable";
-import { MdLastPage } from 'react-icons/md';
-import { filter } from '@chakra-ui/system';
+import { CSVLink } from "react-csv";
 
 const currentTimeMillis = new Date().getTime();
 const currentDate = new Date(currentTimeMillis);
+var records_list = [];
 
 const Dashboard = () => {
+
+  const csvLinkEl = useRef(null);
 
   const [tableList, setTableList] = useState([]);
   const [metrics, setMetrics] = useState({});
@@ -27,6 +29,29 @@ const Dashboard = () => {
   const [isAsending, setIsAsending] = useState(false)
   const [filterChange, setFilterChange] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [csvData, setCsvData] = useState([])
+  const [isDownloading, setIsDownloading] = useState(false)
+  const headers = [
+    { label: "Conversation #", key: "conversation_id" },
+    { label: "Date Created", key: "logtime" },
+    { label: "User Rating", key: "user_rating" },
+    { label: "Outcome", key: "conv_outcome" },
+    { label: "Turn Count", key: "turn_user" },
+    { label: "Time to Answer", key: "conv_rate" },
+    { label: "Avg User Words/Turn", key: "avg_total_user_words" },
+    { label: "Avg Agent Words/Turn", key: "avg_total_bot_words" },
+    { label: "Tot. Agent Words", key: "total_words_in_message_bot" },
+    { label: "Marketo Lead #", key: "" },
+    { label: "Appt Date", key: "" },
+    { label: "Appt Time", key: "" },
+    { label: "Calendly", key: "calendly_link" },
+    { label: "Landing Page", key: "landing_page" },
+    { label: "User #", key: "su_id" },
+    { label: "Session #", key: "session_id" },
+    { label: "Referrer", key: "referrer_id" },
+    { label: "Google Click ID", key: "gclid" },
+    { label: "Bing Click ID", key: "msclkid" }
+  ]
   const [filters, setFilters] = useState({
     startDate: currentDate - (30 * 24 * 60 * 60 * 1000),
     endDate: currentDate,
@@ -52,6 +77,8 @@ const Dashboard = () => {
     utm_device:[],
     utm_location:[],
     utm_target:[],
+    gclid:[],
+    msclkid:[],
     landingpage: [],
     sort: "DESC",
     sorting: 'logtime'
@@ -97,7 +124,7 @@ const Dashboard = () => {
     sendRequestToBackend(page_no);
   }
 
-  function sendRequestToBackend(page_no='') {
+  function getAllFilterValues(page_no) {
     var date = new Date(filters.startDate);
     var startDate = date.toLocaleDateString('en-US')
     date = new Date(filters.endDate);
@@ -129,8 +156,15 @@ const Dashboard = () => {
       'utm_match':filters.utm_match,
       'utm_device':filters.utm_device,
       'utm_location':filters.utm_location,
-      'utm_target':filters.utm_target,  
+      'utm_target':filters.utm_target,
+      'gclid':filters.gclid,
+      'msclkid':filters.msclkid
     }
+    return object;
+  }
+
+  function sendRequestToBackend(page_no='') {
+    var object = getAllFilterValues(page_no);
     localStorage.setItem("filters", JSON.stringify(filters));
     getAllConversations(object)
     getAllMetrics(object);
@@ -218,9 +252,47 @@ const Dashboard = () => {
     updateFilterValue({'sort':(asending?"ASC":"DESC"), 'sorting':field})
   }
 
+  const getConversatinCSV = (page = 1) => {
+    var object = getAllFilterValues(page);
+    object['page_limit'] = 300;
+    
+    fetch(`${process.env.REACT_APP_APIURL}/conversation_list`, {
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(object)
+     }).then(response => response.json())
+     .then(async (data) => {
+      let record = data[0]['record'];
+      let total = data[0]['total'];
+
+      if (record.length > 0) {
+       // await setCsvData((prevSelectedValues) => [...prevSelectedValues, ...record]);
+        records_list = [...records_list, ...record];
+        console.log(records_list)
+        if (page * 300 < total) {
+          await getConversatinCSV(page+1)
+        }
+        else {
+          await setCsvData(records_list);
+          setTimeout(() => {csvLinkEl.current.link.click();setIsDownloading(false);}, 2000)
+          records_list = [];
+        }
+      }
+     })
+     .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  const downloadReport = async () => {
+    setIsDownloading(true)
+    const data = await getConversatinCSV(1);
+  }
+
   return (
-    <div>
+    <div className='relative'>
       {/* Card widget */}
+      
       <div className="abc py-5 mx-auto p-2">
                 <Filters
                   filters={filters}
@@ -286,6 +358,19 @@ const Dashboard = () => {
       </div>
 
       <div className="mt-5 grid grid-cols-1 gap-1">
+      <div className="flex justify-end">
+        <input type="button" value="Download CSV" onClick={() => downloadReport()}
+        className="font-poppins font-normal text-base text-white bg-green-900 flex items-center justify-center gap-2.5 rounded py-1.5 pr-2 pl-3 cursor-pointer disabled:opacity-50"
+       disabled={isDownloading}
+       />
+       {isDownloading && 
+        <svg class="animate-spin p-1 h-10 w-10 text-green-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        }
+       <CSVLink headers={headers} data={csvData} ref={csvLinkEl} className="absolute invisible">Download</CSVLink>
+      </div>
         <div>
           <CheckTable
             columnsData={columnsDataCheck}

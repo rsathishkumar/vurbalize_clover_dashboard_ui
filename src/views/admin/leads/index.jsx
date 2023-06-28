@@ -60,6 +60,8 @@ const Leads = () => {
     utm_location:[],
     utm_target:[],
     landingpage: [],
+    gclid:[],
+    msclkid:[],
     sort: "DESC",
     sorting: 'logtime',
     reporttype: 'weekly'
@@ -137,6 +139,8 @@ const Leads = () => {
       'utm_device':filters.utm_device,
       'utm_location':filters.utm_location,
       'utm_target':filters.utm_target,  
+      'gclid':filters.gclid,
+      'msclkid':filters.msclkid
     }
     localStorage.setItem("filters", JSON.stringify(filters));
     getChatConversationChartMetrics(object);

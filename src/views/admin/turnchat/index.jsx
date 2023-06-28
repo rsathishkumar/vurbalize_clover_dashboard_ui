@@ -59,6 +59,8 @@ const TurnChat = () => {
       utm_device:[],
       utm_location:[],
       utm_target:[],
+      gclid:[],
+      msclkid:[],
       landingpage: [],
       sort: "DESC",
       sorting: 'logtime',
@@ -136,6 +138,8 @@ const TurnChat = () => {
       'MarketoLead':filters.MarketoLead,
       'chatRating':filters.chatRating,
       'chatFeedback':filters.chatFeedback,
+      'gclid':filters.gclid,
+      'msclkid':filters.msclkid
     }
     localStorage.setItem("filters", JSON.stringify(filters));
     getChatConversationChartMetrics(object);

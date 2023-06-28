@@ -11,7 +11,7 @@ const App = () => {
   const location = useLocation(); 
 
   async function getToken() {
-    const tokenString = await sessionStorage.getItem('token');
+    const tokenString = await localStorage.getItem('token');
     console.log("token",tokenString)
     console.log(location.pathname);
     if(!tokenString && tokenString === null && location.pathname !== '/auth/sign-in') {
