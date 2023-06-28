@@ -17,6 +17,7 @@ import Chat from "views/admin/chat";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
+import Logout from "views/auth/Logout";
 
 // Icon Imports
 import {
@@ -72,10 +73,10 @@ const routes = [
     component: <TurnChat />,
   },
   {
-    name: "Login",
-    layout: "/auth",
-    path: "sign-in",
-    component: <SignIn />,
+    name: "Logout",
+    layout: "/admin",
+    path: "logout",
+    component: <Logout />,
   }
 ];
 export default routes;

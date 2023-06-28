@@ -6,7 +6,7 @@ const NumericFilterSearch = (props) => {
     const [rangeValue, setRangeValue] = useState({});
     const [showOptions, setShowOptions] = useState([]);
     const [rangeValue1, setRangeValue1] = useState({});
-    const [rangeValue2, setRangeValue2] = useState("0");
+    const [rangeValue2, setRangeValue2] = useState('');
     const ranges = ['less_than', 'less_than_equal', 'greater_than', 'greater_than_equal', 'between']
 
     useEffect(() => {
