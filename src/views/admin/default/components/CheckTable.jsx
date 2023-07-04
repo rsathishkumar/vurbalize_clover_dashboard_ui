@@ -93,7 +93,7 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a className={`sorting ${props.filters.sorting === 'conv_rate'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_rate')}>Marketo Lead #</a>
+                    <a className={`sorting ${props.filters.sorting === 'marketo_id'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('marketo_id')}>Marketo Lead #</a>
                   </div>
                 </th>
                 <th
@@ -174,7 +174,7 @@ const CheckTable = (props) => {
               <td className="pl-2 text-sm">{row.avg_total_user_words}</td>  
               <td className="pl-2 text-sm">{row.avg_total_bot_words}</td>  
               <td className="pl-2 text-sm">{row.total_words_in_message_bot}</td>  
-              <td className="pl-2 text-sm"></td>  
+              <td className="pl-2 text-sm">{row.marketo_id}</td>  
               <td className="pl-2 text-sm"></td>  
               <td className="pl-2 text-sm"></td>  
               <td className="pl-2 text-sm">{row.calendly_link}</td>  
