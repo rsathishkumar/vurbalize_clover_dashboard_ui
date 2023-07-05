@@ -56,7 +56,7 @@ const CheckTable = (props) => {
               <td className="pl-2 text-xl">{row.username}</td>  
               <td className="pl-2 text-xl">{row.email}</td> 
               <td className="pl-2 text-xl">
-                <a href={`/admin/user_account/${row.id}`}>Edit</a> / <span onClick={() => console.log("edit")} className="cursor-pointer">Delete</span>
+                {/*<a href={`/admin/user_account/${row.id}`}>Edit</a> / <span onClick={() => console.log("edit")} className="cursor-pointer">Delete</span>*/}
               </td> 
               </tr>
             ))}
