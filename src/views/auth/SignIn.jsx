@@ -27,9 +27,14 @@ export default function SignIn() {
       password
     });
 
-    if (token !== undefined && token !== '' && token !== null && Object.keys(token).length !== 0) {
-      localStorage.setItem('token', token.token);
-      window.location.href = "/admin/default"
+    if (token !== undefined && token !== '' && token !== null && token.length !== 0) {
+      if (token[0]['status'] === 'success') {
+        localStorage.setItem('token', token[0]['token']);
+        window.location.href = "/admin/default"
+      }
+      else {
+        setError(token[0]['error'])
+      }
     }
     else {
       setError("Invalid username and password. Please try again.")
