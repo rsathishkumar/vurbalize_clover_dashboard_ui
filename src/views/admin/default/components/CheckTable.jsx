@@ -99,17 +99,10 @@ const CheckTable = (props) => {
                 <th
                   className="pl-[2px] text-center"
                   >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a className={`sorting ${props.filters.sorting === 'conv_rate'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_rate')}>Appt. Date</a>
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap w-[150px]">
+                    <a className={`sorting ${props.filters.sorting === 'appt_date'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('appt_date')}>Appt. Date</a>
                   </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a className={`sorting ${props.filters.sorting === 'conv_rate'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_rate')}>Appt. Time</a>
-                  </div>
-                </th>                
+                </th>             
                 <th
                   className="pl-[2px] text-center"
                   >
@@ -175,8 +168,7 @@ const CheckTable = (props) => {
               <td className="pl-2 text-sm">{row.avg_total_bot_words}</td>  
               <td className="pl-2 text-sm">{row.total_words_in_message_bot}</td>  
               <td className="pl-2 text-sm">{row.marketo_id}</td>  
-              <td className="pl-2 text-sm"></td>  
-              <td className="pl-2 text-sm"></td>  
+              <td className="pl-2 text-sm">{row.appt_date}</td>  
               <td className="pl-2 text-sm">{row.calendly_link}</td>  
               <td className="pl-2 text-sm">{row.landing_page}</td>  
               <td className="pl-2 text-sm">{row.su_id}</td>  
