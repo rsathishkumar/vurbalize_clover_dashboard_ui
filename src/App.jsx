@@ -14,7 +14,9 @@ const App = () => {
     const tokenString = await localStorage.getItem('token');
     console.log("token",tokenString)
     console.log(location.pathname);
-    if(!tokenString && tokenString === null && location.pathname !== '/auth/sign-in') {
+    if(!tokenString && tokenString === null && location.pathname !== '/auth/sign-in' 
+    && location.pathname !== '/auth/forgot_password' 
+    && location.pathname !== '/auth/reset_password') {
       window.location.href = '/auth/sign-in';
     }
     else {

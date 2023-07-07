@@ -30,7 +30,14 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-xl px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    Username
+                    First name
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className={`text-xl px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap`}>
+                    Last name
                   </div>
                 </th>
                 <th
@@ -38,6 +45,13 @@ const CheckTable = (props) => {
                   >
                  <div className={`text-xl px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap`}>
                     Email
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className={`text-xl px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap`}>
+                    Merchant
                   </div>
                 </th>
                 <th
@@ -53,10 +67,12 @@ const CheckTable = (props) => {
             {tableData.map((row, index) => (  
               <tr data-index={index + ((props.page - 1) * 25)} key={index}>  
               <td className="pl-2 text-xl py-2">{(index+1) + ((props.page - 1) * 25)}</td>  
-              <td className="pl-2 text-xl">{row.username}</td>  
+              <td className="pl-2 text-xl">{row.firstname}</td>  
+              <td className="pl-2 text-xl">{row.lastname}</td> 
               <td className="pl-2 text-xl">{row.email}</td> 
+              <td className="pl-2 text-xl">{row.merchant}</td> 
               <td className="pl-2 text-xl">
-                {/*<a href={`/admin/user_account/${row.id}`}>Edit</a> / <span onClick={() => console.log("edit")} className="cursor-pointer">Delete</span>*/}
+                {/*<a href={`/admin/user_account?id=${row.id}`}>Edit</a> / <span onClick={() => console.log("edit")} className="cursor-pointer">Delete</span>*/}
               </td> 
               </tr>
             ))}

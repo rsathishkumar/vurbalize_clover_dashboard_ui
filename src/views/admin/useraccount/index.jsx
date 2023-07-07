@@ -1,17 +1,33 @@
 import {useEffect, useState} from 'react'
 import InputField from "components/fields/InputField";
-
+import Dropdown from 'react-dropdown';
+import { useParams } from 'react-router-dom';
 
 const UserAccount = () => {
 
-  const [username, setUserName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    email: "",
+    merchant_id: "",
+    id: ''
+  });
+
   const [error, setError] = useState('');
+  const [merchant, setMerchant] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
-
+    if (id !== undefined) {
+      getUserDetails(id);
+    }
+    getAllMerchants();
   },[])
+
+  const handleChange = (e) => {
+    console.log(e.target.name)
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   async function createUser(details) {
     return fetch(`${process.env.REACT_APP_APIURL}/create_user`, {
@@ -22,20 +38,47 @@ const UserAccount = () => {
       body: JSON.stringify(details)
     })
       .then(data => data.json())
-   }
+  }
+
+  async function getUserDetails(userid) {
+    return fetch(`${process.env.REACT_APP_APIURL}/get_user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({id: userid})
+    }).then(response => response.json())
+      .then(data => {
+        setFormData({ ...data, [id]: userid });
+      })
+  }
+
+  function getAllMerchants() {
+    fetch(`${process.env.REACT_APP_APIURL}/merchants_list`, {
+      method: 'get',
+      headers: {'Content-Type':'application/json'}
+     }).then(response => response.json())
+     .then(data => {
+      const uniqueArray = data;
+      var list = []
+      uniqueArray.map((item,index) => {
+        list.push({value:item.id, label:item.name})
+      })
+      setMerchant(list)
+     })
+     .catch((error) => {
+      console.error(error);
+    });
+  }
 
   const handleSubmit = async e => {
     setError('')
     e.preventDefault();
-    console.log("credentials", username)
-    const token = await createUser({
-      username,
-      email,
-      password
-    });
+    console.log("credentials", formData)
+    const token = await createUser(formData);
     console.log(token);
     if (token !== undefined && token !== '' && token !== null && token.length !== 0 && token[0]['status'] === 'success') {
-      window.location.href = "/admin/iuser_list"
+      window.location.href = "/admin/user_list"
     }
     else {
       setError(token[0]['error'])
@@ -56,34 +99,42 @@ const UserAccount = () => {
       <InputField
         variant="auth"
         extra="mb-3"
+        label="First name*"
+        placeholder="First name"
+        name="firstname"
+        id="firstname"
+        type="text"
+        value={formData.firstname}
+        onChange={e => handleChange(e)}
+      />
+
+      <InputField
+        variant="auth"
+        extra="mb-3"
+        label="Last name*"
+        placeholder="Last name"
+        name="lastname"
+        id="lastname"
+        type="text"
+        value={formData.lastname}
+        onChange={e => handleChange(e)}
+      />
+
+      <InputField
+        variant="auth"
+        extra="mb-3"
         label="Email*"
         placeholder="Email"
         id="email"
+        name="email"
         type="email"
-        onChange={e => setEmail(e.target.value)}
+        value={formData.email}
+        onChange={e => handleChange(e)}
       />
 
-      <InputField
-        variant="auth"
-        extra="mb-3"
-        label="Username*"
-        placeholder="username"
-        id="username"
-        type="text"
-        onChange={e => setUserName(e.target.value)}
-      />
-
-      {/* Password */}
-      <InputField
-        variant="auth"
-        extra="mb-3"
-        label="Password*"
-        placeholder="Min. 8 characters"
-        id="password"
-        type="password"
-        onChange={e => setPassword(e.target.value)}
-      />
-      
+      <label className="py-4"> Merchant
+      <Dropdown options={merchant} name="merchant_id" value={formData.merchant_id} onChange={(e) => {setFormData({ ...formData, 'merchant_id': e.value });}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor mb-4" />
+      </label>
       <button type="submit" className="linear mt-2 w-full rounded-xl bg-green-900 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-green-700 active:bg-green-700 dark:bg-green-900 dark:text-white dark:hover:bg-green-700 dark:active:bg-green-700">
         Add User
       </button>

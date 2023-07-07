@@ -18,6 +18,8 @@ import UserList from "views/admin/useraccount/list"
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
+import Forgot from "views/auth/forgot_password";
+import Reset from "views/auth/reset_password";
 import Logout from "views/auth/Logout";
 
 // Icon Imports
@@ -90,7 +92,14 @@ const routes = [
   {
     name: "User Account",
     layout: "/admin",
-    path: "user_account/*",
+    path: "user_account/:id",
+    component: <UserAccount />,
+    skip:true,
+  },
+  {
+    name: "User Account",
+    layout: "/admin",
+    path: "user_account",
     component: <UserAccount />,
     skip:true,
   },
@@ -99,6 +108,27 @@ const routes = [
     layout: "/admin",
     path: "logout",
     component: <Logout />,
+    skip:false,
+  },
+  {
+    name: "Forgot Password",
+    layout: "/auth",
+    path: "forgot_password",
+    component: <Forgot />,
+    skip:false,
+  },
+  {
+    name: "Reset Password",
+    layout: "/auth",
+    path: "reset_password",
+    component: <Reset />,
+    skip:false,
+  },
+  {
+    name: "Sign In",
+    layout: "/auth",
+    path: "sign-in",
+    component: <SignIn />,
     skip:false,
   }
 ];
