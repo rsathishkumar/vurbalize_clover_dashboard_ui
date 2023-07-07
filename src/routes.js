@@ -81,13 +81,6 @@ const routes = [
     skip:false,
   },
   {
-    name: "Users List",
-    layout: "/admin",
-    path: "user_list",
-    component: <UserList />,
-    skip:false,
-  },
-  {
     name: "User Account",
     layout: "/admin",
     path: "user_account/*",
