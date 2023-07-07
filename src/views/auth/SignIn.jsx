@@ -60,7 +60,7 @@ export default function SignIn() {
         <InputField
           variant="auth"
           extra="mb-3"
-          label="Email*"
+          label="Username*"
           placeholder="username"
           id="email"
           type="text"
