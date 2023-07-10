@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import InputField from "components/fields/InputField";
 import Dropdown from 'react-dropdown';
 import { useParams } from 'react-router-dom';
+import Radio from 'components/radio'
 
 const UserAccount = () => {
 
@@ -10,19 +11,25 @@ const UserAccount = () => {
     lastname: '',
     email: "",
     merchant_id: "",
-    id: ''
+    role:"",
+    userid: ''
   });
 
+  const [defaultOption, setDefaultOption] = useState('')
   const [error, setError] = useState('');
   const [merchant, setMerchant] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    if (id !== undefined) {
-      getUserDetails(id);
-    }
-    getAllMerchants();
+    __init()
   },[])
+
+  const __init = async () => {
+    await getAllMerchants();
+    if (id !== undefined) {
+      await getUserDetails(id);
+    }
+  }
 
   const handleChange = (e) => {
     console.log(e.target.name)
@@ -49,7 +56,8 @@ const UserAccount = () => {
       body: JSON.stringify({id: userid})
     }).then(response => response.json())
       .then(data => {
-        setFormData({ ...data, [id]: userid });
+        setFormData({ ...data, userid: userid });
+        setDefaultOption(data['merchant_id'])
       })
   }
 
@@ -131,9 +139,28 @@ const UserAccount = () => {
         value={formData.email}
         onChange={e => handleChange(e)}
       />
-
+      <div className="my-8 flex align-center">
+      <label for="adminrole" className='flex gap-2'>
+      <Radio 
+        name="role"
+        id="adminrole"
+        value="admin"
+        checked={formData.role === 'admin'}
+        onClick={e => handleChange(e)}
+      /> Admin
+      </label>
+      <label for="merchantrole" className=' ml-8 flex gap-2'>
+      <Radio 
+        name="role"
+        id="merchantrole"
+        value="merchant"
+        checked={formData.role === 'merchant'}
+        onClick={e => handleChange(e)}
+      /> Merchant
+      </label>
+      </div>
       <label className="py-4"> Merchant
-      <Dropdown options={merchant} name="merchant_id" value={formData.merchant_id} onChange={(e) => {setFormData({ ...formData, 'merchant_id': e.value });}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor mb-4" />
+      <Dropdown options={merchant} name="merchant_id" value={defaultOption} onChange={(e) => {setFormData({ ...formData, 'merchant_id': e.value });}} placeholder="Select an option" className="font-poppins font-medium text-sm text-secondaryColor mb-4" />
       </label>
       <button type="submit" className="linear mt-2 w-full rounded-xl bg-green-900 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-green-700 active:bg-green-700 dark:bg-green-900 dark:text-white dark:hover:bg-green-700 dark:active:bg-green-700">
         Add User

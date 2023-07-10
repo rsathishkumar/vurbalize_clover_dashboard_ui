@@ -21,7 +21,6 @@ export default function SignIn() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log("credentials", username)
     const token = await loginUser({
       username,
       password
@@ -30,6 +29,7 @@ export default function SignIn() {
     if (token !== undefined && token !== '' && token !== null && token.length !== 0) {
       if (token[0]['status'] === 'success') {
         localStorage.setItem('token', token[0]['token']);
+        localStorage.setItem('role',token[0]['role'])
         window.location.href = "/admin/default"
       }
       else {

@@ -16,12 +16,17 @@ export function SidebarLinks(props) {
   };
 
   const createLinks = (routes) => {
+    let role = localStorage.getItem('role');
+    if (role === undefined) {
+      role = '';
+    }
     return routes.map((route, index) => {
       if (
         (route.layout === "/admin" ||
         route.layout === "/auth" ||
         route.layout === "/rtl"
-        ) && (route.skip === false)
+        ) && (route.skip === false) && 
+        (route.roles.indexOf(role) > -1)
       ) {
         return (
           <Link key={index} to={route.layout + "/" + route.path}>

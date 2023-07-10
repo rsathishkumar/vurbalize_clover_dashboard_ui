@@ -46,6 +46,21 @@ const UserList = () => {
     });
   }
 
+  function confirmDelete(userid) {
+
+    fetch(`${process.env.REACT_APP_APIURL}/delete_user`, {
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({id: userid})
+     }).then(response => response.json())
+     .then(data => {
+      getAllUsers({page_no: page})
+     })
+     .catch((error) => {
+      console.error(error);
+    });
+  }
+
   return (
     <div className="mt-8 grid grid-cols-1 gap-1">
         <a href="/admin/user_account">Add New User</a>
@@ -58,6 +73,7 @@ const UserList = () => {
             page={page}
             sortFunction={sortFunction}
             isLoading={isLoading}
+            confirm_delete = {(id) => confirmDelete(id)}
           />
         </div>
       </div>

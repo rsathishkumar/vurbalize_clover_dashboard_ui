@@ -16,7 +16,7 @@ const App = () => {
     console.log(location.pathname);
     if(!tokenString && tokenString === null && location.pathname !== '/auth/sign-in' 
     && location.pathname !== '/auth/forgot_password' 
-    && location.pathname !== '/auth/reset_password') {
+    && (location.pathname.indexOf('reset_password') === -1)) {
       window.location.href = '/auth/sign-in';
     }
     else {

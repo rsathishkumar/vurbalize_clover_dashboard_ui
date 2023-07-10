@@ -38,6 +38,7 @@ const routes = [
     path: "default",
     component: <MainDashboard />,
     skip:false,
+    roles:['admin', 'merchant']
   },
   {
     name: "Chat Engagement",
@@ -46,6 +47,7 @@ const routes = [
     component: <ChatEngagement />,
     secondary: true,
     skip:false,
+    roles:['admin', 'merchant']
   },
   {
     name: "Chat Conversion",
@@ -53,6 +55,7 @@ const routes = [
     path: "chat_conversation",
     component: <ChatConversation />,
     skip:false,
+    roles:['admin', 'merchant']
   },
   {
     name: "Chat Rating",
@@ -60,6 +63,7 @@ const routes = [
     path: "chat_rating",
     component: <ChatRating />,
     skip:false,
+    roles:['admin', 'merchant']
   },
   {
     name: "Leads/1000 Visitors",
@@ -67,6 +71,7 @@ const routes = [
     path: "leads",
     component: <Leads />,
     skip:false,
+    roles:['admin', 'merchant']
   },
   {
     name: "Time to Answer",
@@ -74,6 +79,7 @@ const routes = [
     path: "time_to_answer",
     component: <TimetoAnswer />,
     skip:false,
+    roles:['admin', 'merchant']
   },
   {
     name: "Turns/Chat",
@@ -81,6 +87,7 @@ const routes = [
     path: "turn_chat",
     component: <TurnChat />,
     skip:false,
+    roles:['admin', 'merchant']
   },
   {
     name: "Users List",
@@ -88,6 +95,7 @@ const routes = [
     path: "user_list",
     component: <UserList />,
     skip:false,
+    roles:['admin']
   },
   {
     name: "User Account",
@@ -95,6 +103,7 @@ const routes = [
     path: "user_account/:id",
     component: <UserAccount />,
     skip:true,
+    roles:['admin']
   },
   {
     name: "User Account",
@@ -102,6 +111,7 @@ const routes = [
     path: "user_account",
     component: <UserAccount />,
     skip:true,
+    roles:['admin']
   },
   {
     name: "Logout",
@@ -109,27 +119,28 @@ const routes = [
     path: "logout",
     component: <Logout />,
     skip:false,
+    roles:['admin', 'merchant']
   },
   {
     name: "Forgot Password",
     layout: "/auth",
     path: "forgot_password",
     component: <Forgot />,
-    skip:false,
+    skip:true,
   },
   {
     name: "Reset Password",
     layout: "/auth",
-    path: "reset_password",
+    path: "reset_password/:token",
     component: <Reset />,
-    skip:false,
+    skip:true,
   },
   {
     name: "Sign In",
     layout: "/auth",
     path: "sign-in",
     component: <SignIn />,
-    skip:false,
+    skip:true,
   }
 ];
 export default routes;

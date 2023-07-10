@@ -20,6 +20,8 @@ export default function ForgotPassword() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setMessage('')
+    setError('')
     console.log("credentials", username)
     const token = await loginUser({
       username
@@ -27,7 +29,8 @@ export default function ForgotPassword() {
 
     if (token !== undefined && token !== '' && token !== null && token.length !== 0) {
       if (token[0]['status'] === 'success') {
-        setMessage("Reset mail sent to your email id. ")
+        setMessage("We have sent reset mail to your email id. Please click that link and set your password.")
+        setUserName('')
       }
       else {
         setError(token[0]['error'])
@@ -42,7 +45,7 @@ export default function ForgotPassword() {
   return (
     <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
       {/* Sign in section */}
-      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
+      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:w-[420px]">
         <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
           Forgot Password
         </h4>
@@ -50,7 +53,10 @@ export default function ForgotPassword() {
           Enter your email id
         </p>
         {error !== '' &&
-          <div className="text-red-500 mx-2 ml-1 text-base">{error}</div>
+          <div className="text-red-500 mb-6 ml-1 text-base">{error}</div>
+        } 
+        {message !== '' &&
+        <div className="text-green-500 mb-6 ml-1 text-base">{message}</div>
         }
         {/* Email */}
         <form onSubmit={handleSubmit}>
@@ -61,6 +67,7 @@ export default function ForgotPassword() {
           placeholder="username"
           id="email"
           type="text"
+          value={username}
           onChange={e => setUserName(e.target.value)}
         />
         

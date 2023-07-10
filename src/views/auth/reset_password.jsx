@@ -1,71 +1,116 @@
 import {useEffect, useState} from 'react'
 import InputField from "components/fields/InputField";
+import { useParams } from 'react-router-dom';
 
 export default function SignIn() {
 
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [showForm, setShowForm] = useState(false)
+  const { token } = useParams();
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
+  useEffect(() => {
+    if (token !== undefined) {
+      checkValidToken(token);
+    }
+    else {
+      setError("Invalid token")
+    }
+  }, [])
 
-  async function loginUser(credentials) {
-    return fetch(`${process.env.REACT_APP_APIURL}/login`, {
+  async function checkValidToken(token) {
+    return fetch(`${process.env.REACT_APP_APIURL}/checktoken`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(credentials)
+      body: JSON.stringify({token: token})
+    }).then(response => response.json())
+    .then(data => {
+      console.log("data", data[0]['status'])
+      if (data[0]['status'] === 'error') {
+        setError("Invalid token value.")
+      }
+      else {
+        setShowForm(true);
+      }
     })
-      .then(data => data.json())
+   }
+
+   async function updatePassword(password) {
+    return fetch(`${process.env.REACT_APP_APIURL}/updatepassword`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({password: password, token: token})
+    }).then(response => response.json())
+    .then(data => {
+      console.log("data", data[0]['status'])
+      
+      if (data[0]['status'] === 'success') {
+        setMessage("Password change. Please <a href='/auth/sign-in' className='text-blue-700'>login</a> to the site.")
+      }
+      else {
+        setError(data[0]['error'])
+      }
+      
+    })
    }
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log("credentials", username)
-    const token = await loginUser({
-      username,
-      password
-    });
-
-    if (token !== undefined && token !== '' && token !== null && token.length !== 0) {
-      if (token[0]['status'] === 'success') {
-        localStorage.setItem('token', token[0]['token']);
-        window.location.href = "/admin/default"
-      }
-      else {
-        setError(token[0]['error'])
-      }
+    if (!await validatePassword(password)) {
+      return;
     }
-    else {
-      setError("Invalid username and password. Please try again.")
+    setError('');
+    if (password !== confirmPassword) {
+      setError("Confirm password and password not match.")
+      return;
     }
+    await updatePassword(password);
     
   }
+
+  const validatePassword = (password) => {
+
+    const hasMinimumLength = password.length >= 8;
+    const hasSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasNumber = /\d/.test(password);
+    if (hasMinimumLength && hasSpecialCharacter && hasNumber) {
+      setIsPasswordValid(hasMinimumLength && hasSpecialCharacter && hasNumber);
+      return true;
+    }
+    else {
+      setIsPasswordValid(hasMinimumLength && hasSpecialCharacter && hasNumber);
+      return false;
+    }
+    
+  };
+
 
   return (
     <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
       {/* Sign in section */}
-      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
+      {showForm && (
+      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:w-[420px]">
         <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
-          Sign In
+          Set Password
         </h4>
         <p className="mb-9 ml-1 text-base text-gray-600">
-          Enter your username and password to sign in!
+          Enter password
         </p>
         {error !== '' &&
           <div className="text-red-500 mx-2 ml-1 text-base">{error}</div>
         }
+        {message !== '' &&
+        <div className="text-green-500 mb-6 ml-1 text-base" dangerouslySetInnerHTML={{__html: message}} />
+        }
         {/* Email */}
         <form onSubmit={handleSubmit}>
-        <InputField
-          variant="auth"
-          extra="mb-3"
-          label="Email*"
-          placeholder="username"
-          id="email"
-          type="text"
-          onChange={e => setUserName(e.target.value)}
-        />
 
         {/* Password */}
         <InputField
@@ -77,12 +122,37 @@ export default function SignIn() {
           type="password"
           onChange={e => setPassword(e.target.value)}
         />
+
+      {!isPasswordValid && (
+        <div className="text-red-500 mx-2 mb-6 ml-1 text-base">
+          Password should be at least 8 characters long and contain special characters and numbers.
+        </div>
+      )}
+
+        {/* Password */}
+        <InputField
+          variant="auth"
+          extra="mb-3"
+          label="Confirm Password*"
+          placeholder="Min. 8 characters"
+          id="confirm_password"
+          type="password"
+          onChange={e => setConfirmPassword(e.target.value)}
+        />
         
         <button type="submit" className="linear mt-2 w-full rounded-xl bg-green-900 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-green-700 active:bg-green-700 dark:bg-green-900 dark:text-white dark:hover:bg-green-700 dark:active:bg-green-700">
-          Sign In
+          Set Password
         </button>
         </form>
       </div>
+     )}
+     {!showForm && (
+      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:w-[420px]">
+      <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
+          {error}
+        </h4>
+        </div>
+      )}
     </div>
   );
 }
