@@ -70,6 +70,15 @@ export default function ForgotPassword() {
           value={username}
           onChange={e => setUserName(e.target.value)}
         />
+
+        <div className="mb-4 flex items-center justify-end px-2">
+          <a
+            className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+            href="/auth/sign-in"
+          >
+            Sign In
+          </a>
+        </div>
         
         <button type="submit" className="linear mt-2 w-full rounded-xl bg-green-900 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-green-700 active:bg-green-700 dark:bg-green-900 dark:text-white dark:hover:bg-green-700 dark:active:bg-green-700">
           Send Reset Link
