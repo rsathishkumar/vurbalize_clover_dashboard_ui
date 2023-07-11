@@ -52,7 +52,7 @@ export default function SignIn() {
       console.log("data", data[0]['status'])
       
       if (data[0]['status'] === 'success') {
-        setMessage("Password change. Please <a href='/auth/sign-in' className='text-blue-700'>login</a> to the site.")
+        setMessage("Password changed successfully. Please <a href='/auth/sign-in' class='underline'>login</a> to the site.")
       }
       else {
         setError(data[0]['error'])
@@ -107,7 +107,7 @@ export default function SignIn() {
           <div className="text-red-500 mx-2 ml-1 text-base">{error}</div>
         }
         {message !== '' &&
-        <div className="text-green-500 mb-6 ml-1 text-base" dangerouslySetInnerHTML={{__html: message}} />
+        <div className="text-green-900 mb-6 ml-1 text-xl" dangerouslySetInnerHTML={{__html: message}} />
         }
         {/* Email */}
         <form onSubmit={handleSubmit}>
@@ -142,7 +142,7 @@ export default function SignIn() {
 
         <div className="mb-4 flex items-center justify-end px-2">
           <a
-            className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+            className="text-xl font-medium text-brand-500 hover:text-brand-600 dark:text-white"
             href="/auth/sign-in"
           >
             Sign In

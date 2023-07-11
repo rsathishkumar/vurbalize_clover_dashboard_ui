@@ -45,7 +45,7 @@ export default function SignIn() {
   return (
     <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">
       {/* Sign in section */}
-      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
+      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:w-[420px]">
         <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
           Sign In
         </h4>
@@ -80,7 +80,7 @@ export default function SignIn() {
 
         <div className="mb-4 flex items-center justify-end px-2">
           <a
-            className="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
+            className="text-xl font-medium text-brand-500 hover:text-brand-600 dark:text-white"
             href="/auth/forgot_password"
           >
             Forgot Password?
