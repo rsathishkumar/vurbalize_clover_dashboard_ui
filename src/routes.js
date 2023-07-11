@@ -119,7 +119,7 @@ const routes = [
     path: "logout",
     component: <Logout />,
     skip:false,
-    roles:['admin', 'merchant']
+    roles:[]
   },
   {
     name: "Forgot Password",
@@ -127,6 +127,7 @@ const routes = [
     path: "forgot_password",
     component: <Forgot />,
     skip:true,
+    roles:[]
   },
   {
     name: "Reset Password",
@@ -134,6 +135,7 @@ const routes = [
     path: "reset_password/:token",
     component: <Reset />,
     skip:true,
+    roles:[]
   },
   {
     name: "Sign In",
@@ -141,6 +143,7 @@ const routes = [
     path: "sign-in",
     component: <SignIn />,
     skip:true,
+    roles:[]
   }
 ];
 export default routes;

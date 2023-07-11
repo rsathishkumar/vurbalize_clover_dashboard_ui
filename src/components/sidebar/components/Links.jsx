@@ -26,7 +26,7 @@ export function SidebarLinks(props) {
         route.layout === "/auth" ||
         route.layout === "/rtl"
         ) && (route.skip === false) && 
-        (route.roles.indexOf(role) > -1)
+        (route.roles.length === 0 || route.roles.indexOf(role) > -1)
       ) {
         return (
           <Link key={index} to={route.layout + "/" + route.path}>
