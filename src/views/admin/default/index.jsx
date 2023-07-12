@@ -34,10 +34,16 @@ const Dashboard = () => {
   const headers = [
     { label: "Conversation #", key: "conversation_id" },
     { label: "Date Created", key: "logtime" },
-    { label: "User Rating", key: "user_rating" },
     { label: "Outcome", key: "conv_outcome" },
+    { label: "User Rating", key: "user_rating" },
     { label: "Turn Count", key: "turn_user" },
     { label: "Time to Answer", key: "conv_rate" },
+    { label: "Landing Page", key: "landing_page" },
+    { label: "Device", key: "device_type" },
+    { label: "UTM Source", key: "utm_source" },
+    { label: "UTM Medium", key: "utm_medium" },
+    { label: "UTM Term", key: "utm_term" },
+    { label: "UTM Campaign", key: "utm_campaign" },
     { label: "Avg User Words/Turn", key: "avg_total_user_words" },
     { label: "Avg Agent Words/Turn", key: "avg_total_bot_words" },
     { label: "Tot. Agent Words", key: "total_words_in_message_bot" },
@@ -45,12 +51,10 @@ const Dashboard = () => {
     { label: "Appt Date", key: "" },
     { label: "Appt Time", key: "" },
     { label: "Calendly", key: "calendly_link" },
-    { label: "Landing Page", key: "landing_page" },
     { label: "User #", key: "su_id" },
     { label: "Session #", key: "session_id" },
     { label: "Referrer", key: "referrer_id" },
-    { label: "Google Click ID", key: "gclid" },
-    { label: "Bing Click ID", key: "msclkid" }
+    { label: "Google Click ID", key: "gclid" }
   ]
   const [filters, setFilters] = useState({
     startDate: currentDate - (30 * 24 * 60 * 60 * 1000),
