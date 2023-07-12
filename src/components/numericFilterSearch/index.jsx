@@ -69,7 +69,7 @@ const NumericFilterSearch = (props) => {
     };
 
     return (
-        <div className="absolute bg-white rounded p-3 ml-2 left-full top-0 shadow-6xl advanced_filters" key={props.id}>
+        <div className="absolute bg-white rounded p-3 ml-2 left-full top-0 shadow-6xl advanced_filters w-64" key={props.id}>
             {/* Add your content for the checkbox here */}
             <button className="absolute -right-2 -top-2" onClick={() => props.closePopup()}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

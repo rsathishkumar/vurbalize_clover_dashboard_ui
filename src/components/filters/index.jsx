@@ -57,7 +57,7 @@ const Filters = (props) => {
         { id: 19, name: "utm_location", type:'category', label: "UTM location" },
         { id: 20, name: "utm_target", type:'category', label: "UTM target" },
         { id: 21, name: "gclid", type:'category', label: "Google Click ID" },
-        { id: 22, name: "msclkid", type:'category', label: "Bing Click ID" },
+        { id: 22, name: "device_type", type:'category', label: "Device" },
     ];
     const [checkedList, setCheckedList] = useState(checkboxFilterOptions);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
@@ -83,7 +83,7 @@ const Filters = (props) => {
         'utm_location':[],
         'utm_target':[],
         'gclid':[],
-        'msclkid':[]
+        'device_type':[]
     });
     const [showFiltersOptions, setShowFiltersOptions] = useState([]);
 
@@ -109,8 +109,8 @@ const Filters = (props) => {
     }, [props.filterChange])
 
     const __init = async () => {
-        const { conversationId, suId, apptDate, turnID,convT2A,convOutcome, MarketoLead, chatRating, chatFeedback } = props.filters;
-        const { utm_source, utm_medium, utm_campaign, utm_placement,utm_term,utm_content, utm_adplacement, utm_match, utm_device, utm_location, utm_target, gclid, msclkid } = props.filters;
+        const { conversationId, suId, apptDate, turnID,convT2A,convOutcome, MarketoLead, chatRating, chatFeedback, device_type } = props.filters;
+        const { utm_source, utm_medium, utm_campaign, utm_placement,utm_term,utm_content, utm_adplacement, utm_match, utm_device, utm_location, utm_target, gclid } = props.filters;
         var key_values = {}
         var show_filters = []
 
@@ -189,9 +189,9 @@ const Filters = (props) => {
             show_filters.push('gclid');
         }
 
-        if (msclkid.length > 0) {
-            key_values['msclkid'] = msclkid;
-            show_filters.push('msclkid');
+        if (device_type.length > 0) {
+            key_values['device_type'] = device_type;
+            show_filters.push('device_type');
         }
 
         if (MarketoLead.length > 0) {
@@ -320,8 +320,8 @@ const Filters = (props) => {
         if (field_name === "gclid") {
             await props.setFilters({gclid: list})
         }
-        if (field_name === "msclkid") {
-            await props.setFilters({msclkid: list})
+        if (field_name === "device_type") {
+            await props.setFilters({device_type: list})
         }
         if (field_name === "apptDate") {
             var fromdate = '';
@@ -662,7 +662,7 @@ const Filters = (props) => {
                 </button>
                 {filterOptionsShow &&
                     <div className="absolute bg-green-900 rounded font-poppins font-normal text-base text-white top-12 w-60 z-10 py-2 px-2 dropdown-filters">
-                        <div className="px-4 flex flex-col gap-y-4 dropdown-filters">
+                        <div className="px-6 pl-2 flex flex-col gap-y-4 dropdown-filters">
                         {checkedList.map(({ id, name, checked, label }) => (
                             <label
                                 htmlFor={id}

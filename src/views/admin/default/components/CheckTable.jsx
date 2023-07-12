@@ -44,14 +44,14 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a className={`sorting ${props.filters.sorting === 'user_rating'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('user_rating')}>User Rating</a>
+                    <a className={`sorting ${props.filters.sorting === 'conv_outcome'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_outcome')}>Outcome</a>
                   </div>
                 </th>
                 <th
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a className={`sorting ${props.filters.sorting === 'conv_outcome'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_outcome')}>Outcome</a>
+                    <a className={`sorting ${props.filters.sorting === 'user_rating'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('user_rating')}>User Rating</a>
                   </div>
                 </th>
                 <th
@@ -66,6 +66,48 @@ const CheckTable = (props) => {
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
                     <a className={`sorting ${props.filters.sorting === 'conv_rate'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('conv_rate')}>Time to Answer</a>
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a className={`sorting ${props.filters.sorting === 'landing_page'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('landing_page')}>Landing Page</a>
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a className={`sorting ${props.filters.sorting === 'device_type'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('device_type')}>Device</a>
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a className={`sorting ${props.filters.sorting === 'utm_source'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('utm_source')}>UTM Source</a>
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a className={`sorting ${props.filters.sorting === 'utm_medium'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('utm_medium')}>UTM Medium</a>
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a className={`sorting ${props.filters.sorting === 'utm_term'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('utm_term')}>UTM Term</a>
+                  </div>
+                </th>
+                <th
+                  className="pl-[2px] text-center"
+                  >
+                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
+                    <a className={`sorting ${props.filters.sorting === 'utm_campaign'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('utm_campaign')}>UTM Campaign</a>
                   </div>
                 </th>
                 <th
@@ -114,13 +156,6 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a className={`sorting ${props.filters.sorting === 'landing_page'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('landing_page')}>Landing Page</a>
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
                     <a className={`sorting ${props.filters.sorting === 'su_id'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('su_id')}>User #</a>
                   </div>
                 </th>
@@ -135,7 +170,7 @@ const CheckTable = (props) => {
                   className="pl-[2px] text-center"
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a className={`sorting ${props.filters.sorting === 'referrer_id'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('referrer_id')}>Referrer</a>
+                    <a className={`sorting ${props.filters.sorting === 'referrer'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('referrer')}>Referrer</a>
                   </div>
                 </th>
                 <th
@@ -143,13 +178,6 @@ const CheckTable = (props) => {
                   >
                  <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
                     <a className={`sorting ${props.filters.sorting === 'gclid'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('gclid')}>Google Click ID</a>
-                  </div>
-                </th>
-                <th
-                  className="pl-[2px] text-center"
-                  >
-                 <div className="text-s px-[10px] text-white bg-green-900 rounded t ext-sm font-medium text-white font-poppins leading-[30px] py-1 whitespace-nowrap">
-                    <a className={`sorting ${props.filters.sorting === 'msclkid'?props.filters.sort:''}`} href="#" onClick={() => props.sortFunction('msclkid')}>Bing Click ID</a>
                   </div>
                 </th>
               </tr>
@@ -160,22 +188,26 @@ const CheckTable = (props) => {
               <td className="pl-2 text-sm">{(index+1) + ((props.page - 1) * 25)}</td>  
               <td className="pl-2 text-sm"><a href={`/chat/conversation?cid=${row.conversation_id}`} target="_blank" className="text-blueSecondary">{row.conversation_id}</a></td>  
               <td className="pl-2 text-sm">{row.logtime}</td>  
-              <td className="pl-2 text-sm">{row.user_rating}</td>  
               <td className="pl-2 text-sm">{row.conv_outcome}</td>  
+              <td className="pl-2 text-sm">{row.user_rating}</td>  
               <td className="pl-2 text-sm">{row.turn_user}</td>  
               <td className="pl-2 text-sm">{row.conv_rate?row.conv_rate + ' s':''}</td>  
+              <td className="pl-2 text-sm">{row.landing_page}</td>  
+              <td className="pl-2 text-sm">{row.device_type}</td>  
+              <td className="pl-2 text-sm">{row.utm_source}</td>  
+              <td className="pl-2 text-sm">{row.utm_medium}</td>  
+              <td className="pl-2 text-sm">{row.utm_term}</td>  
+              <td className="pl-2 text-sm">{row.utm_campaign}</td>  
               <td className="pl-2 text-sm">{row.avg_total_user_words}</td>  
               <td className="pl-2 text-sm">{row.avg_total_bot_words}</td>  
               <td className="pl-2 text-sm">{row.total_words_in_message_bot}</td>  
               <td className="pl-2 text-sm">{row.marketo_id}</td>  
               <td className="pl-2 text-sm">{row.appt_date}</td>  
               <td className="pl-2 text-sm">{row.calendly_link}</td>  
-              <td className="pl-2 text-sm">{row.landing_page}</td>  
               <td className="pl-2 text-sm">{row.su_id}</td>  
               <td className="pl-2 text-sm">{row.session_id}</td>  
               <td className="pl-2 text-sm">{row.referrer_id}</td>
               <td className="pl-2 text-sm">{row.gclid}</td> 
-              <td className="pl-2 text-sm">{row.msclkid}</td> 
               </tr>
             ))}
             {columnsData === false &&
