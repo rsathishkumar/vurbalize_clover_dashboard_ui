@@ -60,7 +60,7 @@ const TurnChat = () => {
       utm_location:[],
       utm_target:[],
       gclid:[],
-      msclkid:[],
+      device_type:[],
       landingpage: [],
       sort: "DESC",
       sorting: 'logtime',
@@ -139,7 +139,7 @@ const TurnChat = () => {
       'chatRating':filters.chatRating,
       'chatFeedback':filters.chatFeedback,
       'gclid':filters.gclid,
-      'msclkid':filters.msclkid
+      'device_type':filters.device_type
     }
     localStorage.setItem("filters", JSON.stringify(filters));
     getChatConversationChartMetrics(object);
